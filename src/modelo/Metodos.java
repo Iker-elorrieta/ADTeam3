@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class Metodos {
 	
-	public static void leer(File fichero)
+	public static void cargarLista(File fichero)
 	{
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
-
+			Libro libro = new Libro();
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
 			String linea = "";
 			while((linea = ficheroR.readLine())!=null)
@@ -25,14 +25,41 @@ public class Metodos {
 
 			for(int i = 0; i<contenido.size();i++)
 			{
-				String txt = "";
-				String []libro;
 				try 
 				{
 					for(int y = 0; y < contenido.get(i).length ; y++)
 					{
-						System.out.println(contenido.get(i)[y]);
+						System.out.println();
+						if(y == 0)
+						{
+							libro.setTitulo(contenido.get(i)[y]);
+						}
+						else if(y == 1)
+						{
+							libro.setEditorial(contenido.get(i)[y]);
+						}
+						else if(y == 2)
+						{
+							libro.setPaginas(Integer.parseInt(contenido.get(i)[y]));
+						}
+						else if(y == 3)
+						{
+							libro.setAltura(Double.parseDouble(contenido.get(i)[y]));
+						}
+						else if(y == 4)
+						{
+							libro.setNotas(contenido.get(i)[y]);
+						}
+						else if(y == 5)
+						{
+							libro.setIsbn(Integer.parseInt(contenido.get(i)[y]));
+						}
+						else if(y == 6)
+						{
+							libro.setMaterias(contenido.get(i)[y]);
+						}
 					}
+					Variables.listaLibros.add(libro);
 				}
 				catch(Exception a)
 				{
@@ -41,7 +68,7 @@ public class Metodos {
 			}
 			
 			ficheroR.close();
-
+			
 		} 
 		catch (FileNotFoundException fn)
 		{
@@ -85,39 +112,10 @@ public class Metodos {
 			System.out.println("Error de E/S ");
 		}
 	}
-	
-	
-	public enum menu
+
+	public static void listar()
 	{
 		
-		titulo("Agua" , 1.6),
-		editorial("Coca-cola" , (double) 2),
-		paginas("Ref de naranja" , (double) 2),
-		altura("Ref de limón" , (double) 2),
-		notas("Nestea" , 1.80),
-		isbn("Kit-kat" , 1.50),
-		materias("Toblerone" , (double) 2);
-		
-		
-		// private obligatorio.
-		private String nombre;
-		private Double precio;
-		
-		private menu(String pNombre, Double pPrecio)
-		{
-			this.nombre = pNombre;
-			this.precio = pPrecio;
-		}
-		
-		
-		public Double getPrecio()
-		{
-			return precio;
-		}
-		
-		public String getNombre()
-		{
-			return nombre;
-		}
 	}
+	
 }

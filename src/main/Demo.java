@@ -15,8 +15,11 @@ public class Demo {
 	public static void main(String[] args) throws IOException 
 	{
 		if(Variables.fichero.createNewFile())
-			System.out.println("Se creo un archivo nuevo.");;
+			System.out.println("Se creo un archivo nuevo.");
+		else
+			Metodos.cargarLista(Variables.fichero);
 		
+			
 		menu();
 		
 		
@@ -34,7 +37,7 @@ public class Demo {
 		
 		if(respuestaOpciones == 1)
 		{
-			Metodos.leer(Variables.fichero);
+			Metodos.listar();
 		}
 		else if(respuestaOpciones == 2)
 		{
@@ -99,10 +102,10 @@ public class Demo {
 	{
 		String titulo;
 		String editorial;
-		String paginas;
-		String altura;
+		int paginas;
+		Double altura;
 		String notas;
-		String isbn;
+		int isbn;
 		String materias;
 		
 		System.out.println("Inserte el titulo: ");
@@ -111,20 +114,23 @@ public class Demo {
 		System.out.println("Inserte el editorial: ");
 		editorial = teclado.nextLine();
 		System.out.println("Inserte el paginas: ");
-		paginas = teclado.nextLine();
+		paginas = teclado.nextInt();
+		teclado.nextLine();
 		System.out.println("Inserte el altura: ");
-		altura = teclado.nextLine();
+		altura = teclado.nextDouble();
+		teclado.nextLine();
 		System.out.println("Inserte el notas: ");
 		notas = teclado.nextLine();
 		System.out.println("Inserte el isbn: ");
-		isbn = teclado.nextLine();
+		isbn = teclado.nextInt();
+		teclado.nextLine();
 		System.out.println("Inserte el materias: ");
 		materias = teclado.nextLine();
 		
 		Libro libro = new Libro(titulo,editorial,paginas,altura,notas,isbn,materias);
 		Variables.listaLibros.add(libro);
 		Metodos.escribir(Variables.listaLibros);
-		Metodos.leer(Variables.fichero);
+		Metodos.listar();
 		
 	}
 }
