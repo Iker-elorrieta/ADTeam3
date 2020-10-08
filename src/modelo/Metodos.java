@@ -29,7 +29,6 @@ public class Metodos {
 				{
 					for(int y = 0; y < contenido.get(i).length ; y++)
 					{
-						System.out.println();
 						if(y == 0)
 						{
 							libro.setTitulo(contenido.get(i)[y]);
@@ -89,7 +88,7 @@ public class Metodos {
 	{
 		try
 		{
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.url,true));
+			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt,true));
 			for (int i=0; i < listaLibros.size(); i++)
 			{
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + 
@@ -115,7 +114,32 @@ public class Metodos {
 
 	public static void listar()
 	{
+		String titulo;
+		String editorial;
+		String paginas;
+		String altura;
+		String notas;
+		String isbn;
+		String materias;
 		
+		System.out.println("Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas" + "\t\t" + "Isbn" + "\t\t" + "Materias");
+		for(int i = 0 ; i < Variables.listaLibros.size() ; i++)
+		{
+			titulo = Variables.listaLibros.get(i).getTitulo()+"        ";
+			editorial = Variables.listaLibros.get(i).getEditorial() + "       ";
+			paginas = Variables.listaLibros.get(i).getPaginas()+"        ";
+			altura = Variables.listaLibros.get(i).getAltura()+"       ";
+			notas = Variables.listaLibros.get(i).getNotas() + "       ";
+			isbn = Variables.listaLibros.get(i).getIsbn()+"       ";
+			materias = Variables.listaLibros.get(i).getMaterias() + "      ";
+			
+			System.out.println(titulo.substring(0,5) + "\t\t" + editorial.substring(0,5) + "\t\t" + paginas.substring(0,2) + "\t\t" + altura.substring(0,4) + "\t\t" + notas.substring(0,5) + "\t\t" + isbn.substring(0,5) + "\t\t" + materias.substring(0,5));
+		
+		
+		
+		
+		}
+	
 	}
 	
 }

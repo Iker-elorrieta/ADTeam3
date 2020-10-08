@@ -14,10 +14,10 @@ public class Demo {
 
 	public static void main(String[] args) throws IOException 
 	{
-		if(Variables.fichero.createNewFile())
+		if(Variables.ficheroTxt.createNewFile())
 			System.out.println("Se creo un archivo nuevo.");
 		else
-			Metodos.cargarLista(Variables.fichero);
+			Metodos.cargarLista(Variables.ficheroTxt);
 		
 			
 		menu();
