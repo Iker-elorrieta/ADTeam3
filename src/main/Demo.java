@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,26 +30,62 @@ public class Demo {
 	{
 		int respuestaOpciones;
 		boolean confirmacionEscribir;
-		
-		System.out.println("Elige alguna de las opciones: ");
-		System.out.println("1) Leer archivo.");
-		System.out.println("2) Escribir archivo.");
-		respuestaOpciones = entradaInt(1,2);
-		
+		System.out.println("que fichero desea usar");
+		System.out.println("1) Xml");
+		System.out.println("2) Txt");
+		System.out.println("3) Scv");
+		respuestaOpciones = entradaInt(1,3);
 		if(respuestaOpciones == 1)
 		{
-			Metodos.listar();
-		}
-		else if(respuestaOpciones == 2)
-		{
-			System.out.println("¿Quiere escribir un nuevo libro?");
-			confirmacionEscribir = entradaChar();
-			if(confirmacionEscribir)
+			System.out.println("¿Que desea hacaer?");
+			System.out.println("1. Crear Xml");
+			System.out.println("2. leer Xml");
+			System.out.println("3. modificar Xml");
+			System.out.println("4. eliminar Xml");
+			respuestaOpciones = entradaInt(1,4);
+			
+			if(respuestaOpciones == 1)
 			{
-				teclado.nextLine();
-				crearLibro();
+				modelo.crearXml.crearXml(Variables.listaLibros);
+			}else if(respuestaOpciones == 2)
+			{
+				modelo.leerPrincipalXml.leerPrincipal();
+			}else if(respuestaOpciones == 3)
+			{
+				//sin hacer
+			}else if(respuestaOpciones == 2)
+			{
+				File fichero = new File(".\\Ficheros\\libreria.xml");
+				
+				if (fichero.delete())
+					System.out.println("El fichero ha sido borrado satisfactoriamente");
+				else
+					System.out.println("El fichero no puede ser borrado");
+			}
+					
+		}else if(respuestaOpciones == 2)
+		{
+			System.out.println("Elige alguna de las opciones: ");
+			System.out.println("1) Leer archivo.");
+			System.out.println("2) Escribir archivo.");
+			respuestaOpciones = entradaInt(1,2);
+			
+			if(respuestaOpciones == 1)
+			{
+				Metodos.listar();
+			}
+			else if(respuestaOpciones == 2)
+			{
+				System.out.println("¿Quiere escribir un nuevo libro?");
+				confirmacionEscribir = entradaChar();
+				if(confirmacionEscribir)
+				{
+					teclado.nextLine();
+					crearLibro();
+				}
 			}
 		}
+		
 	}
 //	Metodos.escribir(Variables.listaLibros);
 	public static int entradaInt(int min, int max)
