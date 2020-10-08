@@ -18,12 +18,8 @@ public class Demo {
 		if(Variables.fichero.createNewFile())
 			System.out.println("Se creo un archivo nuevo.");
 		else
-			Metodos.cargarLista(Variables.fichero);
-		
-			
-		menu();
-		
-		
+			Metodos.cargarLista(Variables.fichero);			
+		menu();		
 	}
 	
 	public static void menu()
