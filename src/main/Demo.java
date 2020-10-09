@@ -11,9 +11,7 @@ import modelo.Variables;
 public class Demo {
 	
 	public static Scanner teclado = new Scanner(System.in);
-	/*
-	 * La clase main donde se empieza el programa.
-	 */
+
 	public static void main(String[] args) throws IOException 
 	{
 		if(Variables.ficheroTxt.createNewFile())
@@ -21,16 +19,10 @@ public class Demo {
 		else
 			Metodos.cargarLista(Variables.ficheroTxt);
 		
-		do
-		{
-			menu();
-			System.out.println("¿Quiere hacer otras operaciones? s/n");
-		}while(confirmacionSN());
+			
+		menu();
 	}
 	
-	/*
-	 * Menu donde se encuentra las acciones que quiere realizar el cliente.
-	 */
 	public static void menu()
 	{
 		int respuestaOpcionesTipo;
@@ -40,7 +32,7 @@ public class Demo {
 		System.out.println("Elige alguna de las opciones: ");
 		System.out.println("1) Xml");
 		System.out.println("2) txt");
-		System.out.println("3) Csv");
+		System.out.println("3) Scv");
 		respuestaOpcionesTipo = entradaInt(1,3);
 		
 		if(respuestaOpcionesTipo == 1)
@@ -78,10 +70,7 @@ public class Demo {
 		
 		
 	}
-
-	/*
-	 * Metodo para validar la entrada de numeros por teclado y controlar las exceptciones.
-	 */
+//	Metodos.escribir(Variables.listaLibros);
 	public static int entradaInt(int min, int max)
 	{
 		int result = 0;
@@ -107,9 +96,6 @@ public class Demo {
 		return result;
 	}
 	
-	/*
-	 * Metodo para preguntar al cliente si quiere seguir o no.
-	 */
 	public static boolean confirmacionSN()
 	{
 		String result;
@@ -139,9 +125,6 @@ public class Demo {
 		return false;
 	}
 
-	/*
-	 *Metodo para la creacion de un nuevo objeto libro.
-	 */
 	public static void crearLibro()
 	{
 		String titulo;
@@ -155,53 +138,29 @@ public class Demo {
 		System.out.println("Inserte el titulo: ");
 //		Metodos.validar(Utilidades.enum.titulo = teclado.nextLine());
 		titulo = teclado.nextLine();
-		
 		System.out.println("Inserte el editorial: ");
 		editorial = teclado.nextLine();
-		
 		System.out.println("Inserte las paginas: ");
 		paginas = teclado.nextInt();
 		teclado.nextLine();
-		
 		System.out.println("Inserte al altura: ");
 		altura = teclado.nextDouble();
 		teclado.nextLine();
-		
 		System.out.println("Inserte las notas: ");
 		notas = teclado.nextLine();
-		
 		System.out.println("Inserte el isbn: ");
 		isbn = teclado.nextInt();
 		teclado.nextLine();
-		
 		System.out.println("Inserte la materia: ");
 		materias = teclado.nextLine();
 		
 		Libro libro = new Libro(titulo,editorial,paginas,altura,notas,isbn,materias);
-		
-		System.out.println("¿Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
-		System.out.println(libro.mostrar());
-		if(confirmacionSN())
-		{
-			Variables.listaLibros.add(libro);
-			Metodos.escribir(Variables.listaLibros);
-		}
+		Variables.listaLibros.add(libro);
+		Metodos.escribir(Variables.listaLibros);
+		Metodos.listar();
 		
 	}
 
-	/*
-	 * Menu para listar y operar las opciones de los ficheros de extension xml.
-	 */
-	public static void menuXml(int opcion)
-	{
-		
-		
-		
-	}
-
-	/*
-	 * Menu para listar y operar las opciones de los ficheros de extension txt.
-	 */
 	public static void menuTxt(int opcion)
 	{
 		if(opcion == 1)
@@ -224,9 +183,13 @@ public class Demo {
 		}
 	}
 	
-	/*
-	 * Menu para listar y operar las opciones de los ficheros de extension csv.
-	 */
+	public static void menuXml(int opcion)
+	{
+		
+		
+		
+	}
+
 	public static void menuCsv(int opcion)
 	{
 		
@@ -234,3 +197,64 @@ public class Demo {
 		
 	}
 }
+
+
+//int respuestaOpciones;
+//boolean confirmacionEscribir;
+//System.out.println("que fichero desea usar");
+//System.out.println("1) Xml");
+//System.out.println("2) Txt");
+//System.out.println("3) Scv");
+//respuestaOpciones = entradaInt(1,3);
+//if(respuestaOpciones == 1)
+//{
+//	System.out.println("¿Que desea hacaer?");
+//	System.out.println("1. Crear Xml");
+//	System.out.println("2. leer Xml");
+//	System.out.println("3. modificar Xml");
+//	System.out.println("4. eliminar Xml");
+//	respuestaOpciones = entradaInt(1,4);
+//	
+//	if(respuestaOpciones == 1)
+//	{
+//		modelo.crearXml.crearXml(Variables.listaLibros);
+//	}else if(respuestaOpciones == 2)
+//	{
+//		modelo.leerPrincipalXml.leerPrincipal();
+//	}else if(respuestaOpciones == 3)
+//	{
+//		//sin hacer
+//	}else if(respuestaOpciones == 2)
+//	{
+//		File fichero = new File(".\\Ficheros\\libreria.xml");
+//		
+//		if (fichero.delete())
+//			System.out.println("El fichero ha sido borrado satisfactoriamente");
+//		else
+//			System.out.println("El fichero no puede ser borrado");
+//	}
+//			
+//}else if(respuestaOpciones == 2)
+//{
+//	System.out.println("Elige alguna de las opciones: ");
+//	System.out.println("1) Leer archivo.");
+//	System.out.println("2) Escribir archivo.");
+//	respuestaOpciones = entradaInt(1,2);
+//	
+//	if(respuestaOpciones == 1)
+//	{
+//		Metodos.listar();
+//	}
+//	else if(respuestaOpciones == 2)
+//	{
+//		System.out.println("¿Quiere escribir un nuevo libro?");
+//		confirmacionEscribir = entradaChar();
+//		if(confirmacionEscribir)
+//		{
+//			teclado.nextLine();
+//			crearLibro();
+//		}
+//	}
+//}
+
+
