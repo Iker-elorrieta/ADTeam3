@@ -1,5 +1,7 @@
 package modelo;
-
+/*
+ * Clase libro para rellenar la libreria.
+ */
 public class Libro {
 	
 	private String titulo;
@@ -15,6 +17,11 @@ public class Libro {
 		
 	}
 	
+	/*
+	 * Los parametros que se necesitan para crear un libro con este constructor son
+	 * (titulo,editorial,paginas,altura,notas,isbn,materias)
+	 * paginas y isbn tienen que ser enteros y altura tiene que ser un numero con decimales.
+	 */
 	public Libro(String titulo, String editorial, int paginas, Double altura, String notas, int isbn, String materias)
 	{
 		this.titulo = titulo;
@@ -26,6 +33,21 @@ public class Libro {
 		this.materias = materias;
 	}
 
+	/*
+	 * Metodo para mostrar los datos del libro actual.
+	 */
+	public String mostrar()
+	{
+		String result = "Titulo: " + titulo + "\n" +
+						"Editorial: " + editorial + "\n" +
+						"Paginas: " + paginas + "\n" +
+						"Altura: " + altura + "\n" +
+						"Notas: " + notas + "\n" + 
+						"Isbn: " + isbn + "\n" +
+						"Materias: " + materias;
+		return result;
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
