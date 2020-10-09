@@ -11,6 +11,9 @@ public class Variables {
 	public static File ficheroXml = new File(urlXml);
 	public static File ficheroCsv = new File(urlCsv);
 	public static ArrayList<Libro> listaLibros = new ArrayList<Libro>();
-	
+	/*
+	 * Variable para mantener la cuenta desde donde empezar ha insertar libros en el fichero.
+	 */
+	public static int posicionNumero;
 	
 }
