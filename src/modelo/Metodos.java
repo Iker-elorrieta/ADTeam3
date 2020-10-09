@@ -134,10 +134,6 @@ public class Metodos {
 			materias = Variables.listaLibros.get(i).getMaterias() + "      ";
 			
 			System.out.println(titulo.substring(0,5) + "\t\t" + editorial.substring(0,5) + "\t\t" + paginas.substring(0,2) + "\t\t" + altura.substring(0,4) + "\t\t" + notas.substring(0,5) + "\t\t" + isbn.substring(0,5) + "\t\t" + materias.substring(0,5));
-		
-		
-		
-		
 		}
 	
 	}
