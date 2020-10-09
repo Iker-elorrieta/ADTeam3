@@ -11,13 +11,11 @@ import java.util.ArrayList;
 
 public class Metodos {
 	
-	/*
-	 * Metodo para rellenar la lista del probrama con los libros apuntados en el fichero txt.
-	 */
 	public static void cargarLista(File fichero)
 	{
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
+			Libro libro = new Libro();
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
 			String linea = "";
 			while((linea = ficheroR.readLine())!=null)
@@ -27,7 +25,6 @@ public class Metodos {
 
 			for(int i = 0; i<contenido.size();i++)
 			{
-				Libro libro = new Libro();
 				try 
 				{
 					for(int y = 0; y < contenido.get(i).length ; y++)
@@ -68,7 +65,7 @@ public class Metodos {
 //					a.printStackTrace();
 				}
 			}
-			Variables.posicionNumero = contenido.size()-1;
+			
 			ficheroR.close();
 			
 		} 
@@ -87,15 +84,12 @@ public class Metodos {
 		}
 	}
 	
-	/*
-	 * Metodo para insertar en el txt un libro.
-	 */
 	public static void escribir(ArrayList<Libro> listaLibros)
 	{
 		try
 		{
 			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt,true));
-			for (int i=Variables.posicionNumero; i < listaLibros.size(); i++)
+			for (int i=0; i < listaLibros.size(); i++)
 			{
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + 
 				  	 	      listaLibros.get(i).getEditorial() + ";" + 
@@ -105,7 +99,6 @@ public class Metodos {
 						 	  listaLibros.get(i).getIsbn() + ";" + 
 						 	  listaLibros.get(i).getMaterias() + ";");
 				fichero.newLine();
-				
 			}
 		fichero.close();
 		}
@@ -119,9 +112,6 @@ public class Metodos {
 		}
 	}
 
-	/*
-	 * Metodo para mostrar los libros actualmente en el fichero y el programa.
-	 */
 	public static void listar()
 	{
 		String titulo;
