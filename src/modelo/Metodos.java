@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 public class Metodos {
 	
+	/*
+	 * Metodo para rellenar la lista del probrama con los libros apuntados en el fichero txt.
+	 */
 	public static void cargarLista(File fichero)
 	{
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
-			Libro libro = new Libro();
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
 			String linea = "";
 			while((linea = ficheroR.readLine())!=null)
@@ -25,11 +27,11 @@ public class Metodos {
 
 			for(int i = 0; i<contenido.size();i++)
 			{
+				Libro libro = new Libro();
 				try 
 				{
 					for(int y = 0; y < contenido.get(i).length ; y++)
 					{
-						System.out.println();
 						if(y == 0)
 						{
 							libro.setTitulo(contenido.get(i)[y]);
@@ -66,7 +68,7 @@ public class Metodos {
 //					a.printStackTrace();
 				}
 			}
-			
+			Variables.posicionNumero = contenido.size()-1;
 			ficheroR.close();
 			
 		} 
@@ -85,12 +87,15 @@ public class Metodos {
 		}
 	}
 	
+	/*
+	 * Metodo para insertar en el txt un libro.
+	 */
 	public static void escribir(ArrayList<Libro> listaLibros)
 	{
 		try
 		{
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.url,true));
-			for (int i=0; i < listaLibros.size(); i++)
+			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt,true));
+			for (int i=Variables.posicionNumero; i < listaLibros.size(); i++)
 			{
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + 
 				  	 	      listaLibros.get(i).getEditorial() + ";" + 
@@ -100,6 +105,7 @@ public class Metodos {
 						 	  listaLibros.get(i).getIsbn() + ";" + 
 						 	  listaLibros.get(i).getMaterias() + ";");
 				fichero.newLine();
+				
 			}
 		fichero.close();
 		}
@@ -113,9 +119,33 @@ public class Metodos {
 		}
 	}
 
+	/*
+	 * Metodo para mostrar los libros actualmente en el fichero y el programa.
+	 */
 	public static void listar()
 	{
+		String titulo;
+		String editorial;
+		String paginas;
+		String altura;
+		String notas;
+		String isbn;
+		String materias;
 		
+		System.out.println("Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas" + "\t\t" + "Isbn" + "\t\t" + "Materias");
+		for(int i = 0 ; i < Variables.listaLibros.size() ; i++)
+		{
+			titulo = Variables.listaLibros.get(i).getTitulo()+"        ";
+			editorial = Variables.listaLibros.get(i).getEditorial() + "       ";
+			paginas = Variables.listaLibros.get(i).getPaginas()+"        ";
+			altura = Variables.listaLibros.get(i).getAltura()+"       ";
+			notas = Variables.listaLibros.get(i).getNotas() + "       ";
+			isbn = Variables.listaLibros.get(i).getIsbn()+"       ";
+			materias = Variables.listaLibros.get(i).getMaterias() + "      ";
+			
+			System.out.println(titulo.substring(0,5) + "\t\t" + editorial.substring(0,5) + "\t\t" + paginas.substring(0,2) + "\t\t" + altura.substring(0,4) + "\t\t" + notas.substring(0,5) + "\t\t" + isbn.substring(0,5) + "\t\t" + materias.substring(0,5));
+		}
+	
 	}
 	
 }
