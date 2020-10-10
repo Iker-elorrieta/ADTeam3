@@ -19,10 +19,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+
 public class crearXml {
 	
-	public static void crearXml(ArrayList<Libro> listaLibros) {
-
+	public static boolean crearXml(ArrayList<Libro> listaLibros) {
+		
+		boolean correcto =false;
 		try {
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -76,26 +78,26 @@ public class crearXml {
 				Text textMaterias = documento.createTextNode(lLibro.getMaterias());
 				materias.appendChild(textMaterias);
 				libro.appendChild(materias);
+				
 
-				// Añado al elemento coches el elemento coche
 				libreria.appendChild(libro);
 
-				// A�ado al root el elemento coches
-				documento.getDocumentElement().appendChild(libreria);
+				documento.getDocumentElement().appendChild(libro);
 			}
-			// Asocio el source con el Document
-			Source source = new DOMSource(documento);
-			// Creo el Result, indicado que fichero se va a crear
-			Result result = new StreamResult(new File(".\\Ficheros\\libreria.xml"));
 
-			// Creo un transformer, se crea el fichero XML
+			Source source = new DOMSource(documento);
+			// ruta donde se crea
+			Result result = new StreamResult(new File(Variables.urlXml));
+
+			// crea el fichero XML
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);
-
+			correcto = true;
 		} catch (ParserConfigurationException | TransformerException ex) {
 			System.out.println(ex.getMessage());
+			correcto=false;
 		}
-
+		return	correcto;
 	}
 
 }

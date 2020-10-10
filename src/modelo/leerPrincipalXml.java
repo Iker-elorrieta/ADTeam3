@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.SAXException;
 
-public class leerPrincipalXml {
-	
-	public static void leerPrincipal() {
 
+public class leerPrincipalXml {
+	static String rutaFichero =Variables.urlXml;
+	public static boolean leerPrincipal() {
+		boolean correcto = false;
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
 			SAXParser parser = factory.newSAXParser();
-			parser.parse(".\\Ficheros\\libreria.xml", leerXml);
+			parser.parse(rutaFichero, leerXml);
 			ArrayList<Libro> listaLibros = leerXml.obtenerlibros();
 			int numerolibro=0;
 			
@@ -34,14 +34,18 @@ public class leerPrincipalXml {
 
 			}
 			System.out.println("Numero de libros: " + numerolibro);
+			correcto=true;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
+			correcto=false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			correcto=false;
 		} catch (SAXException e) {
 			e.printStackTrace();
+			correcto=false;
 		}
-
+		return correcto;
 	}
 
 }
