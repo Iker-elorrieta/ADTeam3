@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 
 public class modificarXml {
 
-	static String rutaFichero = ".\\Ficheros\\libreria.xml";
+	static String rutaFichero = Variables.urlXml;
 
 	public static boolean modXml() {
 		boolean correcto =false;
@@ -152,4 +152,5 @@ public class modificarXml {
 		}
 		return correcto;	
 	}
+
 }

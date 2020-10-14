@@ -8,7 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
+ * Clase donde se apuntan los metodos que se usan en el programa.
+ */
 public class Metodos {
 
 	/*
