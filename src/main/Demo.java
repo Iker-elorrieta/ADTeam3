@@ -220,7 +220,14 @@ public class Demo {
 		}
 		if(opcion == 3)
 		{
-			System.out.println("No implementado.");
+			if(Variables.ficheroTxt.delete())
+			{
+				System.out.println("Fichero de texto borrado.");
+			}
+			else
+			{
+				System.out.println("No se ha borrado el fichero.");
+			}
 		}
 	}
 	
