@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
 import modelo.Libro;
 import modelo.Metodos;
 import modelo.Utilidades;
 import modelo.Variables;
+import modelo.ficheroCsv;
 
 public class Demo {
 
@@ -70,9 +70,10 @@ public class Demo {
 		} else if (respuestaOpcionesTipo == 3) {
 			System.out.println("¿Que desea hacer?");
 			System.out.println("1. leer");
-			System.out.println("2. modificar");
-			System.out.println("3. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 3);
+			System.out.println("2. crear");
+			System.out.println("3. modificar");
+			System.out.println("4. eliminar");
+			respuestaOpcionesAccion = entradaInt(1, 4);
 
 			menuCsv(respuestaOpcionesAccion);
 			correcto = true;
@@ -299,6 +300,31 @@ public class Demo {
 	 * Menu para listar y operar las opciones de los ficheros de extension csv.
 	 */
 	public static void menuCsv(int opcion) {
+		switch (opcion) {
+
+		case 1:
+
+			ficheroCsv.leerCsv();
+			break;
+
+		case 2:
+
+			ficheroCsv.crearArchivoCSV();
+			
+
+			break;
+		case 3:
+
+			ficheroCsv.ModificarFichero();
+			
+			break;
+		case 4:
+			ficheroCsv.EliminarficheroCsv();
+			
+
+			break;
+		}
+
 
 	}
 }
