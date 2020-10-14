@@ -274,18 +274,20 @@ public class Demo {
 				if (confirmacionEscribir) {
 					teclado.nextLine();
 					crearLibro();
-					correcto = true;
+					correcto = true; 
 				}
 			}
 			if (opcion == 3) {
 				if(Variables.ficheroTxt.delete())
 				{
-					System.out.println("Fichero de texto borrado.");
+					System.out.println("Fichero de texto borrado.");			
 				}
+				
 				else
 				{
 					System.out.println("No se ha borrado el fichero.");
 				}
+				correcto = true;
 			}
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
