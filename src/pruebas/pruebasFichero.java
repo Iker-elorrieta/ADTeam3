@@ -25,7 +25,7 @@ class pruebasFichero {
 	
 	@Test
 	void testLeerTxt() {
-		boolean result = Metodos.listar();
+		boolean result = Metodos.listar(Variables.listaLibros);
 		assertEquals(true, result);
 	}
 

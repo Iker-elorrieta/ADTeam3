@@ -266,7 +266,7 @@ public class Demo {
 		boolean correcto = false;
 		try {
 			if (opcion == 1) {
-				Metodos.listar();
+				Metodos.listar(Variables.listaLibros);
 				correcto = true;
 			} else if (opcion == 2) {
 				System.out.println("¿Quiere escribir un nuevo libro? s/n");

@@ -101,7 +101,7 @@ public class Metodos {
 	/*
 	 * Metodo para mostrar los libros actualmente en el fichero y el programa.
 	 */
-	public static boolean listar() {
+	public static boolean listar(ArrayList<Libro> listaLibros) {
 
 		boolean correcto = false;
 		String titulo;
@@ -114,14 +114,14 @@ public class Metodos {
 		try {
 			System.out.println("Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
 					+ "\t\t" + "Isbn" + "\t\t" + "Materias");
-			for (int i = 0; i < Variables.listaLibros.size(); i++) {
-				titulo = Variables.listaLibros.get(i).getTitulo() + "        ";
-				editorial = Variables.listaLibros.get(i).getEditorial() + "       ";
-				paginas = Variables.listaLibros.get(i).getPaginas() + "        ";
-				altura = Variables.listaLibros.get(i).getAltura() + "       ";
-				notas = Variables.listaLibros.get(i).getNotas() + "       ";
-				isbn = Variables.listaLibros.get(i).getIsbn() + "       ";
-				materias = Variables.listaLibros.get(i).getMaterias() + "      ";
+			for (int i = 0; i < listaLibros.size(); i++) {
+				titulo = listaLibros.get(i).getTitulo() + "        ";
+				editorial = listaLibros.get(i).getEditorial() + "       ";
+				paginas = listaLibros.get(i).getPaginas() + "        ";
+				altura = listaLibros.get(i).getAltura() + "       ";
+				notas = listaLibros.get(i).getNotas() + "       ";
+				isbn = listaLibros.get(i).getIsbn() + "       ";
+				materias = listaLibros.get(i).getMaterias() + "      ";
 
 				System.out.println(titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
 						+ paginas.substring(0, 2) + "\t\t" + altura.substring(0, 4) + "\t\t" + notas.substring(0, 5)
