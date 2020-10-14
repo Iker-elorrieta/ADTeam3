@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 
 public class leerPrincipalXml {
 	static String rutaFichero =Variables.urlXml;
-	public static boolean leerPrincipal() {
+	public static boolean leerPrincipal() throws SAXException, ParserConfigurationException {
 		boolean correcto = false;
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -22,7 +22,7 @@ public class leerPrincipalXml {
 			
 			for (Libro libros : listaLibros) {
 				numerolibro++;
-				System.out.println("libro:" + numerolibro);
+				System.out.println("libro id:" + numerolibro);
 				System.out.println("titulo: " + libros.getTitulo());
 				System.out.println("editorial: " + libros.getEditorial());
 				System.out.println("paginas: " + libros.getPaginas());
@@ -35,14 +35,8 @@ public class leerPrincipalXml {
 			}
 			System.out.println("Numero de libros: " + numerolibro);
 			correcto=true;
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			correcto=false;
 		} catch (IOException e) {
-			e.printStackTrace();
-			correcto=false;
-		} catch (SAXException e) {
-			e.printStackTrace();
+			System.out.println("error leerPrincipalXml");
 			correcto=false;
 		}
 		return correcto;

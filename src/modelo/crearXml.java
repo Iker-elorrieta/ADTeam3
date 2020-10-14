@@ -14,6 +14,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,7 +24,7 @@ import org.w3c.dom.Text;
 public class crearXml {
 	
 	public static boolean crearXml(ArrayList<Libro> listaLibros) {
-		
+		int numeroId=0;
 		boolean correcto =false;
 		try {
 
@@ -39,10 +40,14 @@ public class crearXml {
 			
 			
 			for (Libro lLibro : listaLibros) {
-
+				numeroId++;
 				// Creo los elementos
 				Element libreria = documento.createElement("libreria");
 				Element libro = documento.createElement("libro");
+				// atributo para el nodo libro
+				Attr attr = documento.createAttribute("id");
+				attr.setValue(String.valueOf(numeroId));
+				libro.setAttributeNode(attr);
 				// titulo
 				Element titulo = documento.createElement("titulo");
 				Text textTitulo = documento.createTextNode(lLibro.getTitulo());
@@ -88,7 +93,6 @@ public class crearXml {
 			Source source = new DOMSource(documento);
 			// ruta donde se crea
 			Result result = new StreamResult(new File(Variables.urlXml));
-
 			// crea el fichero XML
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);

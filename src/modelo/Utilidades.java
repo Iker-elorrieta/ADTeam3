@@ -5,14 +5,14 @@ import java.util.regex.Pattern;
 
 public class Utilidades {
 
-	public static boolean validar(String pat, String texto) {
-		boolean validado = false;
-		Pattern patron = Pattern.compile(pat);
-		Matcher mat = patron.matcher(texto);
+	public static boolean validar(Pattern pat, String cadena) {
+
+		boolean correcto = false;
+		Matcher mat = pat.matcher(cadena);
 		if (mat.matches()) {
-			validado = true;
+			correcto = true;
 		}
-		return validado;
+		return correcto;
 	}
 
 }
