@@ -17,7 +17,7 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static boolean cargarLista(File fichero) {
+	public static boolean cargarLista(File fichero) throws IOException {
 		boolean correcto=false;
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
@@ -29,7 +29,6 @@ public class Metodos {
 
 			for (int i = 0; i < contenido.size(); i++) {
 				Libro libro = new Libro();
-				try {
 					for (int y = 0; y < contenido.get(i).length; y++) {
 						if (y == 0) {
 							libro.setTitulo(contenido.get(i)[y]);
@@ -49,10 +48,6 @@ public class Metodos {
 					}
 					Variables.listaLibros.add(libro);
 					correcto=true;
-				} catch (Exception a) {
-//					a.printStackTrace();
-					correcto=false;
-				}
 			}
 			Variables.posicionNumero = contenido.size() - 1;
 			ficheroR.close();
@@ -60,21 +55,14 @@ public class Metodos {
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
-		} catch (IOException io) {
-			System.out.println("Error de E/S ");
-			correcto=false;
-		} catch (Exception idk) {
-			System.out.println("Error no especificado: ");
-			idk.printStackTrace();
-			correcto=false;
-		}
+		} 
 		return correcto;
 	}
 
 	/*
 	 * Metodo para insertar en el txt un libro.
 	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros) {
+	public static boolean escribir(ArrayList<Libro> listaLibros) throws IOException {
 		boolean correcto = false;
 		try {
 			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
@@ -90,9 +78,6 @@ public class Metodos {
 			correcto=true;
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
-			correcto=false;
-		} catch (IOException io) {
-			System.out.println("Error de E/S ");
 			correcto=false;
 		}
 		return correcto;

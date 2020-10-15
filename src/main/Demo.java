@@ -25,6 +25,22 @@ public class Demo {
 		else
 			Metodos.cargarLista(Variables.ficheroTxt);
 
+		System.out.println("eliga el sistema operativo");
+		System.out.println("1- windows");
+		System.out.println("2- Linux");
+		int opcion = entradaInt(1, 2);
+
+		if (opcion == 1) {
+
+			Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
+			Variables.urlXml = ".\\Ficheros\\libreria.xml";
+			Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
+		} else {
+			Variables.urlTxt = "./Ficheros/Fichero1.txt";
+			Variables.urlXml = "./Ficheros/libreria.xml";
+			Variables.urlCsv = "./Ficheros/Fichero3.csv";
+
+		}
 		do {
 			menu();
 			System.out.println("¿Quiere hacer otras operaciones? s/n");
@@ -44,7 +60,7 @@ public class Demo {
 		System.out.println("Elige alguna de las opciones: ");
 		System.out.println("1) Xml");
 		System.out.println("2) txt");
-		System.out.println("3) Csv");
+		System.out.println("3) Csv"); 
 		respuestaOpcionesTipo = entradaInt(1, 3);
 
 		if (respuestaOpcionesTipo == 1) {
@@ -131,7 +147,7 @@ public class Demo {
 	/*
 	 * Metodo para la creacion de un nuevo objeto libro.
 	 */
-	public static void crearLibro() {
+	public static void crearLibro() throws IOException {
 		String titulo;
 		String editorial;
 		int paginas;
@@ -141,7 +157,6 @@ public class Demo {
 		String materias;
 
 		System.out.println("Inserte el titulo: ");
-//		Metodos.validar(Utilidades.enum.titulo = teclado.nextLine());
 		titulo = teclado.nextLine();
 
 		System.out.println("Inserte el editorial: ");
@@ -279,14 +294,12 @@ public class Demo {
 				}
 			}
 			if (opcion == 3) {
-				if(Variables.ficheroTxt.delete())
-				{
+				if (Variables.ficheroTxt.delete()) {
 					System.out.println("Fichero de texto borrado.");
-				}
-				else
-				{
+				} else {
 					System.out.println("No se ha borrado el fichero.");
 				}
+				correcto = true;
 			}
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
@@ -310,21 +323,21 @@ public class Demo {
 		case 2:
 
 			ficheroCsv.crearArchivoCSV();
-			
 
 			break;
 		case 3:
 
 			ficheroCsv.ModificarFichero();
-			
+
 			break;
 		case 4:
 			ficheroCsv.EliminarficheroCsv();
-			
 
 			break;
 		}
 
-
 	}
+
+
+
 }

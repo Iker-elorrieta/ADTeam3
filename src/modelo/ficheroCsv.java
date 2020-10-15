@@ -15,38 +15,32 @@ public class ficheroCsv {
 	public static final String SEPARATOR = ";";
 	public static final String QUOTE = "\"";
 
-	
 	public static void menuCsv(int opcion) {
-		
-		
+
 		Scanner sc = new Scanner(System.in);
-		
-			
 
-			switch (opcion) {
+		switch (opcion) {
 
-			case 1:
+		case 1:
 
-				leerCsv();
-				break;
+			leerCsv();
+			break;
 
-			case 2:
+		case 2:
 
-				crearArchivoCSV();
+			crearArchivoCSV();
 
-				break;
-			case 3:
+			break;
+		case 3:
 
-				 ModificarFichero();
-				break;
-			case 4:
-				EliminarficheroCsv();
-				
+			ModificarFichero();
+			break;
+		case 4:
+			EliminarficheroCsv();
 
-				break;
-			}
+			break;
+		}
 
-			
 	}
 
 	public static void leerCsv() {
@@ -57,7 +51,6 @@ public class ficheroCsv {
 		boolean seguir;
 		try {
 
-			
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
 			if (!archivo.exists()) {
@@ -101,101 +94,101 @@ public class ficheroCsv {
 		String materias;
 		boolean seguir;
 		try {
-			
+
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
 			if (archivo.exists()) {
 				System.out.println("El fichero ya existe");
-				
+
 			} else {
-				
-			FileWriter fw = new FileWriter(ruta);
 
-			do {
-				System.out.println("Inserte el titulo: ");
-				if (Utilidades.validar(Patrones.titulo.getNombre(), titulo = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				FileWriter fw = new FileWriter(ruta);
 
-			do {
-				System.out.println("Inserte el editorial: ");
+				do {
+					System.out.println("Inserte el titulo: ");
+					if (Utilidades.validar(Patrones.titulo.getNombre(), titulo = sc.nextLine())) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
 
-				if (Utilidades.validar(Patrones.editorial.getNombre(), editorial = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				do {
+					System.out.println("Inserte el editorial: ");
 
-			do {
-				System.out.println("Inserte las paginas: ");
-				if (Utilidades.validar(Patrones.paginas.getNombre(), paginas = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+					if (Utilidades.validar(Patrones.editorial.getNombre(), editorial = sc.nextLine())) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
 
-			do {
-				System.out.println("Inserte la altura: ");
-				if (Utilidades.validar(Patrones.altura.getNombre(), altura = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				do {
+					System.out.println("Inserte las paginas: ");
+					if (Utilidades.validar(Patrones.paginas.getNombre(), paginas = sc.nextLine())) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
 
-			do {
-				System.out.println("Inserte las notas: ");
-				if (Utilidades.validar(Patrones.notas.getNombre(), notas = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				do {
+					System.out.println("Inserte la altura: ");
+					if (Utilidades.validar(Patrones.altura.getNombre(), altura = sc.nextLine())) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
 
-			do {
-				System.out.println("Inserte el isbn: ");
-				if (Utilidades.validar(Patrones.isbn.getNombre(), isbn = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				do {
+					System.out.println("Inserte las notas: ");
+					if (Utilidades.validar(Patrones.notas.getNombre(), notas = sc.nextLine())) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
 
-			do {
-				System.out.println("Inserte las materias: ");
-				if (Utilidades.validar(Patrones.materias.getNombre(), materias = sc.nextLine())) {
+				do {
+					System.out.println("Inserte el isbn: ");
+					if (Utilidades.validar(Patrones.isbn.getNombre(), isbn = sc.nextLine())) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
 
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
-			//Libro libro = new Libro(titulo,editorial,)
-			
-			fw.append(titulo).append(NEXT_LINE);
+				do {
+					System.out.println("Inserte las materias: ");
+					if (Utilidades.validar(Patrones.materias.getNombre(), materias = sc.nextLine())) {
 
-			fw.append(editorial).append(NEXT_LINE);
-			fw.append(paginas).append(NEXT_LINE);
-			fw.append(altura).append(NEXT_LINE);
-			fw.append(notas).append(NEXT_LINE);
-			fw.append(isbn).append(NEXT_LINE);
-			fw.append(materias).append(NEXT_LINE);
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				} while (!seguir);
+				// Libro libro = new Libro(titulo,editorial,)
 
-			fw.flush();
-			fw.close();
-			System.out.println("Fichero creado con exito");
+				fw.append(titulo).append(NEXT_LINE);
+
+				fw.append(editorial).append(NEXT_LINE);
+				fw.append(paginas).append(NEXT_LINE);
+				fw.append(altura).append(NEXT_LINE);
+				fw.append(notas).append(NEXT_LINE);
+				fw.append(isbn).append(NEXT_LINE);
+				fw.append(materias).append(NEXT_LINE);
+
+				fw.flush();
+				fw.close();
+				System.out.println("Fichero creado con exito");
 			}
 		} catch (IOException e) {
 			// Error al crear el archivo, por ejemplo, el archivo
@@ -204,29 +197,13 @@ public class ficheroCsv {
 			e.printStackTrace();
 		}
 
-		
-
 	}
 
 	public static void ModificarFichero() {
 		Scanner sc = new Scanner(System.in);
-		/*try {
-			FileWriter fw = new FileWriter(rutaFichero);
-
-			String titulo;
-			System.out.println("Inserte titulo");
-			titulo = sc.nextLine();
-			if (titulo.equals("")) {
-				titulo = libro.getTitulo();
-			} else {
-				fw.append(titulo);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+	
 		final String NEXT_LINE = "\n";
-		
+
 		String titulo;
 		String editorial, paginas;
 		String altura;
@@ -235,19 +212,18 @@ public class ficheroCsv {
 		String materias;
 		boolean seguir;
 		try {
-			
+
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
-			
-				
+
 			FileWriter fw = new FileWriter(ruta);
 
 			do {
 				System.out.println("Inserte el titulo: ");
 				titulo = sc.nextLine();
-						if(titulo.equals("")) {
-							seguir = true;
-						}else if (Utilidades.validar(Patrones.titulo.getNombre(), titulo)) {
+				if (titulo.equals("")) {
+					seguir = true;
+				} else if (Utilidades.validar(Patrones.titulo.getNombre(), titulo)) {
 					seguir = true;
 				} else {
 					System.out.println("Datos no validos");
@@ -317,7 +293,8 @@ public class ficheroCsv {
 				}
 			} while (!seguir);
 
-			//Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
+			// Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn,
+			// materias);
 			fw.append(titulo).append(NEXT_LINE);
 
 			fw.append(editorial).append(NEXT_LINE);
@@ -330,7 +307,7 @@ public class ficheroCsv {
 			fw.flush();
 			fw.close();
 			System.out.println("Fichero creado con exito");
-			
+
 		} catch (IOException e) {
 			// Error al crear el archivo, por ejemplo, el archivo
 			// está actualmente abierto.
@@ -338,29 +315,18 @@ public class ficheroCsv {
 			e.printStackTrace();
 		}
 
-	
-
-	
-
 	}
 
 	public static void EliminarficheroCsv() {
-		Scanner sc = new Scanner(System.in);
 		try {
-			
 			File fichero = new File(Variables.urlCsv);
 			if (fichero.exists() && fichero.delete()) {
 				System.out.println("El fichero ha sido borrado satisfactoriamente");
-				}else {
+			} else {
 				System.out.println("El fichero no puede ser borrado o no existe");
-				
-			
-			
-			
-		}} catch (Exception e) {
-		}
+			}
+		} catch (Exception e) {
 			System.out.println("Error al eliminar fichero");
 		}
 	}
-
-
+}
