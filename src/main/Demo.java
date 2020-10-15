@@ -29,7 +29,7 @@ public class Demo {
 		System.out.println("1- windows");
 		System.out.println("2- Linux");
 		int opcion = entradaInt(1, 2);
-
+ 
 		if (opcion == 1) {
 
 			Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
