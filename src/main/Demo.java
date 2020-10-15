@@ -270,6 +270,7 @@ public class Demo {
 
 		} catch (Exception e) {
 			System.out.println("datos incorrectos");
+			correcto=false;
 		}
 		return correcto;
 
@@ -312,32 +313,33 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension csv.
 	 */
-	public static void menuCsv(int opcion) {
+	public static boolean menuCsv(int opcion) {
+		boolean correcto=false;
 		switch (opcion) {
 
 		case 1:
 
 			ficheroCsv.leerCsv();
+			correcto=true;
 			break;
 
 		case 2:
 
 			ficheroCsv.crearArchivoCSV();
-
+			correcto=true;
 			break;
 		case 3:
 
 			ficheroCsv.ModificarFichero();
-
+			correcto=true;
 			break;
 		case 4:
 			ficheroCsv.EliminarficheroCsv();
-
+			correcto=true;
 			break;
 		}
+		return correcto;
 
 	}
-
-
 
 }
