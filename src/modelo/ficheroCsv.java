@@ -56,9 +56,10 @@ public class ficheroCsv {
 		Scanner sc = new Scanner(System.in);
 		boolean seguir;
 		try {
-
+			System.out.println("introduzca nombre del fichero");
+			nombreFichero = sc.nextLine();
 			
-			String ruta = Variables.urlCsv;
+			String ruta = ".\\Ficheros\\"+ nombreFichero + ".csv";
 			File archivo = new File(ruta);
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");
@@ -101,8 +102,11 @@ public class ficheroCsv {
 		String materias;
 		boolean seguir;
 		try {
+			System.out.println("introduzca nombre del fichero");
+			String nombreFichero = sc.nextLine();
 			
-			String ruta = Variables.urlCsv;
+			String ruta = ".\\Ficheros\\"+ nombreFichero + ".csv";
+			
 			File archivo = new File(ruta);
 			if (archivo.exists()) {
 				System.out.println("El fichero ya existe");
@@ -235,8 +239,11 @@ public class ficheroCsv {
 		String materias;
 		boolean seguir;
 		try {
+			System.out.println("introduzca nombre del fichero");
+			String nombreFichero = sc.nextLine();
 			
-			String ruta = Variables.urlCsv;
+			String ruta = ".\\Ficheros\\"+ nombreFichero + ".csv";
+			
 			File archivo = new File(ruta);
 			
 				
@@ -347,8 +354,12 @@ public class ficheroCsv {
 	public static void EliminarficheroCsv() {
 		Scanner sc = new Scanner(System.in);
 		try {
+			System.out.println("introduzca nombre del fichero");
+			String nombreFichero = sc.nextLine();
 			
-			File fichero = new File(Variables.urlCsv);
+			String ruta = ".\\Ficheros\\"+ nombreFichero + ".csv";
+			
+			File fichero = new File(ruta);
 			if (fichero.exists() && fichero.delete()) {
 				System.out.println("El fichero ha sido borrado satisfactoriamente");
 				}else {
