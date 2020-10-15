@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,14 +10,15 @@ import org.xml.sax.SAXException;
 
 
 public class leerPrincipalXml {
-	static String rutaFichero =Variables.urlXml;
+	static String rutaFichero =Variables.Xml;
+	
 	public static boolean leerPrincipal() throws SAXException, ParserConfigurationException {
 		boolean correcto = false;
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
-			SAXParser parser = factory.newSAXParser();
-			parser.parse(rutaFichero, leerXml);
+			SAXParser parser = factory.newSAXParser(); 
+			parser.parse(rutaFichero, leerXml); 
 			ArrayList<Libro> listaLibros = leerXml.obtenerlibros();
 			int numerolibro=0;
 			

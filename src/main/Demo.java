@@ -15,7 +15,7 @@ import modelo.ficheroCsv;
 public class Demo {
 
 	public static Scanner teclado = new Scanner(System.in);
-
+ 
 	/* 
 	 * La clase main donde se empieza el programa.
 	 */
@@ -26,17 +26,17 @@ public class Demo {
 			System.out.println("1- windows");
 			System.out.println("2- Linux");
 			int opcion = entradaInt(1, 2);
-	 
+	  
 			if (opcion == 1) {
  
 				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 				Variables.urlXml = ".\\Ficheros\\libreria.xml";
 				Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
-				
+				 
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
-			} else {
+			} else { 
 				Variables.urlTxt = "./Ficheros/Fichero1.txt";  
 				Variables.urlXml = "./Ficheros/libreria.xml";
 				Variables.urlCsv = "./Ficheros/Fichero3.csv";
@@ -64,7 +64,7 @@ public class Demo {
 	 * Menu donde se encuentra las acciones que quiere realizar el cliente.
 	 */
 	public static boolean menu() {
-
+ 
 		boolean correcto = false;
 		int respuestaOpcionesTipo;
 		int respuestaOpcionesAccion;
@@ -201,7 +201,7 @@ public class Demo {
 		if (confirmacionSN()) {
 			Variables.listaLibros.add(libro);
 			Metodos.escribir(Variables.listaLibros);
-		}
+		} 
 
 	}
 
@@ -216,45 +216,45 @@ public class Demo {
 			String titulo, editorial, materias, notas;
 			char letra;
 			Libro libros = new Libro();
-			ArrayList<Libro> lisataLibro = new ArrayList<>();
+			ArrayList<Libro> listaLibro = new ArrayList<>();
 
 			switch (opcion) {
 
-			case 1:
-
-				do {
-					System.out.println("ingrese el titulo");
-					titulo = teclado.nextLine();
-					System.out.println("ingrese la editorial");
-					editorial = teclado.nextLine();
-					System.out.println("ingrese las paginas");
-					paginas = teclado.nextInt();
-					teclado.nextLine();
-					System.out.println("ingrese la altura");
-					altura = teclado.nextDouble();
-					teclado.nextLine();
-					System.out.println("ingrese las notas");
-					notas = teclado.nextLine();
-					System.out.println("ingrese el isbn");
-					isbn = teclado.nextInt();
-					teclado.nextLine();
-					System.out.println("ingrese la materia");
-					materias = teclado.nextLine();
-
-					libros = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
-
-					lisataLibro.add(libros);
-					System.out.println(libros.mostrar());
-
-					System.out.println("Desea crear mas libros S/N");
-					letra = teclado.next().charAt(0);
-					teclado.nextLine();
-
-				} while (letra == 's' || letra == 'S');
-
-				modelo.crearXml.crearXml(lisataLibro);
-				correcto = true;
-				break;
+//			case 1:
+//
+//				do {
+//					System.out.println("ingrese el titulo");
+//					titulo = teclado.nextLine();
+//					System.out.println("ingrese la editorial");
+//					editorial = teclado.nextLine();
+//					System.out.println("ingrese las paginas");
+//					paginas = teclado.nextInt();
+//					teclado.nextLine();
+//					System.out.println("ingrese la altura");
+//					altura = teclado.nextDouble();
+//					teclado.nextLine();
+//					System.out.println("ingrese las notas");
+//					notas = teclado.nextLine();
+//					System.out.println("ingrese el isbn");
+//					isbn = teclado.nextInt();
+//					teclado.nextLine();
+//					System.out.println("ingrese la materia");
+//					materias = teclado.nextLine();
+//
+//					libros = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
+//
+//					listaLibro.add(libros);
+//					System.out.println(libros.mostrar());
+//
+//					System.out.println("Desea crear mas libros S/N");
+//					letra = teclado.next().charAt(0);
+//					teclado.nextLine();
+//
+//				} while (letra == 's' || letra == 'S');
+//
+//				modelo.crearXml.crearXml(listaLibro);
+//				correcto = true;
+//				break;
 
 			case 2:
 
@@ -262,25 +262,25 @@ public class Demo {
 				correcto = true;
 				break;
 			case 3:
-				modelo.modificarXml.modXml();
+//				modelo.modificarXml.modXml();
 				break;
 
-			case 4:
-
-				File fichero = new File(Variables.urlXml);
-
-				if (fichero.delete())
-					System.out.println("El fichero ha sido borrado satisfactoriamente");
-				else
-					System.out.println("El fichero no puede ser borrado");
-				correcto = true;
-				break;
+//			case 4:
+//
+//				File fichero = new File(Variables.urlXml);
+//
+//				if (fichero.delete())
+//					System.out.println("El fichero ha sido borrado satisfactoriamente");
+//				else
+//					System.out.println("El fichero no puede ser borrado");
+//				correcto = true;
+//				break;
 
 			default:
 				System.out.println("opcion incorrecta");
 				correcto = true;
 			}
-
+ 
 		} catch (Exception e) {
 			System.out.println("datos incorrectos");
 		}
@@ -298,13 +298,13 @@ public class Demo {
 				Metodos.listar(Variables.listaLibros);
 				correcto = true;
 			} else if (opcion == 2) {
-				System.out.println("�Quiere escribir un nuevo libro? s/n");
-				boolean confirmacionEscribir = confirmacionSN();
-				if (confirmacionEscribir) {
-					teclado.nextLine();
-					crearLibro();
-					correcto = true;
-				}
+//				System.out.println("�Quiere escribir un nuevo libro? s/n");
+//				boolean confirmacionEscribir = confirmacionSN();
+//				if (confirmacionEscribir) {
+//					teclado.nextLine();
+//					crearLibro();
+//					correcto = true;
+//				}
 			}
 			if (opcion == 3) {
 				if (Variables.ficheroTxt.delete()) {
@@ -333,20 +333,20 @@ public class Demo {
 			ficheroCsv.leerCsv();
 			break;
 
-		case 2:
-
-			ficheroCsv.crearArchivoCSV();
-
-			break;
-		case 3:
-
-			ficheroCsv.ModificarFichero();
-
-			break;
-		case 4:
-			ficheroCsv.EliminarficheroCsv();
-
-			break;
+//		case 2:
+//
+//			ficheroCsv.crearArchivoCSV();
+//
+//			break;
+//		case 3:
+//
+//			ficheroCsv.ModificarFichero();
+//
+//			break;
+//		case 4:
+//			ficheroCsv.EliminarficheroCsv();
+//
+//			break;
 		}
 
 	}

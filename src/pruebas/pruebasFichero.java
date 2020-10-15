@@ -2,8 +2,11 @@ package pruebas;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -46,8 +49,7 @@ class pruebasFichero {
 	@Test
 	void testLeerXml() throws SAXException, ParserConfigurationException {
 		boolean result = leerPrincipalXml.leerPrincipal();
-		assertEquals(true, result);
-		
+		assertEquals(true, result); 		
 	}
 
 	// metodo Txt
@@ -133,6 +135,10 @@ class pruebasFichero {
 		modelo.ficheroCsv.menuCsv(1); 
 	}
 
+	@Test
+	void testDemoMenuCsv()  {
+		main.Demo.menuCsv(1);; 
+	}
 	@Test
 	void testMenuCsv4()  {
 		modelo.ficheroCsv.menuCsv(4); 
