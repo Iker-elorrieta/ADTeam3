@@ -5,12 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import modelo.Libro;
@@ -73,6 +70,12 @@ class pruebasFichero {
 		boolean result = main.Demo.menuTxt(1);
 		assertEquals(true, result);	 
 	}
+	
+	@Test
+	void testMenuTxtOpcion3() {
+		boolean result = main.Demo.menuTxt(3);
+		assertEquals(true, result);	 
+	}
 
 	//libro test
 	@Test
@@ -112,51 +115,24 @@ class pruebasFichero {
 	}
 
 	@Test
+	void testMenuXml4()  {
+		boolean result = main.Demo.menuXml(4);
+		assertEquals(true, result);	 
+	}
+	@Test
 	void testMenuXml5()  {
 		boolean result = main.Demo.menuXml(6);
 		assertEquals(true, result);	 
 	}
+
 	@Test
 	void testMenuCsv()  {
 		modelo.ficheroCsv.menuCsv(1); 
 	}
-	@Test
-	void testModxml() throws ParserConfigurationException, SAXException, IOException  {
-		
-		File xmlFile = new File(Variables.urlXml);
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder;
 
-		dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(xmlFile);
-		doc.getDocumentElement().normalize();
-		boolean result = modelo.modificarXml.modValor(doc, "2", "notas", "hola");
-		assertEquals(true, result);	 
-	}
-	
 	@Test
-	void testDemoMenuCsv1() {
-		boolean result = main.Demo.menuCsv(1);;
-		assertEquals(true, result);	 
+	void testMenuCsv4()  {
+		modelo.ficheroCsv.menuCsv(4); 
 	}
-	
-	
-//	@Test
-//	void testMenuXml4()  {
-//		boolean result = main.Demo.menuXml(4);
-//		assertEquals(true, result);	 
-//	}
-	
-//	@Test
-//	void testMenuTxtOpcion3() {
-//		boolean result = main.Demo.menuTxt(3);
-//		assertEquals(true, result);	 
-//	}
-	
-//	@Test
-//	void testMenuCsv4()  {
-//		modelo.ficheroCsv.menuCsv(4); 
-//	}
-	
 
 }

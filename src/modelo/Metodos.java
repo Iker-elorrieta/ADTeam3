@@ -49,7 +49,10 @@ public class Metodos {
 					Variables.listaLibros.add(libro);
 					correcto=true;
 			}
-			Variables.posicionNumero = contenido.size() - 1;
+			if(contenido.size()!=0)
+			{
+				Variables.posicionNumero = contenido.size() - 1;
+			}
 			ficheroR.close();
 			correcto=true;
 		} catch (FileNotFoundException fn) {
@@ -66,7 +69,7 @@ public class Metodos {
 		boolean correcto = false;
 		try {
 			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
-			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
+			for (int i = 0; i < listaLibros.size(); i++) {
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
 						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
 						+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
@@ -88,7 +91,7 @@ public class Metodos {
 	 */
 	public static boolean listar(ArrayList<Libro> listaLibros) {
 
-		boolean correcto = false;
+		boolean correcto = false; 
 		String titulo;
 		String editorial;
 		String paginas;

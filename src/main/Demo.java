@@ -16,35 +16,50 @@ public class Demo {
 
 	public static Scanner teclado = new Scanner(System.in);
 
-	/*
+	/* 
 	 * La clase main donde se empieza el programa.
 	 */
 	public static void main(String[] args) throws IOException {
-		if (Variables.ficheroTxt.createNewFile())
-			System.out.println("Se creo un archivo nuevo.");
-		else
-			Metodos.cargarLista(Variables.ficheroTxt);
+		try {
+			
+			System.out.println("eliga el sistema operativo"); 
+			System.out.println("1- windows");
+			System.out.println("2- Linux");
+			int opcion = entradaInt(1, 2);
+	 
+			if (opcion == 1) {
 
-		System.out.println("eliga el sistema operativo");
-		System.out.println("1- windows");
-		System.out.println("2- Linux");
-		int opcion = entradaInt(1, 2);
- 
-		if (opcion == 1) {
+				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
+				Variables.urlXml = ".\\Ficheros\\libreria.xml";
+				Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
+				
+				Variables.ficheroTxt = new File(Variables.urlTxt);
+				Variables.ficheroXml = new File(Variables.urlXml);
+				Variables.ficheroCsv = new File(Variables.urlCsv);
+			} else {
+				Variables.urlTxt = "./Ficheros/Fichero1.txt";  
+				Variables.urlXml = "./Ficheros/libreria.xml";
+				Variables.urlCsv = "./Ficheros/Fichero3.csv";
+				
+				Variables.ficheroTxt = new File(Variables.urlTxt);
+				Variables.ficheroXml = new File(Variables.urlXml);
+				Variables.ficheroCsv = new File(Variables.urlCsv);
+			}
+			
+			if (Variables.ficheroTxt.createNewFile())
+				System.out.println("Se creo un archivo nuevo.");
+			else
+				Metodos.cargarLista(Variables.ficheroTxt);
 
-			Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
-			Variables.urlXml = ".\\Ficheros\\libreria.xml";
-			Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
-		} else {
-			Variables.urlTxt = "./Ficheros/Fichero1.txt";
-			Variables.urlXml = "./Ficheros/libreria.xml";
-			Variables.urlCsv = "./Ficheros/Fichero3.csv";
-
-		}
-		do {
-			menu();
-			System.out.println("¿Quiere hacer otras operaciones? s/n");
-		} while (confirmacionSN());
+			
+			do {
+				menu();
+				System.out.println("ï¿½Quiere hacer otras operaciones? s/n");
+			} while (confirmacionSN());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} 
+		
 	}
 
 	/*
@@ -64,7 +79,7 @@ public class Demo {
 		respuestaOpcionesTipo = entradaInt(1, 3);
 
 		if (respuestaOpcionesTipo == 1) {
-			System.out.println("¿Que desea hacer?");
+			System.out.println("ï¿½Que desea hacer?");
 			System.out.println("1. Crear Xml");
 			System.out.println("2. leer Xml");
 			System.out.println("3. modificar Xml");
@@ -75,7 +90,7 @@ public class Demo {
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 2) {
 
-			System.out.println("¿Que desea hacer?");
+			System.out.println("ï¿½Que desea hacer?");
 			System.out.println("1. leer");
 			System.out.println("2. modificar");
 			System.out.println("3. eliminar");
@@ -84,7 +99,7 @@ public class Demo {
 			menuTxt(respuestaOpcionesAccion);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
-			System.out.println("¿Que desea hacer?");
+			System.out.println("ï¿½Que desea hacer?");
 			System.out.println("1. leer");
 			System.out.println("2. crear");
 			System.out.println("3. modificar");
@@ -183,7 +198,7 @@ public class Demo {
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
 
 		System.out.println(
-				"¿Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
+				"ï¿½Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
 		System.out.println(libro.mostrar());
 		if (confirmacionSN()) {
 			Variables.listaLibros.add(libro);
@@ -270,7 +285,6 @@ public class Demo {
 
 		} catch (Exception e) {
 			System.out.println("datos incorrectos");
-			correcto=false;
 		}
 		return correcto;
 
@@ -286,7 +300,7 @@ public class Demo {
 				Metodos.listar(Variables.listaLibros);
 				correcto = true;
 			} else if (opcion == 2) {
-				System.out.println("¿Quiere escribir un nuevo libro? s/n");
+				System.out.println("ï¿½Quiere escribir un nuevo libro? s/n");
 				boolean confirmacionEscribir = confirmacionSN();
 				if (confirmacionEscribir) {
 					teclado.nextLine();
@@ -313,33 +327,32 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension csv.
 	 */
-	public static boolean menuCsv(int opcion) {
-		boolean correcto=false;
+	public static void menuCsv(int opcion) {
 		switch (opcion) {
 
 		case 1:
 
 			ficheroCsv.leerCsv();
-			correcto=true;
 			break;
 
 		case 2:
 
 			ficheroCsv.crearArchivoCSV();
-			correcto=true;
+
 			break;
 		case 3:
 
 			ficheroCsv.ModificarFichero();
-			correcto=true;
+
 			break;
 		case 4:
 			ficheroCsv.EliminarficheroCsv();
-			correcto=true;
+
 			break;
 		}
-		return correcto;
 
 	}
+
+
 
 }

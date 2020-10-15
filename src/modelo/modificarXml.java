@@ -132,7 +132,7 @@ public class modificarXml {
 		return correcto;
 	}
 
-	public static boolean modValor(Document doc, String idLibro, String atrib, String texto) {
+	private static boolean modValor(Document doc, String idLibro, String atrib, String texto) {
 		boolean correcto=false;
 		try {
 			NodeList libro = doc.getElementsByTagName("libro");
