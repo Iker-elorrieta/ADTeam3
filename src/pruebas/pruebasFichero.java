@@ -21,6 +21,8 @@ class pruebasFichero {
 	// metodo cargar
 	@Test
 	void testCargarListas() throws IOException {
+		Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
+		Variables.ficheroTxt = new File(Variables.urlTxt);
 		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
 		assertEquals(true, result);
 	}
@@ -45,6 +47,7 @@ class pruebasFichero {
 	void testLeerXml() throws SAXException, ParserConfigurationException {
 		boolean result = leerPrincipalXml.leerPrincipal();
 		assertEquals(true, result);
+		
 	}
 
 	// metodo Txt

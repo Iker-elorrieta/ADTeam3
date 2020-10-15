@@ -28,7 +28,7 @@ public class Demo {
 			int opcion = entradaInt(1, 2);
 	 
 			if (opcion == 1) {
-
+ 
 				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 				Variables.urlXml = ".\\Ficheros\\libreria.xml";
 				Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
@@ -50,8 +50,6 @@ public class Demo {
 				System.out.println("Se creo un archivo nuevo.");
 			else
 				Metodos.cargarLista(Variables.ficheroTxt);
-
-			
 			do {
 				menu();
 				System.out.println("�Quiere hacer otras operaciones? s/n");
