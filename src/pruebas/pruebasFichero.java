@@ -40,23 +40,13 @@ class pruebasFichero {
 	// fin metodo cargar
 
 	// metodo crear xml
-	@Test
-	void testCrearXml() {
-		boolean result = modelo.crearXml.crearXml(Variables.listaLibros);
-		assertEquals(true, result);
-	}
-
-	// metodo Txt
-	@Test
-	void testEscribirTxt() throws IOException {
-		boolean result = Metodos.escribir(Variables.listaLibros);
-		assertEquals(true, result);
-	}
+	
 	@Test
 	void testListarTxt() {
 		boolean result = Metodos.listar(Variables.listaLibros);
 		assertEquals(true, result);
 	}
+
 	// metodo utilidades
 	@Test
 	void testUtilidades() {
@@ -95,8 +85,76 @@ class pruebasFichero {
 		 libro.mostrar();		 
 	}
 	
+	@Test
+	void testDemoMenu1() {
+		String input = "1 \n 2 \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testDemoMenu2() {
+		String input = "2 \n 1 \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testDemoMenu3() {
+		String input = "3 \n 1 \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testDemoMenuFalse() {
+		String input = "3 \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testDemoEntrada1() {
+		String input = "4 \n 2 \n";
+		int min = 1;
+		int max = 3;
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int result=main.Demo.entradaInt(min, max, teclado);
+		assertEquals(2, result);
+	}
+	
+	@Test
+	void testDemoEntrada2() {
+		String input = "a \n 2 \n";
+		int min = 1;
+		int max = 3;
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int result=main.Demo.entradaInt(min, max, teclado);
+		assertEquals(2, result);
+	}
+
+	@Test
+	void testCrearXml() {
+		boolean result=modelo.crearXml.crearXml(Variables.listaLibros);
+		assertEquals(true, result);
+	}
 	
 	
-
-
+	
 }

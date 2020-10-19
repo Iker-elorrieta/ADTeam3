@@ -42,6 +42,7 @@ public class modificarXml {
 			System.out.println("7-materias");
 			opcion = sc.nextInt();
 			//leer xml
+			
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
 			SAXParser parser = factory.newSAXParser();

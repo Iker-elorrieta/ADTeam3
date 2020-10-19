@@ -97,7 +97,10 @@ public class crearXml {
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);
 			correcto = true;
-		} catch (ParserConfigurationException | TransformerException ex) {
+		} catch (ParserConfigurationException ex) {
+			System.out.println(ex.getMessage());
+			correcto=false;
+		}catch (TransformerException ex) {
 			System.out.println(ex.getMessage());
 			correcto=false;
 		}

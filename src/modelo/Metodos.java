@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /*
  * Clase donde se apuntan los metodos que se usan en el programa.
  */
-public class Metodos {
+public class Metodos { 
 
 	/*
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
@@ -60,6 +60,7 @@ public class Metodos {
 			correcto=false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			correcto=false;
 		} 
 		return correcto;
 	}
@@ -122,7 +123,8 @@ public class Metodos {
 			correcto=true;
 		} catch (Exception e) {
 			System.out.println("error listar libros");
-		}
+			correcto = false;
+		} 
 
 		return correcto;
 	}

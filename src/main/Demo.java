@@ -6,108 +6,123 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.SAXParserFactory;
+
 import modelo.Libro;
 import modelo.Metodos;
 import modelo.Utilidades;
 import modelo.Variables;
 import modelo.ficheroCsv;
+import modelo.leerPrincipalXml;
+import modelo.leerXml;
 
-public class Demo { 
+public class Demo {
 
 //	public static Scanner teclado = new Scanner(System.in);
- 
-	/* 
+
+	/*
 	 * La clase main donde se empieza el programa.
 	 */
 	public static void main(String[] args) throws IOException {
 		Scanner teclado = new Scanner(System.in);
 		try {
-			
-			System.out.println("eliga el sistema operativo"); 
+
+			System.out.println("eliga el sistema operativo");
 			System.out.println("1- windows");
 			System.out.println("2- Linux");
-			int opcion = entradaInt(1, 2,teclado);
-	  
+			int opcion = entradaInt(1, 2, teclado);
+
 			if (opcion == 1) {
- 
+
 				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 				Variables.urlXml = ".\\Ficheros\\libreria.xml";
 				Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
-				 
+
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
-			} else { 
-				Variables.urlTxt = "./Ficheros/Fichero1.txt";  
+			} else {
+				Variables.urlTxt = "./Ficheros/Fichero1.txt";
 				Variables.urlXml = "./Ficheros/libreria.xml";
 				Variables.urlCsv = "./Ficheros/Fichero3.csv";
-				
+
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
 			}
-			
+
 			if (Variables.ficheroTxt.createNewFile())
 				System.out.println("Se creo un archivo nuevo.");
 			else
 				Metodos.cargarLista(Variables.ficheroTxt);
+			
+			if (Variables.ficheroXml.createNewFile())
+				System.out.println("Se creo un archivo nuevo xml.");
+			else
+				leerPrincipalXml.leerPrincipal(Variables.listaLibrosxml, Variables.urlXml);
 			do {
 				menu(teclado);
 				System.out.println("�Quiere hacer otras operaciones? s/n");
 			} while (confirmacionSN(teclado));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		} 
-		
+		}
+
 	}
 
 	/*
 	 * Menu donde se encuentra las acciones que quiere realizar el cliente.
 	 */
 	public static boolean menu(Scanner teclado) {
- 
 		boolean correcto = false;
 		int respuestaOpcionesTipo;
 		int respuestaOpcionesAccion;
 		boolean confirmacionEscribir;
 
-		System.out.println("Elige alguna de las opciones: ");
-		System.out.println("1) Xml");
-		System.out.println("2) txt");
-		System.out.println("3) Csv"); 
-		respuestaOpcionesTipo = entradaInt(1, 3,teclado);
+		try {
 
-		if (respuestaOpcionesTipo == 1) {
-			System.out.println("�Que desea hacer?");
-			System.out.println("1. Crear Xml");
-			System.out.println("2. leer Xml");
-			System.out.println("3. modificar Xml");
-			System.out.println("4. eliminar Xml");
-			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
+			System.out.println("Elige alguna de las opciones: ");
+			System.out.println("1) Xml"); 
+			System.out.println("2) txt");
+			System.out.println("3) Csv");
+			respuestaOpcionesTipo = entradaInt(1, 3, teclado);
 
-			menuXml(respuestaOpcionesAccion,teclado);
-			correcto = true;
-		} else if (respuestaOpcionesTipo == 2) {
+			if (respuestaOpcionesTipo == 1) {
+				System.out.println("�Que desea hacer?");
+				System.out.println("1. Crear Xml");
+				System.out.println("2. leer Xml");
+				System.out.println("3. modificar Xml");
+				System.out.println("4. eliminar Xml");
+				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
 
-			System.out.println("�Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. modificar");
-			System.out.println("3. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 3,teclado);
+				menuXml(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			} else if (respuestaOpcionesTipo == 2) {
 
-			menuTxt(respuestaOpcionesAccion,teclado);
-			correcto = true;
-		} else if (respuestaOpcionesTipo == 3) {
-			System.out.println("�Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. crear");
-			System.out.println("3. modificar");
-			System.out.println("4. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
+				System.out.println("�Que desea hacer?");
+				System.out.println("1. leer");
+				System.out.println("2. modificar");
+				System.out.println("3. eliminar");
+				respuestaOpcionesAccion = entradaInt(1, 3, teclado);
 
-			menuCsv(respuestaOpcionesAccion,teclado);
-			correcto = true;
+				menuTxt(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			} else if (respuestaOpcionesTipo == 3) {
+				System.out.println("�Que desea hacer?");
+				System.out.println("1. leer");
+				System.out.println("2. crear");
+				System.out.println("3. modificar");
+				System.out.println("4. eliminar");
+				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
+
+				menuCsv(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			}
+		} catch (Exception e) {
+			correcto = false;
 		}
+
 		return correcto;
 	}
 
@@ -123,9 +138,8 @@ public class Demo {
 				if (result < min || result > max) {
 					System.out.println("Tiene que insertar un numero entre " + min + " y " + max);
 					teclado.nextLine();
-				}
+				} 
 			} catch (InputMismatchException a) {
-				// a.printStackTrace();
 				System.out.println("Tiene que insertar un numero:");
 				teclado.nextLine();
 			}
@@ -202,14 +216,14 @@ public class Demo {
 		if (confirmacionSN(teclado)) {
 			Variables.listaLibros.add(libro);
 			Metodos.escribir(Variables.listaLibros);
-		} 
+		}
 
 	}
 
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension xml.
 	 */
-	public static boolean menuXml(int opcion,Scanner teclado) {
+	public static boolean menuXml(int opcion, Scanner teclado) {
 		boolean correcto = false;
 		try {
 			int paginas, isbn;
@@ -259,8 +273,9 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibros);
+				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibros, Variables.urlTxt);
 				correcto = true;
+				Metodos.listar(Variables.listaLibrosxml);
 				break;
 			case 3:
 				modelo.modificarXml.modXml(teclado);
@@ -281,7 +296,7 @@ public class Demo {
 				System.out.println("opcion incorrecta");
 				correcto = true;
 			}
- 
+
 		} catch (Exception e) {
 			System.out.println("datos incorrectos");
 		}
@@ -292,7 +307,7 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension txt.
 	 */
-	public static boolean menuTxt(int opcion,Scanner teclado) {
+	public static boolean menuTxt(int opcion, Scanner teclado) {
 		boolean correcto = false;
 		try {
 			if (opcion == 1) {
@@ -326,7 +341,7 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension csv.
 	 */
-	public static void menuCsv(int opcion,Scanner teclado) {
+	public static void menuCsv(int opcion, Scanner teclado) {
 		switch (opcion) {
 
 		case 1:
@@ -351,7 +366,5 @@ public class Demo {
 		}
 
 	}
-
-
 
 }

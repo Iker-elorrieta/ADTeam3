@@ -1,6 +1,5 @@
 package modelo;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,19 +8,16 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 
-public class leerPrincipalXml {
-	static String rutaFichero =Variables.Xml;
-	
-	public static boolean leerPrincipal(ArrayList<Libro> listaLibros) {
+public class leerPrincipalXml {	
+	public static boolean leerPrincipal(ArrayList<Libro> listaLibros,String rutaFichero) {
 		boolean correcto = false;
 		try {
+			rutaFichero =Variables.Xml; 
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
 			SAXParser parser = factory.newSAXParser(); 
 			parser.parse(rutaFichero, leerXml); 
-			listaLibros = leerXml.obtenerlibros();
-			
-			Metodos.listar(listaLibros);
+			Variables.listaLibrosxml = leerXml.obtenerlibros();
 			
 			correcto=true;
 		} catch (IOException e) {
@@ -29,8 +25,10 @@ public class leerPrincipalXml {
 			correcto=false;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
+			correcto=false;
 		} catch (SAXException e) {
 			e.printStackTrace();
+			correcto=false;
 		}
 		return correcto;
 	}
