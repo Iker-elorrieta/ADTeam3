@@ -259,11 +259,11 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal();
+				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibros);
 				correcto = true;
 				break;
 			case 3:
-				modelo.modificarXml.modXml();
+				modelo.modificarXml.modXml(teclado);
 				break;
 
 			case 4:

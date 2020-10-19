@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,7 +24,7 @@ class pruebasFichero {
 
 	// metodo cargar
 	@Test
-	void testCargarListas() throws IOException {
+	void testCargarListas(){
 		Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 		Variables.ficheroTxt = new File(Variables.urlTxt);
 		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
@@ -31,7 +32,7 @@ class pruebasFichero {
 	}
 
 	@Test
-	void testCargarListasFalse() throws IOException {
+	void testCargarListasFalse(){
 		File ficheroTest = new File("fichero.txt");
 		boolean result = Metodos.cargarLista(ficheroTest);
 		assertEquals(false, result);
@@ -47,8 +48,9 @@ class pruebasFichero {
 
 	// metodo leer xml
 	@Test
-	void testLeerXml() throws SAXException, ParserConfigurationException {
-		boolean result = leerPrincipalXml.leerPrincipal();
+	void testLeerXml() {
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+		boolean result = leerPrincipalXml.leerPrincipal(listaLibro);
 		assertEquals(true, result); 		
 	}
 
@@ -69,18 +71,6 @@ class pruebasFichero {
 		boolean result = modelo.Utilidades.validar(Patrones.titulo.getNombre(), "camilo");
 		assertEquals(true, result);
 	}
-	// metodo modXml
-//	@Test
-//	void testMenuTxtOpcion1() {
-//		boolean result = main.Demo.menuTxt(1);
-//		assertEquals(true, result);	 
-//	}
-	
-//	@Test
-//	void testMenuTxtOpcion3() {
-//		boolean result = main.Demo.menuTxt(3);
-//		assertEquals(true, result);	 
-//	}
 
 	//libro test
 	@Test
@@ -112,36 +102,9 @@ class pruebasFichero {
 		 
 		 libro.mostrar();		 
 	}
+	
+	
+	
 
-//	@Test
-//	void testMenuXml2()  {
-//		boolean result = main.Demo.menuXml(2);
-//		assertEquals(true, result);	 
-//	}
-//
-//	@Test
-//	void testMenuXml4()  {
-//		boolean result = main.Demo.menuXml(4);
-//		assertEquals(true, result);	 
-//	}
-//	@Test
-//	void testMenuXml5()  {
-//		boolean result = main.Demo.menuXml(6);
-//		assertEquals(true, result);	 
-//	}
-//
-//	@Test
-//	void testMenuCsv()  {
-//		modelo.ficheroCsv.menuCsv(1); 
-//	}
-//
-//	@Test
-//	void testDemoMenuCsv()  {
-//		main.Demo.menuCsv(1);; 
-//	}
-//	@Test
-//	void testMenuCsv4()  {
-//		modelo.ficheroCsv.menuCsv(4); 
-//	}
 
 }

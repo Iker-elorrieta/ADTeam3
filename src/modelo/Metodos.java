@@ -17,7 +17,7 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static boolean cargarLista(File fichero) throws IOException {
+	public static boolean cargarLista(File fichero) {
 		boolean correcto=false;
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
@@ -58,6 +58,8 @@ public class Metodos {
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
+		} catch (IOException e) {
+			e.printStackTrace();
 		} 
 		return correcto;
 	}
@@ -65,7 +67,7 @@ public class Metodos {
 	/*
 	 * Metodo para insertar en el txt un libro.
 	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros) throws IOException {
+	public static boolean escribir(ArrayList<Libro> listaLibros) {
 		boolean correcto = false;
 		try {
 			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
@@ -82,6 +84,8 @@ public class Metodos {
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return correcto;
 	}

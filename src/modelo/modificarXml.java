@@ -27,9 +27,8 @@ public class modificarXml {
 
 	static String rutaFichero = Variables.urlXml;
 
-	public static boolean modXml() {
+	public static boolean modXml(Scanner sc) {
 		boolean correcto =false;
-		Scanner sc = new Scanner(System.in);
 		try {
 			int opcion;
 			String idLibro = null, atributo = null, texto = null;
