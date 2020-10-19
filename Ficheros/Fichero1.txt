@@ -3,3 +3,13 @@ Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;Esta vez si;Venga;3;3.3;A que
 =======
 >>>>>>> branch 'Steff' of https://github.com/Iker-elorrieta/ADTeam3.git
 Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;
+<<<<<<< HEAD;null;0;null;null;0;null;
+Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;
+=======;null;0;null;null;0;null;
+>>>>>>> branch 'Steff' of https://github.com/Iker-elorrieta/ADTeam3.git;null;0;null;null;0;null;
+Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;
+<<<<<<< HEAD;null;0;null;null;0;null;
+Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;
+=======;null;0;null;null;0;null;
+>>>>>>> branch 'Steff' of https://github.com/Iker-elorrieta/ADTeam3.git;null;0;null;null;0;null;
+Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;

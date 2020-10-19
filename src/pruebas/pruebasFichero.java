@@ -29,7 +29,7 @@ class pruebasFichero {
 		Variables.ficheroTxt = new File(Variables.urlTxt);
 		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
 		assertEquals(true, result);
-	}
+	} 
 
 	@Test
 	void testCargarListasFalse(){
@@ -44,14 +44,6 @@ class pruebasFichero {
 	void testCrearXml() {
 		boolean result = modelo.crearXml.crearXml(Variables.listaLibros);
 		assertEquals(true, result);
-	}
-
-	// metodo leer xml
-	@Test
-	void testLeerXml() {
-		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		boolean result = leerPrincipalXml.leerPrincipal(listaLibro);
-		assertEquals(true, result); 		
 	}
 
 	// metodo Txt

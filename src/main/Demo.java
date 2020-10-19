@@ -12,7 +12,7 @@ import modelo.Utilidades;
 import modelo.Variables;
 import modelo.ficheroCsv;
 
-public class Demo {
+public class Demo { 
 
 //	public static Scanner teclado = new Scanner(System.in);
  
