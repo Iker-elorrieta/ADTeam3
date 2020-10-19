@@ -15,25 +15,23 @@ public class ficheroCsv {
 	public static final String SEPARATOR = ";";
 	public static final String QUOTE = "\"";
 
-	public static void menuCsv(int opcion) {
-
-		Scanner sc = new Scanner(System.in);
+	public static void menuCsv(int opcion,Scanner sc) {
 
 		switch (opcion) {
 
 		case 1:
 
-			leerCsv();
+			leerCsv(sc);
 			break;
 
 		case 2:
 
-			crearArchivoCSV();
+			crearArchivoCSV(sc);
 
 			break;
 		case 3:
 
-			ModificarFichero();
+			ModificarFichero(sc);
 			break;
 		case 4:
 			EliminarficheroCsv();
@@ -43,15 +41,14 @@ public class ficheroCsv {
 
 	}
 
-	public static void leerCsv() {
+	public static void leerCsv(Scanner sc) {
 
 		BufferedReader br = null;
 		String nombreFichero;
-		Scanner sc = new Scanner(System.in);
 		boolean seguir;
 		try {
 
-			String ruta = Variables.urlCsv;
+			String ruta = Variables.Csv;
 			File archivo = new File(ruta);
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");
@@ -83,9 +80,8 @@ public class ficheroCsv {
 		}
 	}
 
-	public static void crearArchivoCSV() {
+	public static void crearArchivoCSV(Scanner sc) {
 		final String NEXT_LINE = "\n";
-		Scanner sc = new Scanner(System.in);
 		String titulo;
 		String editorial, paginas;
 		String altura;
@@ -199,8 +195,7 @@ public class ficheroCsv {
 
 	}
 
-	public static void ModificarFichero() {
-		Scanner sc = new Scanner(System.in);
+	public static void ModificarFichero(Scanner sc) {
 	
 		final String NEXT_LINE = "\n";
 

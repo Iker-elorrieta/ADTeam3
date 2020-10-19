@@ -2,8 +2,11 @@ package pruebas;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -21,6 +24,8 @@ class pruebasFichero {
 	// metodo cargar
 	@Test
 	void testCargarListas() throws IOException {
+		Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
+		Variables.ficheroTxt = new File(Variables.urlTxt);
 		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
 		assertEquals(true, result);
 	}
@@ -44,7 +49,7 @@ class pruebasFichero {
 	@Test
 	void testLeerXml() throws SAXException, ParserConfigurationException {
 		boolean result = leerPrincipalXml.leerPrincipal();
-		assertEquals(true, result);
+		assertEquals(true, result); 		
 	}
 
 	// metodo Txt
@@ -65,17 +70,17 @@ class pruebasFichero {
 		assertEquals(true, result);
 	}
 	// metodo modXml
-	@Test
-	void testMenuTxtOpcion1() {
-		boolean result = main.Demo.menuTxt(1);
-		assertEquals(true, result);	 
-	}
+//	@Test
+//	void testMenuTxtOpcion1() {
+//		boolean result = main.Demo.menuTxt(1);
+//		assertEquals(true, result);	 
+//	}
 	
-	@Test
-	void testMenuTxtOpcion3() {
-		boolean result = main.Demo.menuTxt(3);
-		assertEquals(true, result);	 
-	}
+//	@Test
+//	void testMenuTxtOpcion3() {
+//		boolean result = main.Demo.menuTxt(3);
+//		assertEquals(true, result);	 
+//	}
 
 	//libro test
 	@Test
@@ -108,31 +113,35 @@ class pruebasFichero {
 		 libro.mostrar();		 
 	}
 
-	@Test
-	void testMenuXml2()  {
-		boolean result = main.Demo.menuXml(2);
-		assertEquals(true, result);	 
-	}
-
-	@Test
-	void testMenuXml4()  {
-		boolean result = main.Demo.menuXml(4);
-		assertEquals(true, result);	 
-	}
-	@Test
-	void testMenuXml5()  {
-		boolean result = main.Demo.menuXml(6);
-		assertEquals(true, result);	 
-	}
-
-	@Test
-	void testMenuCsv()  {
-		modelo.ficheroCsv.menuCsv(1); 
-	}
-
-	@Test
-	void testMenuCsv4()  {
-		modelo.ficheroCsv.menuCsv(4); 
-	}
+//	@Test
+//	void testMenuXml2()  {
+//		boolean result = main.Demo.menuXml(2);
+//		assertEquals(true, result);	 
+//	}
+//
+//	@Test
+//	void testMenuXml4()  {
+//		boolean result = main.Demo.menuXml(4);
+//		assertEquals(true, result);	 
+//	}
+//	@Test
+//	void testMenuXml5()  {
+//		boolean result = main.Demo.menuXml(6);
+//		assertEquals(true, result);	 
+//	}
+//
+//	@Test
+//	void testMenuCsv()  {
+//		modelo.ficheroCsv.menuCsv(1); 
+//	}
+//
+//	@Test
+//	void testDemoMenuCsv()  {
+//		main.Demo.menuCsv(1);; 
+//	}
+//	@Test
+//	void testMenuCsv4()  {
+//		modelo.ficheroCsv.menuCsv(4); 
+//	}
 
 }
