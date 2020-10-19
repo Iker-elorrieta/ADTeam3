@@ -46,7 +46,7 @@ public class Metodos {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
 					}
-					Variables.listaLibros.add(libro);
+					Variables.listaLibrerias[1].add(libro);
 					correcto=true;
 			}
 			if(contenido.size()!=0)
@@ -65,10 +65,10 @@ public class Metodos {
 	/*
 	 * Metodo para insertar en el txt un libro.
 	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros) throws IOException {
+	public static boolean escribir(ArrayList<Libro> listaLibros,boolean anadir) throws IOException {
 		boolean correcto = false;
 		try {
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
+			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, anadir));
 			for (int i = 0; i < listaLibros.size(); i++) {
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
 						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
@@ -99,8 +99,9 @@ public class Metodos {
 		String notas;
 		String isbn;
 		String materias;
+		
 		try {
-			System.out.println("Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
+			System.out.println("   Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
 					+ "\t\t" + "Isbn" + "\t\t" + "Materias");
 			for (int i = 0; i < listaLibros.size(); i++) {
 				titulo = listaLibros.get(i).getTitulo() + "        ";
@@ -111,7 +112,7 @@ public class Metodos {
 				isbn = listaLibros.get(i).getIsbn() + "       ";
 				materias = listaLibros.get(i).getMaterias() + "      ";
 
-				System.out.println(titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
+				System.out.println((i+1)+"   "+titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
 						+ paginas.substring(0, 2) + "\t\t" + altura.substring(0, 4) + "\t\t" + notas.substring(0, 5)
 						+ "\t\t" + isbn.substring(0, 5) + "\t\t" + materias.substring(0, 5));
 			}

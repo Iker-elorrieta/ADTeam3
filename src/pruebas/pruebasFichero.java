@@ -39,11 +39,11 @@ class pruebasFichero {
 	// fin metodo cargar
 
 	// metodo crear xml
-	@Test
-	void testCrearXml() {
-		boolean result = modelo.crearXml.crearXml(Variables.listaLibros);
-		assertEquals(true, result);
-	}
+//	@Test
+//	void testCrearXml() {
+//		boolean result = modelo.crearXml.crearXml(Variables.listaLibros);
+//		assertEquals(true, result);
+//	}
 
 	// metodo leer xml
 	@Test
@@ -53,16 +53,17 @@ class pruebasFichero {
 	}
 
 	// metodo Txt
-	@Test
-	void testEscribirTxt() throws IOException {
-		boolean result = Metodos.escribir(Variables.listaLibros);
-		assertEquals(true, result);
-	}
-	@Test
-	void testListarTxt() {
-		boolean result = Metodos.listar(Variables.listaLibros);
-		assertEquals(true, result);
-	}
+//	@Test
+//	void testEscribirTxt() throws IOException {
+//		boolean result = Metodos.escribir(Variables.listaLibros);
+//		assertEquals(true, result);
+//	}
+	
+//	@Test
+//	void testListarTxt() {
+//		boolean result = Metodos.listar(Variables.listaLibros);
+//		assertEquals(true, result);
+//	}
 	// metodo utilidades
 	@Test
 	void testUtilidades() {
