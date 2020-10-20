@@ -320,16 +320,27 @@ public class Demo {
 					teclado.nextLine();
 					crearLibro(teclado);
 					correcto = true;
+					crearLibro(teclado);
+					correcto = true; 
 				}
 			}
 			if (opcion == 3) {
 				if (Variables.ficheroTxt.delete()) {
 					System.out.println("Fichero de texto borrado.");
 				} else {
+				if(Variables.ficheroTxt.delete())
+				{
+					System.out.println("Fichero de texto borrado.");			
+				}
+				
+				else
+				{
 					System.out.println("No se ha borrado el fichero.");
 				}
-				correcto = true;
+				
+					}
 			}
+			correcto = true;
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
 			correcto = false;
