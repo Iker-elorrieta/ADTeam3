@@ -8,23 +8,26 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 
-public class leerPrincipalXml {
-	static String rutaFichero =Variables.Xml;
-	
-	public static boolean leerPrincipal() throws SAXException, ParserConfigurationException {
+public class leerPrincipalXml {	
+	public static boolean leerPrincipal(ArrayList<Libro> listaLibros,String rutaFichero) {
 		boolean correcto = false;
 		try {
+			rutaFichero =Variables.Xml; 
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
 			SAXParser parser = factory.newSAXParser(); 
 			parser.parse(rutaFichero, leerXml); 
 			Variables.listaLibrerias[0] = leerXml.obtenerlibros();
-			int numerolibro=0;
-						
-			System.out.println("Numero de libros: " + numerolibro);
+			
 			correcto=true;
 		} catch (IOException e) {
 			System.out.println("error leerPrincipalXml");
+			correcto=false;
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+			correcto=false;
+		} catch (SAXException e) {
+			e.printStackTrace();
 			correcto=false;
 		}
 		return correcto;

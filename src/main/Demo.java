@@ -54,9 +54,9 @@ public class Demo {
 				Metodos.cargarLista(Variables.ficheroTxt);
 
 			if (Variables.ficheroXml.createNewFile())
-				System.out.println("Se creo un archivo nuevo.");
+				System.out.println("Se creo un archivo nuevo xml.");
 			else
-				leerPrincipalXml.leerPrincipal();
+				leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlXml);
 			
 			do {
 				menu(teclado);
@@ -267,9 +267,9 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal();
-				Metodos.listar(Variables.listaLibrerias[0]);
+				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlTxt);
 				correcto = true;
+				Metodos.listar(Variables.listaLibrerias[0]);
 				break;
 			case 3:
 				modelo.modificarXml.modXml();
