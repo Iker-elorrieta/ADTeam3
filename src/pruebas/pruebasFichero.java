@@ -1,24 +1,15 @@
 package pruebas;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.junit.jupiter.api.Test;
-import org.xml.sax.SAXException;
-
 import modelo.Libro;
 import modelo.Metodos;
 import modelo.Patrones;
 import modelo.Variables;
-import modelo.leerPrincipalXml;
 
 class pruebasFichero {
 
@@ -43,7 +34,7 @@ class pruebasFichero {
 	
 	@Test
 	void testListarTxt() {
-		boolean result = Metodos.listar(Variables.listaLibros);
+		boolean result = Metodos.listar(Variables.listaLibrerias[0]);
 		assertEquals(true, result);
 	}
 
@@ -151,7 +142,7 @@ class pruebasFichero {
 
 	@Test
 	void testCrearXml() {
-		boolean result=modelo.crearXml.crearXml(Variables.listaLibros);
+		boolean result=modelo.crearXml.crearXml(Variables.listaLibrerias[0]);
 		assertEquals(true, result);
 	}
 	

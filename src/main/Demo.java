@@ -61,9 +61,15 @@ public class Demo {
 				System.out.println("Se creo un archivo nuevo xml.");
 			else
 				leerPrincipalXml.leerPrincipal(Variables.listaLibrosxml, Variables.urlXml);
+
+			if (Variables.ficheroXml.createNewFile())
+				System.out.println("Se creo un archivo nuevo xml.");
+			else
+				leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlXml);
+			
 			do {
 				menu(teclado);
-				System.out.println("ï¿½Quiere hacer otras operaciones? s/n");
+				System.out.println("¿Quiere hacer otras operaciones? s/n");
 			} while (confirmacionSN(teclado));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -87,6 +93,13 @@ public class Demo {
 			System.out.println("2) txt");
 			System.out.println("3) Csv");
 			respuestaOpcionesTipo = entradaInt(1, 3, teclado);
+		if (respuestaOpcionesTipo == 1) {
+			System.out.println("¿Que desea hacer?");
+			System.out.println("1. Crear Xml");
+			System.out.println("2. leer Xml");
+			System.out.println("3. modificar Xml");
+			System.out.println("4. eliminar Xml");
+			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
 
 			if (respuestaOpcionesTipo == 1) {
 				System.out.println("ï¿½Que desea hacer?");
@@ -99,13 +112,27 @@ public class Demo {
 				menuXml(respuestaOpcionesAccion, teclado);
 				correcto = true;
 			} else if (respuestaOpcionesTipo == 2) {
+			System.out.println("¿Que desea hacer?");
+			System.out.println("1. leer");
+			System.out.println("2. añadir");
+			System.out.println("3. modificar");
+			System.out.println("4. eliminar");
+			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
 
 				System.out.println("ï¿½Que desea hacer?");
 				System.out.println("1. leer");
 				System.out.println("2. modificar");
 				System.out.println("3. eliminar");
 				respuestaOpcionesAccion = entradaInt(1, 3, teclado);
-
+			menuTxt(respuestaOpcionesAccion,teclado);
+			correcto = true;
+		} else if (respuestaOpcionesTipo == 3) {
+			System.out.println("¿Que desea hacer?");
+			System.out.println("1. leer");
+			System.out.println("2. crear");
+			System.out.println("3. modificar");
+			System.out.println("4. eliminar");
+			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
 				menuTxt(respuestaOpcionesAccion, teclado);
 				correcto = true;
 			} else if (respuestaOpcionesTipo == 3) {
@@ -119,6 +146,7 @@ public class Demo {
 				menuCsv(respuestaOpcionesAccion, teclado);
 				correcto = true;
 			}
+		}
 		} catch (Exception e) {
 			correcto = false;
 		}
@@ -211,14 +239,15 @@ public class Demo {
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
 
 		System.out.println(
-				"ï¿½Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
+				"¿Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
 		System.out.println(libro.mostrar());
 		if (confirmacionSN(teclado)) {
 			Variables.listaLibros.add(libro);
 			Metodos.escribir(Variables.listaLibros);
 		}
-
-	}
+			Variables.listaLibrerias[1].add(libro);
+			Metodos.escribir(Variables.listaLibrerias[1],true);
+		} 
 
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension xml.
@@ -274,8 +303,10 @@ public class Demo {
 			case 2:
 
 				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibros, Variables.urlTxt);
+				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlTxt);
 				correcto = true;
 				Metodos.listar(Variables.listaLibrosxml);
+				Metodos.listar(Variables.listaLibrerias[0]);
 				break;
 			case 3:
 				modelo.modificarXml.modXml(teclado);
@@ -309,22 +340,72 @@ public class Demo {
 	 */
 	public static boolean menuTxt(int opcion, Scanner teclado) {
 		boolean correcto = false;
+		boolean confirmacionEscribir = true;
 		try {
 			if (opcion == 1) {
-				Metodos.listar(Variables.listaLibros);
+				Metodos.listar(Variables.listaLibrerias[1]);
 				correcto = true;
 			} else if (opcion == 2) {
-				System.out.println("ï¿½Quiere escribir un nuevo libro? s/n");
-				boolean confirmacionEscribir = confirmacionSN(teclado);
-				if (confirmacionEscribir) {
+				while(confirmacionEscribir) {
 					teclado.nextLine();
 					crearLibro(teclado);
+					System.out.println("¿Quiere escribir un otro libro? s/n");
+					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
 					crearLibro(teclado);
 					correcto = true; 
 				}
 			}
-			if (opcion == 3) {
+			else if (opcion == 3) 
+			{
+				System.out.println("¿Que libro quiere modificar?");
+				Metodos.listar(Variables.listaLibrerias[1]);
+				System.out.println("Escriba el numero: ");
+				Libro libro = (Libro) Variables.listaLibrerias[1].get((entradaInt(1,Variables.listaLibrerias[1].size(),teclado))-1);
+				System.out.println(libro.mostrar());
+				System.out.println("¿Que campo quiere modificar? escriba el numero del campo: ");
+				int respuesta = entradaInt(1,7,teclado);
+				switch (respuesta) {
+				case 1:
+					System.out.println("Escriba el nuevo titulo: ");
+					libro.setTitulo(teclado.nextLine());
+					break;
+				case 2:
+					System.out.println("Escriba el nuevo editorial: ");
+					libro.setEditorial(teclado.nextLine());
+					break;
+				case 3:
+					System.out.println("Escriba el nuevo numero de paginas: ");
+					libro.setPaginas(teclado.nextInt());
+					teclado.nextLine();
+					break;
+				case 4:
+					System.out.println("Escriba la nueva altura: ");
+					libro.setAltura(teclado.nextDouble());
+					teclado.nextLine();
+					break;
+				case 5:
+					System.out.println("Escriba las nuevas notas: ");
+					libro.setNotas(teclado.nextLine());
+					break;
+				case 6:
+					System.out.println("Escriba el nuevo isbn: ");
+					libro.setIsbn(teclado.nextInt());
+					teclado.nextLine();
+					break;
+				case 7:
+					System.out.println("Escriba la nueva materia: ");
+					libro.setMaterias(teclado.nextLine());
+					break;
+				default:
+					break;
+				}
+				Variables.posicionNumero = 0;
+				Metodos.escribir(Variables.listaLibrerias[1], false);
+				
+			}
+			else if(opcion == 4)
+			{
 				if (Variables.ficheroTxt.delete()) {
 					System.out.println("Fichero de texto borrado.");
 				} else {
@@ -343,6 +424,7 @@ public class Demo {
 			correcto = true;
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
+			e.printStackTrace();
 			correcto = false;
 		}
 

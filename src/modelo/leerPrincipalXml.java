@@ -18,6 +18,7 @@ public class leerPrincipalXml {
 			SAXParser parser = factory.newSAXParser(); 
 			parser.parse(rutaFichero, leerXml); 
 			Variables.listaLibrosxml = leerXml.obtenerlibros();
+			Variables.listaLibrerias[0] = leerXml.obtenerlibros();
 			
 			correcto=true;
 		} catch (IOException e) {

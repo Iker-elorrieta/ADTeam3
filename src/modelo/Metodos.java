@@ -11,13 +11,13 @@ import java.util.ArrayList;
 /*
  * Clase donde se apuntan los metodos que se usan en el programa.
  */
-public class Metodos { 
+public class Metodos {
 
 	/*
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static boolean cargarLista(File fichero) {
+	public static boolean cargarLista(File fichero)  {
 		boolean correcto=false;
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
@@ -46,7 +46,7 @@ public class Metodos {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
 					}
-					Variables.listaLibros.add(libro);
+					Variables.listaLibrerias[1].add(libro);
 					correcto=true;
 			}
 			if(contenido.size()!=0)
@@ -59,8 +59,8 @@ public class Metodos {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			correcto=false;
 		} 
 		return correcto;
 	}
@@ -68,10 +68,10 @@ public class Metodos {
 	/*
 	 * Metodo para insertar en el txt un libro.
 	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros) {
+	public static boolean escribir(ArrayList<Libro> listaLibros,boolean anadir) throws IOException {
 		boolean correcto = false;
 		try {
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
+			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, anadir));
 			for (int i = 0; i < listaLibros.size(); i++) {
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
 						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
@@ -85,8 +85,6 @@ public class Metodos {
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return correcto;
 	}
@@ -104,8 +102,9 @@ public class Metodos {
 		String notas;
 		String isbn;
 		String materias;
+		
 		try {
-			System.out.println("Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
+			System.out.println("   Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
 					+ "\t\t" + "Isbn" + "\t\t" + "Materias");
 			for (int i = 0; i < listaLibros.size(); i++) {
 				titulo = listaLibros.get(i).getTitulo() + "        ";
@@ -116,15 +115,14 @@ public class Metodos {
 				isbn = listaLibros.get(i).getIsbn() + "       ";
 				materias = listaLibros.get(i).getMaterias() + "      ";
 
-				System.out.println(titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
+				System.out.println((i+1)+"   "+titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
 						+ paginas.substring(0, 2) + "\t\t" + altura.substring(0, 4) + "\t\t" + notas.substring(0, 5)
 						+ "\t\t" + isbn.substring(0, 5) + "\t\t" + materias.substring(0, 5));
 			}
 			correcto=true;
 		} catch (Exception e) {
 			System.out.println("error listar libros");
-			correcto = false;
-		} 
+		}
 
 		return correcto;
 	}

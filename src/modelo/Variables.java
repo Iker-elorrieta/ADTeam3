@@ -17,8 +17,10 @@ public class Variables {
 	public static File ficheroCsv;
 	public static String Xml=".\\Ficheros\\libreria.xml";
 	public static String Csv=".\\Ficheros\\Fichero3.csv";
-	public static ArrayList<Libro> listaLibros = new ArrayList<Libro>();
-	public static ArrayList<Libro> listaLibrosxml = new ArrayList<Libro>();
+	static ArrayList<Libro> listaLibrosTxt = new ArrayList<Libro>();
+	static ArrayList<Libro> listaLibrosXml= new ArrayList<Libro>();
+	static ArrayList<Libro> listaLibrosCsv= new ArrayList<Libro>();
+	public static ArrayList []listaLibrerias = {listaLibrosTxt,listaLibrosXml,listaLibrosCsv};
 	/*
 	 * Variable para mantener la cuenta desde donde empezar ha insertar libros en el fichero.
 	 */
