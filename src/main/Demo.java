@@ -50,19 +50,19 @@ public class Demo {
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
-				
+
 			}
-			
+
 			if (Variables.ficheroTxt.createNewFile())
 				System.out.println("Se creo un archivo nuevo.");
 			else
 				Metodos.cargarLista(Variables.ficheroTxt);
-			
+
 			if (Variables.ficheroXml.createNewFile())
 				System.out.println("Se creo un archivo nuevo xml.");
 			else
 				leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlXml);
-			
+
 			do {
 				menu(teclado);
 				System.out.println("¿Quiere hacer otras operaciones? s/n");
@@ -85,41 +85,41 @@ public class Demo {
 		try {
 
 			System.out.println("Elige alguna de las opciones: ");
-			System.out.println("1) Xml"); 
+			System.out.println("1) Xml");
 			System.out.println("2) txt");
 			System.out.println("3) Csv");
 			respuestaOpcionesTipo = entradaInt(1, 3, teclado);
-		
+
 			if (respuestaOpcionesTipo == 1) {
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. Crear Xml");
-			System.out.println("2. leer Xml");
-			System.out.println("3. modificar Xml");
-			System.out.println("4. eliminar Xml");
-			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
-			menuXml(respuestaOpcionesAccion, teclado);
-			correcto = true;
+				System.out.println("¿Que desea hacer?");
+				System.out.println("1. Crear Xml");
+				System.out.println("2. leer Xml");
+				System.out.println("3. modificar Xml");
+				System.out.println("4. eliminar Xml");
+				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
+				menuXml(respuestaOpcionesAccion, teclado);
+				correcto = true;
 			}
-			
+
 			else if (respuestaOpcionesTipo == 2) {
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. añadir");
-			System.out.println("3. modificar");
-			System.out.println("4. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
-			menuTxt(respuestaOpcionesAccion, teclado);
-			correcto = true;
-		} else if (respuestaOpcionesTipo == 3) {
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. crear");
-			System.out.println("3. modificar");
-			System.out.println("4. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
-			menuCsv(respuestaOpcionesAccion, teclado);
-			correcto = true;
-			} 
+				System.out.println("¿Que desea hacer?");
+				System.out.println("1. leer");
+				System.out.println("2. añadir");
+				System.out.println("3. modificar");
+				System.out.println("4. eliminar");
+				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
+				menuTxt(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			} else if (respuestaOpcionesTipo == 3) {
+				System.out.println("¿Que desea hacer?");
+				System.out.println("1. leer");
+				System.out.println("2. crear");
+				System.out.println("3. modificar");
+				System.out.println("4. eliminar");
+				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
+				menuCsv(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			}
 		} catch (Exception e) {
 			correcto = false;
 		}
@@ -139,7 +139,7 @@ public class Demo {
 				if (result < min || result > max) {
 					System.out.println("Tiene que insertar un numero entre " + min + " y " + max);
 					teclado.nextLine();
-				} 
+				}
 			} catch (InputMismatchException a) {
 				System.out.println("Tiene que insertar un numero:");
 				teclado.nextLine();
@@ -176,7 +176,7 @@ public class Demo {
 	/*
 	 * Metodo para la creacion de un nuevo objeto libro.
 	 */
-	public static void crearLibro(Scanner teclado) throws IOException {
+	public static void crearLibro(Scanner teclado) {
 		String titulo;
 		String editorial;
 		int paginas;
@@ -216,8 +216,13 @@ public class Demo {
 		System.out.println(libro.mostrar());
 		if (confirmacionSN(teclado)) {
 			Variables.listaLibrerias[1].add(libro);
-			Metodos.escribir(Variables.listaLibrerias[1],true);
-		} 
+			try {
+				Metodos.escribir(Variables.listaLibrerias[1], true);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	/*
@@ -273,10 +278,10 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlXml);
+				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[1], Variables.urlXml);
 				Metodos.listar(Variables.listaLibrerias[1]);
 				correcto = true;
-				
+
 				break;
 			case 3:
 				modelo.modificarXml.modXml(teclado);
@@ -300,6 +305,7 @@ public class Demo {
 
 		} catch (Exception e) {
 			System.out.println("datos incorrectos");
+			correcto=false;
 		}
 		return correcto;
 
@@ -316,25 +322,24 @@ public class Demo {
 				Metodos.listar(Variables.listaLibrerias[1]);
 				correcto = true;
 			} else if (opcion == 2) {
-				while(confirmacionEscribir) {
+				while (confirmacionEscribir) {
 					teclado.nextLine();
 					crearLibro(teclado);
 					System.out.println("¿Quiere escribir un otro libro? s/n");
 					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
 					crearLibro(teclado);
-					correcto = true; 
+					correcto = true;
 				}
-			}
-			else if (opcion == 3) 
-			{
+			} else if (opcion == 3) {
 				System.out.println("¿Que libro quiere modificar?");
 				Metodos.listar(Variables.listaLibrerias[1]);
 				System.out.println("Escriba el numero: ");
-				Libro libro = (Libro) Variables.listaLibrerias[1].get((entradaInt(1,Variables.listaLibrerias[1].size(),teclado))-1);
+				Libro libro = (Libro) Variables.listaLibrerias[1]
+						.get((entradaInt(1, Variables.listaLibrerias[1].size(), teclado)) - 1);
 				System.out.println(libro.mostrar());
 				System.out.println("¿Que campo quiere modificar? escriba el numero del campo: ");
-				int respuesta = entradaInt(1,7,teclado);
+				int respuesta = entradaInt(1, 7, teclado);
 				switch (respuesta) {
 				case 1:
 					System.out.println("Escriba el nuevo titulo: ");
@@ -372,24 +377,20 @@ public class Demo {
 				}
 				Variables.posicionNumero = 0;
 				Metodos.escribir(Variables.listaLibrerias[1], false);
-				
-			}
-			else if(opcion == 4)
-			{
+
+			} else if (opcion == 4) {
 				if (Variables.ficheroTxt.delete()) {
 					System.out.println("Fichero de texto borrado.");
 				} else {
-				if(Variables.ficheroTxt.delete())
-				{
-					System.out.println("Fichero de texto borrado.");			
-				}
-				
-				else
-				{
-					System.out.println("No se ha borrado el fichero.");
-				}
-				
+					if (Variables.ficheroTxt.delete()) {
+						System.out.println("Fichero de texto borrado.");
 					}
+
+					else {
+						System.out.println("No se ha borrado el fichero.");
+					}
+
+				}
 			}
 			correcto = true;
 		} catch (Exception e) {

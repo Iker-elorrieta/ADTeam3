@@ -122,6 +122,7 @@ public class Metodos {
 			correcto=true;
 		} catch (Exception e) {
 			System.out.println("error listar libros");
+			correcto=false;
 		}
 
 		return correcto;

@@ -1,9 +1,10 @@
 package pruebas;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import modelo.Libro;
@@ -13,8 +14,7 @@ import modelo.Variables;
 
 class pruebasFichero {
 
-	// metodo cargar
-	@Test
+	@Test 
 	void testCargarListas(){
 		Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 		Variables.ficheroTxt = new File(Variables.urlTxt);
@@ -28,22 +28,19 @@ class pruebasFichero {
 		boolean result = Metodos.cargarLista(ficheroTest);
 		assertEquals(false, result);
 	}
-	// fin metodo cargar
-
+	
 	@Test
 	void testListarTxt() {
 		boolean result = Metodos.listar(Variables.listaLibrerias[0]);
 		assertEquals(true, result);
 	}
 
-	// metodo utilidades
 	@Test
 	void testUtilidades() {
 		boolean result = modelo.Utilidades.validar(Patrones.titulo.getNombre(), "camilo");
 		assertEquals(true, result);
 	}
 
-	//libro test
 	@Test
 	void testLibro() {
 		Libro libro;
@@ -144,5 +141,53 @@ class pruebasFichero {
 		boolean result=modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[1], Variables.urlXml);
 		assertEquals(true, result);
 	}
+	
+	@Test
+	void testleerPrincipalFalse() {
+		Variables.urlXml=".\\Ficheroslibreria.xml";
+		boolean result=modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[1], Variables.urlXml);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testDemoConfirmacion1() {
+		String input = "a \n s \n ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.confirmacionSN(teclado);
+		assertEquals(true, result);
+	}
 
+	@Test
+	void testDemoConfirmacion2() {
+		String input = "a \n n \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.confirmacionSN(teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testDemoConfirmacion() {
+		String input = "a \n n \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.confirmacionSN(teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testDemoMenuXml2() {
+		String input = "2";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menuXml(2, null);
+		assertEquals(true, result);
+	}
+	
+	
 }
