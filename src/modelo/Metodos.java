@@ -17,7 +17,7 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static boolean cargarLista(File fichero)  {
+	public static ArrayList cargarLista(File fichero, ArrayList<Libro> lista)  {
 		boolean correcto=false;
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
@@ -46,7 +46,7 @@ public class Metodos {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
 					}
-					Variables.listaLibrerias[1].add(libro);
+					lista.add(libro);
 					correcto=true;
 			}
 			if(contenido.size()!=0)
@@ -62,7 +62,7 @@ public class Metodos {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		return correcto;
+		return lista;
 	}
 
 	/*
@@ -125,6 +125,30 @@ public class Metodos {
 		}
 
 		return correcto;
+	}
+	
+	public static boolean isWindows() 
+	{
+		if(Variables.OS.indexOf("win") >= 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public static boolean isUnix() 
+	{
+		if(Variables.OS.indexOf("nix") >= 0 || Variables.OS.indexOf("nux") >= 0 || Variables.OS.indexOf("aix") > 0 )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

@@ -14,20 +14,20 @@ import modelo.Variables;
 class pruebasFichero {
 
 	// metodo cargar
-	@Test
-	void testCargarListas(){
-		Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
-		Variables.ficheroTxt = new File(Variables.urlTxt);
-		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
-		assertEquals(true, result);
-	} 
-
-	@Test
-	void testCargarListasFalse(){
-		File ficheroTest = new File("fichero.txt");
-		boolean result = Metodos.cargarLista(ficheroTest);
-		assertEquals(false, result);
-	}
+//	@Test
+//	void testCargarListas(){
+//		Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
+//		Variables.ficheroTxt = new File(Variables.urlTxt);
+//		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
+//		assertEquals(true, result);
+//	} 
+//
+//	@Test
+//	void testCargarListasFalse(){
+//		File ficheroTest = new File("fichero.txt");
+//		boolean result = Metodos.cargarLista(ficheroTest);
+//		assertEquals(false, result);
+//	}
 	// fin metodo cargar
 
 	// metodo crear xml

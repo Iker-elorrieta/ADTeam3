@@ -23,13 +23,8 @@ public class Demo {
 	public static void main(String[] args) throws IOException {
 		Scanner teclado = new Scanner(System.in);
 		try {
-			
-			System.out.println("eliga el sistema operativo"); 
-			System.out.println("1- windows");
-			System.out.println("2- Linux");
-			int opcion = entradaInt(1, 2,teclado);
 	  
-			if (opcion == 1) {
+			if (Metodos.isWindows()) {
  
 				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 				Variables.urlXml = ".\\Ficheros\\libreria.xml";
@@ -38,7 +33,7 @@ public class Demo {
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
-			} else { 
+			} else if (Metodos.isUnix()){ 
 				Variables.urlTxt = "./Ficheros/Fichero1.txt";  
 				Variables.urlXml = "./Ficheros/libreria.xml";
 				Variables.urlCsv = "./Ficheros/Fichero3.csv";
@@ -46,17 +41,7 @@ public class Demo {
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
-			}
-			
-			if (Variables.ficheroTxt.createNewFile())
-				System.out.println("Se creo un archivo nuevo.");
-			else
-				Metodos.cargarLista(Variables.ficheroTxt);
-
-			if (Variables.ficheroXml.createNewFile())
-				System.out.println("Se creo un archivo nuevo xml.");
-			else
-				leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlXml);
+			}	
 			
 			do {
 				menu(teclado);
@@ -225,8 +210,8 @@ public class Demo {
 			String titulo, editorial, materias, notas;
 			char letra;
 			Libro libros = new Libro();
-			ArrayList<Libro> listaLibro = new ArrayList<>();
-
+			ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+			listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, Variables.urlTxt);
 			switch (opcion) {
 
 			case 1:
@@ -267,9 +252,9 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlTxt);
+				
 				correcto = true;
-				Metodos.listar(Variables.listaLibrerias[0]);
+				Metodos.listar(listaLibro);
 				break;
 			case 3:
 				modelo.modificarXml.modXml();
@@ -304,9 +289,11 @@ public class Demo {
 	public static boolean menuTxt(int opcion,Scanner teclado) {
 		boolean correcto = false;
 		boolean confirmacionEscribir = true;
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		lista = Metodos.cargarLista(Variables.ficheroTxt, lista);
 		try {
 			if (opcion == 1) {
-				Metodos.listar(Variables.listaLibrerias[1]);
+				Metodos.listar(lista);
 				correcto = true;
 			} else if (opcion == 2) {
 				while(confirmacionEscribir) {
@@ -320,9 +307,9 @@ public class Demo {
 			else if (opcion == 3) 
 			{
 				System.out.println("¿Que libro quiere modificar?");
-				Metodos.listar(Variables.listaLibrerias[1]);
+				Metodos.listar(lista);
 				System.out.println("Escriba el numero: ");
-				Libro libro = (Libro) Variables.listaLibrerias[1].get((entradaInt(1,Variables.listaLibrerias[1].size(),teclado))-1);
+				Libro libro = lista.get((entradaInt(1,lista.size(),teclado))-1);
 				System.out.println(libro.mostrar());
 				System.out.println("¿Que campo quiere modificar? escriba el numero del campo: ");
 				int respuesta = entradaInt(1,7,teclado);
@@ -362,7 +349,7 @@ public class Demo {
 					break;
 				}
 				Variables.posicionNumero = 0;
-				Metodos.escribir(Variables.listaLibrerias[1], false);
+				Metodos.escribir(lista, false);
 				
 			}
 			else if(opcion == 4)

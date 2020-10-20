@@ -9,15 +9,15 @@ import org.xml.sax.SAXException;
 
 
 public class leerPrincipalXml {	
-	public static boolean leerPrincipal(ArrayList<Libro> listaLibros,String rutaFichero) {
+	public static ArrayList leerPrincipal(ArrayList<Libro> listaLibros,String rutaFichero) {
 		boolean correcto = false;
 		try {
-			rutaFichero =Variables.Xml; 
+			rutaFichero =Variables.urlXml; 
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
 			SAXParser parser = factory.newSAXParser(); 
 			parser.parse(rutaFichero, leerXml); 
-			Variables.listaLibrerias[0] = leerXml.obtenerlibros();
+			listaLibros = leerXml.obtenerlibros();
 			
 			correcto=true;
 		} catch (IOException e) {
@@ -30,7 +30,7 @@ public class leerPrincipalXml {
 			e.printStackTrace();
 			correcto=false;
 		}
-		return correcto;
+		return listaLibros;
 	}
 
 }
