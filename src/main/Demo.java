@@ -273,8 +273,8 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlTxt);
-				Metodos.listar(Variables.listaLibrerias[0]);
+				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlXml);
+				Metodos.listar(Variables.listaLibrerias[1]);
 				correcto = true;
 				
 				break;

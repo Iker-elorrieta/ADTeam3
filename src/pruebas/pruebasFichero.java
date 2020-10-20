@@ -30,8 +30,6 @@ class pruebasFichero {
 	}
 	// fin metodo cargar
 
-	// metodo crear xml
-	
 	@Test
 	void testListarTxt() {
 		boolean result = Metodos.listar(Variables.listaLibrerias[0]);
@@ -141,11 +139,10 @@ class pruebasFichero {
 	}
 
 	@Test
-	void testCrearXml() {
-		boolean result=modelo.crearXml.crearXml(Variables.listaLibrerias[0]);
+	void testleerPrincipal() {
+		Variables.urlXml=".\\Ficheros\\libreria.xml";
+		boolean result=modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[1], Variables.urlXml);
 		assertEquals(true, result);
 	}
-	
-	
-	
+
 }
