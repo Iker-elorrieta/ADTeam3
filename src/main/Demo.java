@@ -50,18 +50,14 @@ public class Demo {
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
 				Variables.ficheroCsv = new File(Variables.urlCsv);
+				
 			}
-
+			
 			if (Variables.ficheroTxt.createNewFile())
 				System.out.println("Se creo un archivo nuevo.");
 			else
 				Metodos.cargarLista(Variables.ficheroTxt);
 			
-			if (Variables.ficheroXml.createNewFile())
-				System.out.println("Se creo un archivo nuevo xml.");
-			else
-				leerPrincipalXml.leerPrincipal(Variables.listaLibrosxml, Variables.urlXml);
-
 			if (Variables.ficheroXml.createNewFile())
 				System.out.println("Se creo un archivo nuevo xml.");
 			else
@@ -93,38 +89,26 @@ public class Demo {
 			System.out.println("2) txt");
 			System.out.println("3) Csv");
 			respuestaOpcionesTipo = entradaInt(1, 3, teclado);
-		if (respuestaOpcionesTipo == 1) {
+		
+			if (respuestaOpcionesTipo == 1) {
 			System.out.println("¿Que desea hacer?");
 			System.out.println("1. Crear Xml");
 			System.out.println("2. leer Xml");
 			System.out.println("3. modificar Xml");
 			System.out.println("4. eliminar Xml");
 			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
-
-			if (respuestaOpcionesTipo == 1) {
-				System.out.println("ï¿½Que desea hacer?");
-				System.out.println("1. Crear Xml");
-				System.out.println("2. leer Xml");
-				System.out.println("3. modificar Xml");
-				System.out.println("4. eliminar Xml");
-				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
-
-				menuXml(respuestaOpcionesAccion, teclado);
-				correcto = true;
-			} else if (respuestaOpcionesTipo == 2) {
+			menuXml(respuestaOpcionesAccion, teclado);
+			correcto = true;
+			}
+			
+			else if (respuestaOpcionesTipo == 2) {
 			System.out.println("¿Que desea hacer?");
 			System.out.println("1. leer");
 			System.out.println("2. añadir");
 			System.out.println("3. modificar");
 			System.out.println("4. eliminar");
 			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
-
-				System.out.println("ï¿½Que desea hacer?");
-				System.out.println("1. leer");
-				System.out.println("2. modificar");
-				System.out.println("3. eliminar");
-				respuestaOpcionesAccion = entradaInt(1, 3, teclado);
-			menuTxt(respuestaOpcionesAccion,teclado);
+			menuTxt(respuestaOpcionesAccion, teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
 			System.out.println("¿Que desea hacer?");
@@ -133,20 +117,9 @@ public class Demo {
 			System.out.println("3. modificar");
 			System.out.println("4. eliminar");
 			respuestaOpcionesAccion = entradaInt(1, 4,teclado);
-				menuTxt(respuestaOpcionesAccion, teclado);
-				correcto = true;
-			} else if (respuestaOpcionesTipo == 3) {
-				System.out.println("ï¿½Que desea hacer?");
-				System.out.println("1. leer");
-				System.out.println("2. crear");
-				System.out.println("3. modificar");
-				System.out.println("4. eliminar");
-				respuestaOpcionesAccion = entradaInt(1, 4, teclado);
-
-				menuCsv(respuestaOpcionesAccion, teclado);
-				correcto = true;
-			}
-		}
+			menuCsv(respuestaOpcionesAccion, teclado);
+			correcto = true;
+			} 
 		} catch (Exception e) {
 			correcto = false;
 		}
@@ -242,12 +215,10 @@ public class Demo {
 				"¿Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
 		System.out.println(libro.mostrar());
 		if (confirmacionSN(teclado)) {
-			Variables.listaLibros.add(libro);
-			Metodos.escribir(Variables.listaLibros);
-		}
 			Variables.listaLibrerias[1].add(libro);
 			Metodos.escribir(Variables.listaLibrerias[1],true);
 		} 
+	}
 
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension xml.
@@ -302,11 +273,10 @@ public class Demo {
 
 			case 2:
 
-				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibros, Variables.urlTxt);
 				modelo.leerPrincipalXml.leerPrincipal(Variables.listaLibrerias[0], Variables.urlTxt);
-				correcto = true;
-				Metodos.listar(Variables.listaLibrosxml);
 				Metodos.listar(Variables.listaLibrerias[0]);
+				correcto = true;
+				
 				break;
 			case 3:
 				modelo.modificarXml.modXml(teclado);

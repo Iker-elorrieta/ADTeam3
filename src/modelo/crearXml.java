@@ -92,7 +92,7 @@ public class crearXml {
 
 			Source source = new DOMSource(documento);
 			// ruta donde se crea
-			Result result = new StreamResult(new File(Variables.Xml));
+			Result result = new StreamResult(new File(Variables.urlXml));
 			// crea el fichero XML
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);

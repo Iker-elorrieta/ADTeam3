@@ -48,7 +48,7 @@ public class ficheroCsv {
 		boolean seguir;
 		try {
 
-			String ruta = Variables.Csv;
+			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");

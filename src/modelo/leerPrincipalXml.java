@@ -12,12 +12,11 @@ public class leerPrincipalXml {
 	public static boolean leerPrincipal(ArrayList<Libro> listaLibros,String rutaFichero) {
 		boolean correcto = false;
 		try {
-			rutaFichero =Variables.Xml; 
+			rutaFichero =Variables.urlXml; 
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			leerXml leerXml = new leerXml();
 			SAXParser parser = factory.newSAXParser(); 
 			parser.parse(rutaFichero, leerXml); 
-			Variables.listaLibrosxml = leerXml.obtenerlibros();
 			Variables.listaLibrerias[0] = leerXml.obtenerlibros();
 			
 			correcto=true;
