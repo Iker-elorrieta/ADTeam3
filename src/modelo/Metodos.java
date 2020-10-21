@@ -68,7 +68,7 @@ public class Metodos {
 	/*
 	 * Metodo para insertar en el txt un libro.
 	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros,boolean anadir) throws IOException {
+	public static boolean escribir(ArrayList<Libro> listaLibros,boolean anadir) {
 		boolean correcto = false;
 		try {
 			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, anadir));
@@ -85,6 +85,9 @@ public class Metodos {
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return correcto;
 	}

@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import modelo.Libro;
 import modelo.Metodos;
+import modelo.Patrones;
 import modelo.Utilidades;
 import modelo.Variables;
 import modelo.ficheroCsv;
@@ -155,48 +157,87 @@ public class Demo {
 	 * Metodo para la creacion de un nuevo objeto libro.
 	 */
 	public static void crearLibro(Scanner teclado) throws IOException {
+		final String NEXT_LINE = "\n";
 		String titulo;
-		String editorial;
-		int paginas;
-		Double altura;
+		String editorial, paginas;
+		String altura;
 		String notas;
-		int isbn;
+		String isbn;
 		String materias;
-
-		System.out.println("Inserte el titulo: ");
-		titulo = teclado.nextLine();
-
-		System.out.println("Inserte el editorial: ");
-		editorial = teclado.nextLine();
-
-		System.out.println("Inserte las paginas: ");
-		paginas = teclado.nextInt();
-		teclado.nextLine();
-
-		System.out.println("Inserte al altura: ");
-		altura = teclado.nextDouble();
-		teclado.nextLine();
-
-		System.out.println("Inserte las notas: ");
-		notas = teclado.nextLine();
-
-		System.out.println("Inserte el isbn: ");
-		isbn = teclado.nextInt();
-		teclado.nextLine();
-
-		System.out.println("Inserte la materia: ");
-		materias = teclado.nextLine();
-
-		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
-
-		System.out.println(
-				"¿Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
-		System.out.println(libro.mostrar());
-		if (confirmacionSN(teclado)) {
-			Variables.listaLibrerias[1].add(libro);
-			Metodos.escribir(Variables.listaLibrerias[1],true);
-		} 
-
+		boolean seguir;
+		
+		do {
+			System.out.println("Inserte el titulo: ");
+			if (Utilidades.validar(Patrones.titulo.getNombre(), titulo = teclado.nextLine())) {
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+	
+		do {
+			System.out.println("Inserte el editorial: ");
+	
+			if (Utilidades.validar(Patrones.editorial.getNombre(), editorial = teclado.nextLine())) {
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+	
+		do {
+			System.out.println("Inserte las paginas: ");
+			if (Utilidades.validar(Patrones.paginas.getNombre(), paginas = teclado.nextLine())) {
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+	
+		do {
+			System.out.println("Inserte la altura: ");
+			if (Utilidades.validar(Patrones.altura.getNombre(), altura = teclado.nextLine())) {
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+	
+		do {
+			System.out.println("Inserte las notas: ");
+			if (Utilidades.validar(Patrones.notas.getNombre(), notas = teclado.nextLine())) {
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+	
+		do {
+			System.out.println("Inserte el isbn: ");
+			if (Utilidades.validar(Patrones.isbn.getNombre(), isbn = teclado.nextLine())) {
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+	
+		do {
+			System.out.println("Inserte las materias: ");
+			if (Utilidades.validar(Patrones.materias.getNombre(), materias = teclado.nextLine())) {
+	
+				seguir = true;
+			} else {
+				System.out.println("Datos no validos");
+				seguir = false;
+			}
+		} while (!seguir);
+//		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
 	}
 
 	/*
