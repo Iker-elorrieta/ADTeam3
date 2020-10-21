@@ -15,6 +15,22 @@ public class Utilidades {
 		}
 		return validado;
 	}
+	public static boolean isNumeric(String cadena){
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
+	}
+	public static boolean isNumericDouble(String cadena){
+		try {
+			Double.parseDouble(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
+	}
 	public static boolean continuar() {
 
 		boolean error = true;

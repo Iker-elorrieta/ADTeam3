@@ -78,7 +78,7 @@ public class ficheroCsv {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error al leer fichero o no existe");
+			System.out.println("Error al leer fichero");
 		} finally {
 			if (null != br) {
 				try {
@@ -95,10 +95,12 @@ public class ficheroCsv {
 		final String NEXT_LINE = "\n";
 		Scanner sc = new Scanner(System.in);
 		String titulo;
-		String editorial, paginas;
-		String altura;
+		String editorial,strPaginas;
+		int paginas,isbn;
+		double altura = 0;
+		String strAltura;
 		String notas;
-		String isbn;
+		String strIsbn;
 		String materias;
 		boolean seguir;
 		try {
@@ -138,7 +140,10 @@ public class ficheroCsv {
 
 			do {
 				System.out.println("Inserte las paginas: ");
-				if (Utilidades.validar(Patrones.paginas.getNombre(), paginas = sc.nextLine())) {
+				paginas = sc.nextInt();
+				strPaginas = String.valueOf(paginas);
+				sc.nextLine();
+				if (Utilidades.validar(Patrones.paginas.getNombre(), strPaginas)) {
 					seguir = true;
 				} else {
 					System.out.println("Datos no validos");
@@ -148,7 +153,14 @@ public class ficheroCsv {
 
 			do {
 				System.out.println("Inserte la altura: ");
-				if (Utilidades.validar(Patrones.altura.getNombre(), altura = sc.nextLine())) {
+				strAltura = sc.nextLine();
+				
+				if (Utilidades.isNumericDouble(strAltura)) {
+					altura= Double.parseDouble(strAltura);
+				}
+				
+				
+				if (Utilidades.validar(Patrones.altura.getNombre(),strAltura)) {
 					seguir = true;
 				} else {
 					System.out.println("Datos no validos");
@@ -168,7 +180,10 @@ public class ficheroCsv {
 
 			do {
 				System.out.println("Inserte el isbn: ");
-				if (Utilidades.validar(Patrones.isbn.getNombre(), isbn = sc.nextLine())) {
+				isbn = sc.nextInt();
+				strIsbn = String.valueOf(isbn);
+				sc.nextLine();
+				if (Utilidades.validar(Patrones.isbn.getNombre(), strIsbn)) {
 					seguir = true;
 				} else {
 					System.out.println("Datos no validos");
@@ -186,16 +201,16 @@ public class ficheroCsv {
 					seguir = false;
 				}
 			} while (!seguir);
-			//Libro libro = new Libro(titulo,editorial,)
+			Libro libro = new Libro(titulo,editorial,paginas,altura,notas,isbn,materias);
 			
-			fw.append(titulo).append(NEXT_LINE);
+			fw.append("Titulo: ").append(titulo).append(NEXT_LINE);
 
-			fw.append(editorial).append(NEXT_LINE);
-			fw.append(paginas).append(NEXT_LINE);
-			fw.append(altura).append(NEXT_LINE);
-			fw.append(notas).append(NEXT_LINE);
-			fw.append(isbn).append(NEXT_LINE);
-			fw.append(materias).append(NEXT_LINE);
+			fw.append("Editorial: ").append(editorial).append(NEXT_LINE);
+			fw.append("Paginas: ").append(strPaginas).append(NEXT_LINE);
+			fw.append("Altura: ").append(strAltura).append(NEXT_LINE);
+			fw.append("Notas: ").append(notas).append(NEXT_LINE);
+			fw.append("Isbn: ").append(strIsbn).append(NEXT_LINE);
+			fw.append("Materias: ").append(materias).append(NEXT_LINE);
 
 			fw.flush();
 			fw.close();
@@ -360,7 +375,8 @@ public class ficheroCsv {
 			String ruta = ".\\Ficheros\\"+ nombreFichero + ".csv";
 			
 			File fichero = new File(ruta);
-			if (fichero.exists() && fichero.delete()) {
+			if (fichero.exists() && fichero.delete()) { 
+				 
 				System.out.println("El fichero ha sido borrado satisfactoriamente");
 				}else {
 				System.out.println("El fichero no puede ser borrado o no existe");
@@ -369,9 +385,9 @@ public class ficheroCsv {
 			
 			
 		}} catch (Exception e) {
-		}
+		
 			System.out.println("Error al eliminar fichero");
-		}
+		}}
 	}
 
 
