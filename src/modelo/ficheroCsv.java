@@ -54,6 +54,7 @@ public class ficheroCsv {
 		BufferedReader br = null;
 		String nombreFichero;
 		Scanner sc = new Scanner(System.in);
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 		boolean seguir;
 		try {
 			System.out.println("introduzca nombre del fichero");
@@ -75,6 +76,7 @@ public class ficheroCsv {
 					line = br.readLine();
 				}
 
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,15 +159,18 @@ public class ficheroCsv {
 				
 				if (Utilidades.isNumericDouble(strAltura)) {
 					altura= Double.parseDouble(strAltura);
+
+					if (Utilidades.validar(Patrones.altura.getNombre(),strAltura)) {
+						seguir = true;
+					} else {
+						System.out.println("Datos no validos");
+						seguir = false;
+					}
+				}else {
+					System.out.println("introducir '.' si es decimal, no se admiten caracteres");
 				}
 				
 				
-				if (Utilidades.validar(Patrones.altura.getNombre(),strAltura)) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
 			} while (!seguir);
 
 			do {
@@ -203,7 +208,8 @@ public class ficheroCsv {
 			} while (!seguir);
 			Libro libro = new Libro(titulo,editorial,paginas,altura,notas,isbn,materias);
 			
-			fw.append("Titulo: ").append(titulo).append(NEXT_LINE);
+			
+			fw.append("Titulo: ").append(libro.getTitulo()).append(NEXT_LINE);
 
 			fw.append("Editorial: ").append(editorial).append(NEXT_LINE);
 			fw.append("Paginas: ").append(strPaginas).append(NEXT_LINE);
