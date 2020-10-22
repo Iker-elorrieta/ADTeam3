@@ -305,7 +305,7 @@ public class Demo {
 
 		case 1:
 
-			ficheroCsv.leerCsv();
+			Metodos.listar(ficheroCsv.cargarCsv());
 			break;
 
 		case 2:

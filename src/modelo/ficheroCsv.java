@@ -16,45 +16,17 @@ public class ficheroCsv {
 	public static final String QUOTE = "\"";
 
 	
-	public static void menuCsv(int opcion) {
-		
-		
-		Scanner sc = new Scanner(System.in);
-		
-			
+	
 
-			switch (opcion) {
-
-			case 1:
-
-				leerCsv();
-				break;
-
-			case 2:
-
-				crearArchivoCSV();
-
-				break;
-			case 3:
-
-				 ModificarFichero();
-				break;
-			case 4:
-				EliminarficheroCsv();
-				
-
-				break;
-			}
-
-			
-	}
-
-	public static void leerCsv() {
+	public static ArrayList cargarCsv() {
 
 		BufferedReader br = null;
 		String nombreFichero;
 		Scanner sc = new Scanner(System.in);
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+		
+		String[] fields = null ;
+		ArrayList<String[]> lista = new ArrayList<String[]>();
 		boolean seguir;
 		try {
 			System.out.println("introduzca nombre del fichero");
@@ -70,12 +42,30 @@ public class ficheroCsv {
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
 				while (null != line) {
-					String[] fields = line.split(SEPARATOR);
-					System.out.println(Arrays.toString(fields));
-
+					 fields = line.split(SEPARATOR);
+					//System.out.println(line);
+					//System.out.println(Arrays.toString(fields));
+					 lista.add(fields);
+					 
 					line = br.readLine();
 				}
-
+				for(int linea = 0;linea<lista.size();linea++) {
+					
+				
+					Libro libro = new Libro();
+					
+					libro.setTitulo(fields[0]);
+					libro.setEditorial(fields[1]);
+					libro.setPaginas(Integer.parseInt(fields[2]));
+					libro.setAltura(Double.parseDouble(fields[3]));
+					libro.setNotas(fields[4]);
+					libro.setIsbn(Integer.parseInt(fields[5]));
+					libro.setMaterias(fields[6]);
+					listaLibro.add(libro);
+					
+				}
+				
+				
 				
 			}
 		} catch (Exception e) {
@@ -91,10 +81,11 @@ public class ficheroCsv {
 				}
 			}
 		}
+		return listaLibro;
 	}
 
 	public static void crearArchivoCSV() {
-		final String NEXT_LINE = "\n";
+		final String NEXT_LINE = ";";
 		Scanner sc = new Scanner(System.in);
 		String titulo;
 		String editorial,strPaginas;
@@ -121,102 +112,90 @@ public class ficheroCsv {
 
 			do {
 				System.out.println("Inserte el titulo: ");
-				if (Utilidades.validar(Patrones.titulo.getNombre(), titulo = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
+				titulo = sc.nextLine();
+				seguir = true;
 			} while (!seguir);
 
 			do {
 				System.out.println("Inserte el editorial: ");
-
-				if (Utilidades.validar(Patrones.editorial.getNombre(), editorial = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
+				editorial = sc.nextLine();
+				seguir= true;
 			} while (!seguir);
 
-			do {
+			//do {
 				System.out.println("Inserte las paginas: ");
 				paginas = sc.nextInt();
-				strPaginas = String.valueOf(paginas);
+				//strPaginas = String.valueOf(paginas);
 				sc.nextLine();
-				if (Utilidades.validar(Patrones.paginas.getNombre(), strPaginas)) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
-
-			do {
-				System.out.println("Inserte la altura: ");
-				strAltura = sc.nextLine();
 				
-				if (Utilidades.isNumericDouble(strAltura)) {
-					altura= Double.parseDouble(strAltura);
+			//} while (!seguir);
 
-					if (Utilidades.validar(Patrones.altura.getNombre(),strAltura)) {
-						seguir = true;
+			//do {
+				System.out.println("Inserte la altura: ");
+				
+				altura = sc.nextDouble();
+				sc.nextLine();
+					/*if (Utilidades.validar(Patrones.altura.getNombre(),strAltura)) {
+						
 					} else {
 						System.out.println("Datos no validos");
-						seguir = false;
-					}
-				}else {
-					System.out.println("introducir '.' si es decimal, no se admiten caracteres");
-				}
-				
-				
-			} while (!seguir);
+						
+					}*/
+//				}else {
+//					seguir = false;
+//					System.out.println("introducir '.' si es decimal, no se admiten caracteres");
+//				}
+//				
+//				
+//			} while (!seguir);
 
-			do {
+			//do {
 				System.out.println("Inserte las notas: ");
-				if (Utilidades.validar(Patrones.notas.getNombre(), notas = sc.nextLine())) {
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				notas = sc.nextLine();
+//					if (Utilidades.validar(Patrones.notas.getNombre(), )) {
+//					seguir = true;
+//				} else {
+//					System.out.println("Datos no validos");
+//					seguir = false;
+//				}
+//			} while (!seguir);
 
-			do {
+//			do {
 				System.out.println("Inserte el isbn: ");
 				isbn = sc.nextInt();
-				strIsbn = String.valueOf(isbn);
+				//strIsbn = String.valueOf(isbn);
 				sc.nextLine();
-				if (Utilidades.validar(Patrones.isbn.getNombre(), strIsbn)) {
-					seguir = true;
+				//seguir = true;
+				/*if (Utilidades.validar(Patrones.isbn.getNombre(), strIsbn)) {
+					
 				} else {
 					System.out.println("Datos no validos");
 					seguir = false;
-				}
-			} while (!seguir);
+				}*/
+			//} while (!seguir);
 
-			do {
+			//do {
 				System.out.println("Inserte las materias: ");
-				if (Utilidades.validar(Patrones.materias.getNombre(), materias = sc.nextLine())) {
-
-					seguir = true;
-				} else {
-					System.out.println("Datos no validos");
-					seguir = false;
-				}
-			} while (!seguir);
+				materias = sc.nextLine();
+//				if (Utilidades.validar(Patrones.materias.getNombre(), )) {
+//
+//					seguir = true;
+//				} else {
+//					System.out.println("Datos no validos");
+//					seguir = false;
+//				}
+//			} while (!seguir);
 			Libro libro = new Libro(titulo,editorial,paginas,altura,notas,isbn,materias);
 			
 			
-			fw.append("Titulo: ").append(libro.getTitulo()).append(NEXT_LINE);
+			fw/*.append("Titulo: ")*/.append(libro.getTitulo()).append(SEPARATOR);
 
-			fw.append("Editorial: ").append(editorial).append(NEXT_LINE);
-			fw.append("Paginas: ").append(strPaginas).append(NEXT_LINE);
-			fw.append("Altura: ").append(strAltura).append(NEXT_LINE);
-			fw.append("Notas: ").append(notas).append(NEXT_LINE);
-			fw.append("Isbn: ").append(strIsbn).append(NEXT_LINE);
-			fw.append("Materias: ").append(materias).append(NEXT_LINE);
+			fw./*append("Editorial: ")*/append(libro.getEditorial()).append(SEPARATOR);
+			fw./*append("Paginas: ")*/append(String.valueOf(libro.getPaginas())).append(SEPARATOR);
+			fw./*append("Altura: ")*/append(String.valueOf(libro.getAltura())).append(SEPARATOR);
+			fw./*append("Notas: ").*/append(libro.getNotas()).append(SEPARATOR);
+			fw./*append("Isbn: ").*/append(String.valueOf(libro.getIsbn())).append(SEPARATOR);
+			fw./*append("Materias: ").*/append(libro.getMaterias()).append(SEPARATOR);
 
 			fw.flush();
 			fw.close();

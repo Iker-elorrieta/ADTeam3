@@ -6,7 +6,7 @@ public enum Patrones {
 		titulo("[a-z A-Z 0-9]{1,50}"),
 		editorial("[a-z A-Z]{1,50}"),
 		paginas("[0-9]{1,4}"),
-		altura("[0-9](\\.){1,4}" ),
+		altura("[0-9]{1,4}" ),
 		isbn("[0-9]{13}" ),
 		materias("[a-z A-Z]{1,100}" ),
 		frutos("Frutos Secos" );
