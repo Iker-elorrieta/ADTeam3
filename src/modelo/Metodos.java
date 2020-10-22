@@ -17,7 +17,7 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static boolean cargarLista(File fichero) {
+	public static ArrayList cargarLista(File fichero, ArrayList<Libro> lista)  {
 		boolean correcto=false;
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
@@ -29,7 +29,6 @@ public class Metodos {
 
 			for (int i = 0; i < contenido.size(); i++) {
 				Libro libro = new Libro();
-				try {
 					for (int y = 0; y < contenido.get(i).length; y++) {
 						if (y == 0) {
 							libro.setTitulo(contenido.get(i)[y]);
@@ -47,55 +46,22 @@ public class Metodos {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
 					}
-					Variables.listaLibros.add(libro);
+					lista.add(libro);
 					correcto=true;
-				} catch (Exception a) {
-//					a.printStackTrace();
-					correcto=false;
-				}
 			}
-			Variables.posicionNumero = contenido.size() - 1;
+			if(contenido.size()!=0)
+			{
+				Variables.posicionNumero = contenido.size() - 1;
+			}
 			ficheroR.close();
 			correcto=true;
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
-		} catch (IOException io) {
-			System.out.println("Error de E/S ");
-			correcto=false;
-		} catch (Exception idk) {
-			System.out.println("Error no especificado: ");
-			idk.printStackTrace();
-			correcto=false;
-		}
-		return correcto;
-	}
-
-	/*
-	 * Metodo para insertar en el txt un libro.
-	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros) {
-		boolean correcto = false;
-		try {
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
-			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
-				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
-						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
-						+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
-						+ listaLibros.get(i).getMaterias() + ";");
-				fichero.newLine();
-
-			}
-			fichero.close();
-			correcto=true;
-		} catch (FileNotFoundException fn) {
-			System.out.println("No se encuentra el fichero");
-			correcto=false;
-		} catch (IOException io) {
-			System.out.println("Error de E/S ");
-			correcto=false;
-		}
-		return correcto;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return lista;
 	}
 
 	/*
@@ -103,7 +69,7 @@ public class Metodos {
 	 */
 	public static boolean listar(ArrayList<Libro> listaLibros) {
 
-		boolean correcto = false;
+		boolean correcto = false; 
 		String titulo;
 		String editorial;
 		String paginas;
@@ -111,8 +77,9 @@ public class Metodos {
 		String notas;
 		String isbn;
 		String materias;
+		
 		try {
-			System.out.println("Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
+			System.out.println("   Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
 					+ "\t\t" + "Isbn" + "\t\t" + "Materias");
 			for (int i = 0; i < listaLibros.size(); i++) {
 				titulo = listaLibros.get(i).getTitulo() + "        ";
@@ -123,7 +90,7 @@ public class Metodos {
 				isbn = listaLibros.get(i).getIsbn() + "       ";
 				materias = listaLibros.get(i).getMaterias() + "      ";
 
-				System.out.println(titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
+				System.out.println((i+1)+"   "+titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
 						+ paginas.substring(0, 2) + "\t\t" + altura.substring(0, 4) + "\t\t" + notas.substring(0, 5)
 						+ "\t\t" + isbn.substring(0, 5) + "\t\t" + materias.substring(0, 5));
 			}
@@ -133,6 +100,30 @@ public class Metodos {
 		}
 
 		return correcto;
+	}
+	
+	public static boolean isWindows() 
+	{
+		if(Variables.OS.indexOf("win") >= 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public static boolean isUnix() 
+	{
+		if(Variables.OS.indexOf("nix") >= 0 || Variables.OS.indexOf("nux") >= 0 || Variables.OS.indexOf("aix") > 0 )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

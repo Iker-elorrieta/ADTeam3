@@ -1,75 +1,191 @@
 package pruebas;
 
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
 import org.junit.jupiter.api.Test;
-import org.xml.sax.SAXException;
-
+import modelo.Libro;
 import modelo.Metodos;
-import modelo.Utilidades;
 import modelo.Variables;
-import modelo.leerPrincipalXml;
 
 class pruebasFichero {
 
 	@Test
-	void testLeerXml() throws SAXException,ParserConfigurationException {
-		boolean result = leerPrincipalXml.leerPrincipal();
-		assertEquals(true, result);
-	}
-	
-	@Test
-	void testLeerTxt() {
-		boolean result = Metodos.listar(Variables.listaLibros);
+	void testListarTxt() {
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		String urlTxt = ".\\Ficheros\\Fichero1.txt";
+		File ficheroTxt = new File(urlTxt);
+		lista = Metodos.cargarLista(ficheroTxt, lista);
+		boolean result = Metodos.listar(lista);
 		assertEquals(true, result);
 	}
 
 	@Test
-	void testCargarLista() {
-		boolean result = Metodos.cargarLista(Variables.ficheroTxt);
+	void testDemoEntrada1() {
+		String input = "4 \n 2 \n";
+		int min = 1;
+		int max = 3;
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int result=main.Demo.entradaInt(min, max, teclado);
+		assertEquals(2, result);
+	}
+	
+	@Test
+	void testDemoEntrada2() {
+		String input = "a \n 2 \n";
+		int min = 1;
+		int max = 3;
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int result=main.Demo.entradaInt(min, max, teclado);
+		assertEquals(2, result);
+	}
+
+	@Test
+	void testDemoConfirmacion1() {
+		String input = "a \n s \n ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.confirmacionSN(teclado);
+		assertEquals(true, result);
+	}
+
+	@Test
+	void testDemoConfirmacion2() {
+		String input = "a \n n \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.confirmacionSN(teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testDemoConfirmacion() {
+		String input = "a \n n \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.confirmacionSN(teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testLeerPrincipal() {
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+		listaLibro=modelo.leerPrincipalXml.leerPrincipal(listaLibro, ".\\Ficheros\\libreria.xml");
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
+		lista.add(libro);
+		int tamañoLista1=listaLibro.size();
+		int tamañoLista2=lista.size();
+		assertEquals(tamañoLista1, tamañoLista2);
+	}
+
+
+	@Test
+	void testDemoMenu1() {
+		String input = "1 \n 1 ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
 		assertEquals(true, result);
 	}
 	
 	@Test
-	void testEscribir() {
-		boolean result = Metodos.escribir(Variables.listaLibros);
+	void testDemoMenu2() {
+		String input = "2 \n 1 ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
 		assertEquals(true, result);
 	}
+	
+	@Test
+	void testDemoMenu3() {
+		String input = "3 \n 1 ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=main.Demo.menu(teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testWin() {
+		boolean result=Metodos.isWindows();
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testUnix() {
+		boolean result=Metodos.isUnix();
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testDemoMenuTxt() {
+		String input = "1 \n 1 ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int opcion=1;
+		boolean result=main.Demo.menuTxt(opcion, teclado);
+		assertEquals(true, result);
+	}
+
+	@Test
+	void testDemoMenuXml() {
+		String input = "4 ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int opcion=4;
+		boolean result=main.Demo.menuXml(opcion, teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testLibro() {
+		Libro libro = new Libro();
 		
-	@Test
-	void testMenuFicheros() {
-		boolean result = main.Demo.menu();
-		assertEquals(true, result);
+		String libros =libro.mostrar();
+		
+		String result = "Titulo: " + libro.getTitulo() + "\n" +
+				"Editorial: " + libro.getEditorial() + "\n" +
+				"Paginas: " + libro.getPaginas() + "\n" +
+				"Altura: " + libro.getAltura() + "\n" +
+				"Notas: " + libro.getNotas() + "\n" + 
+				"Isbn: " + libro.getIsbn() + "\n" +
+				"Materias: " + libro.getMaterias();
+		assertEquals(libros, result);
 	}
 	
 	@Test
-	void testMenuXml() {
-		boolean result = main.Demo.menuXml(2);
-		assertEquals(true, result);
+	void testCargarCsv() {
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+		String input = "fichero";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		listaLibro=modelo.ficheroCsv.cargarCsv(teclado);
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
+		lista.add(libro);
+		Libro libro2 = new Libro("android", "casa", 200, 21, "no", 12352, "fundamentos");
+		lista.add(libro);
+		int tamañoLista1=listaLibro.size();
+		int tamañoLista2=lista.size();
+		assertEquals(tamañoLista1, tamañoLista2);
 	}
-	
-	@Test
-	void testMenuTxt() {
-		boolean result = main.Demo.menuTxt(1);
-		assertEquals(true, result);
-	}
-	
-	@Test
-	void testCrearXml() {
-		boolean result = modelo.crearXml.crearXml(Variables.listaLibros);
-		assertEquals(true, result);
-	}
-	
-	@Test
-	void testModXml() {
-		boolean result = modelo.modificarXml.modXml();
-		assertEquals(true, result);
-	}
-	
-	
 }
