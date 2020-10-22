@@ -2,6 +2,8 @@ package modelo;
 
 import com.opencsv.CSVWriter;
 
+import main.Demo;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -43,8 +45,7 @@ public class ficheroCsv {
 				String line = br.readLine();
 				while (null != line) {
 					 fields = line.split(SEPARATOR);
-					//System.out.println(line);
-					//System.out.println(Arrays.toString(fields));
+					
 					 lista.add(fields);
 					 
 					line = br.readLine();
@@ -54,13 +55,13 @@ public class ficheroCsv {
 				
 					Libro libro = new Libro();
 					
-					libro.setTitulo(fields[0]);
-					libro.setEditorial(fields[1]);
-					libro.setPaginas(Integer.parseInt(fields[2]));
-					libro.setAltura(Double.parseDouble(fields[3]));
-					libro.setNotas(fields[4]);
-					libro.setIsbn(Integer.parseInt(fields[5]));
-					libro.setMaterias(fields[6]);
+					libro.setTitulo(lista.get(linea)[0]);
+					libro.setEditorial(lista.get(linea)[1]);
+					libro.setPaginas(Integer.parseInt(lista.get(linea)[2]));
+					libro.setAltura(Double.parseDouble(lista.get(linea)[3]));
+					libro.setNotas(lista.get(linea)[4]);
+					libro.setIsbn(Integer.parseInt(lista.get(linea)[5]));
+					libro.setMaterias(lista.get(linea)[6]);
 					listaLibro.add(libro);
 					
 				}
@@ -85,7 +86,7 @@ public class ficheroCsv {
 	}
 
 	public static void crearArchivoCSV() {
-		final String NEXT_LINE = ";";
+		
 		Scanner sc = new Scanner(System.in);
 		String titulo;
 		String editorial,strPaginas;
@@ -109,7 +110,7 @@ public class ficheroCsv {
 			} else {
 				
 			FileWriter fw = new FileWriter(ruta);
-
+do {
 			do {
 				System.out.println("Inserte el titulo: ");
 				titulo = sc.nextLine();
@@ -188,19 +189,25 @@ public class ficheroCsv {
 			Libro libro = new Libro(titulo,editorial,paginas,altura,notas,isbn,materias);
 			
 			
-			fw/*.append("Titulo: ")*/.append(libro.getTitulo()).append(SEPARATOR);
+			fw.append(libro.getTitulo()).append(SEPARATOR);
 
-			fw./*append("Editorial: ")*/append(libro.getEditorial()).append(SEPARATOR);
-			fw./*append("Paginas: ")*/append(String.valueOf(libro.getPaginas())).append(SEPARATOR);
-			fw./*append("Altura: ")*/append(String.valueOf(libro.getAltura())).append(SEPARATOR);
-			fw./*append("Notas: ").*/append(libro.getNotas()).append(SEPARATOR);
-			fw./*append("Isbn: ").*/append(String.valueOf(libro.getIsbn())).append(SEPARATOR);
-			fw./*append("Materias: ").*/append(libro.getMaterias()).append(SEPARATOR);
+			fw.append(libro.getEditorial()).append(SEPARATOR);
+			fw.append(String.valueOf(libro.getPaginas())).append(SEPARATOR);
+			fw.append(String.valueOf(libro.getAltura())).append(SEPARATOR);
+			fw.append(libro.getNotas()).append(SEPARATOR);
+			fw.append(String.valueOf(libro.getIsbn())).append(SEPARATOR);
+			fw.append(libro.getMaterias()).append(SEPARATOR+"\n");
 
 			fw.flush();
-			fw.close();
+			
 			System.out.println("Fichero creado con exito");
-			}
+			System.out.println("desea crear otro libro?");
+			
+			seguir = Demo.confirmacionSN();
+			}while(seguir);
+	fw.close();
+	}
+			
 		} catch (IOException e) {
 			// Error al crear el archivo, por ejemplo, el archivo
 			// está actualmente abierto.
