@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 /*
  * Clase donde se apuntan los metodos que se usan en el programa.
  */
@@ -22,9 +23,17 @@ public class Metodos {
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
+			StringTokenizer token;
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
-				contenido.add(linea.split(";"));
+//				contenido.add(linea.split(";"));
+				token = new StringTokenizer(linea,";");
+				String[] tokens = new String[token.countTokens()];
+				for(int i = 0; token.hasMoreTokens();i++)
+				{
+					tokens[i] = token.nextToken();
+				}
+				contenido.add(tokens);
 			}
 
 			for (int i = 0; i < contenido.size(); i++) {

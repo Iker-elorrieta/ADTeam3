@@ -1,19 +1,14 @@
 package main;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import modelo.Libro;
 import modelo.Metodos;
-import modelo.Patrones;
-import modelo.Utilidades;
 import modelo.Variables;
 import modelo.ficheroCsv;
-import modelo.leerPrincipalXml;
 
 public class Demo {
 
@@ -156,88 +151,38 @@ public class Demo {
 	/*
 	 * Metodo para la creacion de un nuevo objeto libro.
 	 */
-	public static void crearLibro(Scanner teclado) throws IOException {
-		final String NEXT_LINE = "\n";
-		String titulo;
-		String editorial, paginas;
-		String altura;
-		String notas;
-		String isbn;
-		String materias;
-		boolean seguir;
+	public static Libro crearLibro(Scanner teclado) {
+		String titulo, editorial, notas, materias; 
+		double altura;
+		int paginas,isbn;
+
+		System.out.print("Introduce el titulo: ");
+		titulo = teclado.nextLine();
 		
-		do {
-			System.out.println("Inserte el titulo: ");
-			if (Utilidades.validar(Patrones.titulo.getNombre(), titulo = teclado.nextLine())) {
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-	
-		do {
-			System.out.println("Inserte el editorial: ");
-	
-			if (Utilidades.validar(Patrones.editorial.getNombre(), editorial = teclado.nextLine())) {
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-	
-		do {
-			System.out.println("Inserte las paginas: ");
-			if (Utilidades.validar(Patrones.paginas.getNombre(), paginas = teclado.nextLine())) {
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-	
-		do {
-			System.out.println("Inserte la altura: ");
-			if (Utilidades.validar(Patrones.altura.getNombre(), altura = teclado.nextLine())) {
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-	
-		do {
-			System.out.println("Inserte las notas: ");
-			if (Utilidades.validar(Patrones.notas.getNombre(), notas = teclado.nextLine())) {
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-	
-		do {
-			System.out.println("Inserte el isbn: ");
-			if (Utilidades.validar(Patrones.isbn.getNombre(), isbn = teclado.nextLine())) {
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-	
-		do {
-			System.out.println("Inserte las materias: ");
-			if (Utilidades.validar(Patrones.materias.getNombre(), materias = teclado.nextLine())) {
-	
-				seguir = true;
-			} else {
-				System.out.println("Datos no validos");
-				seguir = false;
-			}
-		} while (!seguir);
-//		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
+		System.out.print("Introduce el editorial: ");
+		editorial = teclado.nextLine();
+		
+		System.out.print("Introduce las notas: ");
+		notas = teclado.nextLine();
+		
+		System.out.print("Introduce las materias: ");
+		materias = teclado.nextLine();
+		
+		System.out.print("Introduce la altura: ");
+		altura = teclado.nextDouble();
+		teclado.nextLine();
+		
+		System.out.print("Introduce las paginas: ");
+		paginas = teclado.nextInt();
+		teclado.nextLine();
+		
+		System.out.print("Introduce el isbn: ");
+		isbn = teclado.nextInt();
+		teclado.nextLine();
+		
+		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
+		
+		return libro;
 	}
 
 	/*
@@ -246,11 +191,8 @@ public class Demo {
 	public static boolean menuXml(int opcion,Scanner teclado) {
 		boolean correcto = false;
 		try {
-			int paginas, isbn;
-			double altura;
-			String titulo, editorial, materias, notas;
 			char letra;
-			Libro libros = new Libro();
+			Libro libro;
 			ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 			listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, Variables.urlTxt);
 			switch (opcion) {
@@ -258,28 +200,10 @@ public class Demo {
 			case 1:
 
 				do {
-					System.out.println("ingrese el titulo");
-					titulo = teclado.nextLine();
-					System.out.println("ingrese la editorial");
-					editorial = teclado.nextLine();
-					System.out.println("ingrese las paginas");
-					paginas = teclado.nextInt();
-					teclado.nextLine();
-					System.out.println("ingrese la altura");
-					altura = teclado.nextDouble();
-					teclado.nextLine();
-					System.out.println("ingrese las notas");
-					notas = teclado.nextLine();
-					System.out.println("ingrese el isbn");
-					isbn = teclado.nextInt();
-					teclado.nextLine();
-					System.out.println("ingrese la materia");
-					materias = teclado.nextLine();
+					libro = crearLibro(teclado);
 
-					libros = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
-
-					listaLibro.add(libros);
-					System.out.println(libros.mostrar());
+					listaLibro.add(libro);
+					System.out.println(libro.mostrar());
 
 					System.out.println("Desea crear mas libros S/N");
 					letra = teclado.next().charAt(0);
@@ -339,7 +263,7 @@ public class Demo {
 			} else if (opcion == 2) {
 				while(confirmacionEscribir) {
 					teclado.nextLine();
-					crearLibro(teclado);
+					lista.add(crearLibro(teclado));
 					System.out.println("¿Quiere escribir un otro libro? s/n");
 					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
