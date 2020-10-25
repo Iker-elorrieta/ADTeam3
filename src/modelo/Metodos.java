@@ -17,7 +17,7 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static boolean cargarLista(File fichero)  {
+	public static ArrayList cargarLista(File fichero, ArrayList<Libro> lista)  {
 		boolean correcto=false;
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
@@ -46,7 +46,7 @@ public class Metodos {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
 					}
-					Variables.listaLibrerias[1].add(libro);
+					lista.add(libro);
 					correcto=true;
 			}
 			if(contenido.size()!=0)
@@ -59,34 +59,9 @@ public class Metodos {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		return correcto;
-	}
-
-	/*
-	 * Metodo para insertar en el txt un libro.
-	 */
-	public static boolean escribir(ArrayList<Libro> listaLibros,boolean anadir) throws IOException {
-		boolean correcto = false;
-		try {
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, anadir));
-			for (int i = 0; i < listaLibros.size(); i++) {
-				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
-						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
-						+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
-						+ listaLibros.get(i).getMaterias() + ";");
-				fichero.newLine();
-
-			}
-			fichero.close();
-			correcto=true;
-		} catch (FileNotFoundException fn) {
-			System.out.println("No se encuentra el fichero");
-			correcto=false;
-		}
-		return correcto;
+		return lista;
 	}
 
 	/*
@@ -122,10 +97,33 @@ public class Metodos {
 			correcto=true;
 		} catch (Exception e) {
 			System.out.println("error listar libros");
-			correcto=false;
 		}
 
 		return correcto;
+	}
+	
+	public static boolean isWindows() 
+	{
+		if(Variables.OS.indexOf("win") >= 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public static boolean isUnix() 
+	{
+		if(Variables.OS.indexOf("nix") >= 0 || Variables.OS.indexOf("nux") >= 0 || Variables.OS.indexOf("aix") > 0 )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

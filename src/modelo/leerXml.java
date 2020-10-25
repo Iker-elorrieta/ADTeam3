@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class leerXml extends DefaultHandler  {
-	 
+	
 
 	boolean titulo = false;
 	boolean editorial = false;
