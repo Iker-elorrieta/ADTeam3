@@ -17,16 +17,15 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static ArrayList cargarLista(File fichero, ArrayList<Libro> lista)  {
+	public static ArrayList<Libro> cargarLista(File fichero, ArrayList<Libro> lista)  {
 		boolean correcto=false;
-		try {
-			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
+		try (BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));){
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
 				contenido.add(linea.split(";"));
 			}
-
+			Variables.posicionNumero=0;
 			for (int i = 0; i < contenido.size(); i++) {
 				Libro libro = new Libro();
 					for (int y = 0; y < contenido.get(i).length; y++) {
@@ -50,7 +49,6 @@ public class Metodos {
 					correcto=true;
 					Variables.posicionNumero++;
 			}
-			ficheroR.close();
 			correcto=true;
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
@@ -66,16 +64,15 @@ public class Metodos {
 	 */
 	public static boolean escribir(ArrayList<Libro> listaLibros ) {
 		boolean correcto = false;
-		try {
-			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
+		try (BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));)
+		{
 			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
 				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
-						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
-						+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
-						+ listaLibros.get(i).getMaterias() + ";");
+							+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
+							+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
+							+ listaLibros.get(i).getMaterias() + ";");
 				fichero.newLine();
 			}
-			fichero.close();
 			correcto=true;
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");

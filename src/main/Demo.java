@@ -64,28 +64,21 @@ public class Demo {
 		System.out.println("2) txt");
 		System.out.println("3) Csv"); 
 		respuestaOpcionesTipo = entradaInt(1, 3,teclado);
-
+		
+		System.out.println("¿Que desea hacer? ");
+		System.out.println("1. leer");
+		System.out.println("2. crear libro");
 		if (respuestaOpcionesTipo == 1) {
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. leer Xml");
-			System.out.println("2. crear libro");
 			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
 			menuXml(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 2) {
-
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. crear libro");
 			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
 			menuTxt(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
-			System.out.println("¿Que desea hacer? ");
-			System.out.println("1. leer");
-			System.out.println("2. crear libro");
 			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
 			menuCsv(respuestaOpcionesAccion,teclado);
