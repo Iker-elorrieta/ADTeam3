@@ -15,10 +15,9 @@ public class ficheroCsv {
 
 	public static final String SEPARATOR = ";";
 
-	public static ArrayList cargarCsv(Scanner sc) {
+	public static ArrayList<Libro> cargarCsv(Scanner sc) {
 
 		BufferedReader br = null;
-		String nombreFichero;
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 
 		String[] fields = null;
