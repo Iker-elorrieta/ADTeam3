@@ -48,10 +48,7 @@ public class Metodos {
 					}
 					lista.add(libro);
 					correcto=true;
-			}
-			if(contenido.size()!=0)
-			{
-				Variables.posicionNumero = contenido.size() - 1;
+					Variables.posicionNumero++;
 			}
 			ficheroR.close();
 			correcto=true;
@@ -64,6 +61,32 @@ public class Metodos {
 		return lista;
 	}
 
+	/*
+	 * Metodo para insertar en el txt un libro.
+	 */
+	public static boolean escribir(ArrayList<Libro> listaLibros ) {
+		boolean correcto = false;
+		try {
+			BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));
+			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
+				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
+						+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
+						+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
+						+ listaLibros.get(i).getMaterias() + ";");
+				fichero.newLine();
+			}
+			fichero.close();
+			correcto=true;
+		} catch (FileNotFoundException fn) {
+			System.out.println("No se encuentra el fichero");
+			correcto=false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return correcto;
+	}
+	
 	/*
 	 * Metodo para mostrar los libros actualmente en el fichero y el programa.
 	 */

@@ -230,6 +230,8 @@ public class Demo {
 					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
 				}
+				
+				Metodos.escribir(lista);
 			}
 
 		} catch (Exception e) {
