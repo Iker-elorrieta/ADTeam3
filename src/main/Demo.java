@@ -83,7 +83,7 @@ public class Demo {
 			menuTxt(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
-			System.out.println("¿Que desea hacer?");
+			System.out.println("¿Que desea hacer? ");
 			System.out.println("1. leer");
 			System.out.println("2. crear libro");
 			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
