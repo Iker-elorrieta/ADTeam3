@@ -11,7 +11,7 @@ public class Variables {
 	
 	public static String urlTxt= ".\\Ficheros\\Fichero1.txt";
 	public static String urlXml= ".\\Ficheros\\libreria.xml";
-	public static String urlCsv= ".\\Ficheros\\Fichero3.csv";
+	public static String urlCsv= ".\\Ficheros\\fichero.csv";
 	public static File ficheroTxt = new File(urlTxt);
 	public static File ficheroXml= new File(urlXml);
 	public static File ficheroCsv= new File(urlCsv);

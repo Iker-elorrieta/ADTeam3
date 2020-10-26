@@ -85,12 +85,13 @@ class pruebasFichero {
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
 		lista.add(libro);
+		Libro libro2 = new Libro("datos", "elorrieta", 400, 21, "no", 12352, "fundamentos");
+		lista.add(libro);
 		int tamañoLista1=listaLibro.size();
 		int tamañoLista2=lista.size();
 		assertEquals(tamañoLista1, tamañoLista2);
 	}
-
-
+	
 	@Test
 	void testDemoMenu1() {
 		String input = "1 \n 1 ";
@@ -143,6 +144,17 @@ class pruebasFichero {
 		boolean result=main.Demo.menuTxt(opcion, teclado);
 		assertEquals(true, result);
 	}
+	
+	@Test
+	void testDemoMenuTxt2() {
+		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int opcion=2;
+		boolean result=main.Demo.menuTxt(opcion, teclado);
+		assertEquals(true, result);
+	}
 
 	@Test
 	void testDemoMenuXml() {
@@ -154,7 +166,7 @@ class pruebasFichero {
 		boolean result=main.Demo.menuXml(opcion, teclado);
 		assertEquals(false, result);
 	}
-	
+
 	@Test
 	void testLibro() {
 		Libro libro = new Libro();
@@ -172,20 +184,32 @@ class pruebasFichero {
 	}
 	
 	@Test
-	void testCargarCsv() {
-		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		String input = "fichero";
+	void testCrearCsv() {
+		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 	    Scanner teclado = new Scanner(System.in); 
-		listaLibro=modelo.ficheroCsv.cargarCsv(teclado);
-		ArrayList<Libro> lista = new ArrayList<Libro>();
-		Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
-		lista.add(libro);
-		Libro libro2 = new Libro("android", "casa", 200, 21, "no", 12352, "fundamentos");
-		lista.add(libro);
-		int tamañoLista1=listaLibro.size();
-		int tamañoLista2=lista.size();
-		assertEquals(tamañoLista1, tamañoLista2);
+		boolean result=modelo.ficheroCsv.crearArchivoCSV(teclado);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testDemoMenuCsv() {
+		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		int opcion=2;
+		boolean result=main.Demo.menuCsv(opcion, teclado);
+		assertEquals(true, result);
+	}
+	@Test
+	void testCrearXml() {
+		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+	    Scanner teclado = new Scanner(System.in); 
+		boolean result=modelo.crearLibroXml.crearLibro(teclado);
+		assertEquals(true, result);
 	}
 }

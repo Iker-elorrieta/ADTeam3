@@ -9,6 +9,7 @@ import java.util.Scanner;
 import modelo.Libro;
 import modelo.Metodos;
 import modelo.Variables;
+import modelo.crearLibroXml;
 import modelo.ficheroCsv;
 
 public class Demo {
@@ -24,7 +25,7 @@ public class Demo {
  
 				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
 				Variables.urlXml = ".\\Ficheros\\libreria.xml";
-				Variables.urlCsv = ".\\Ficheros\\Fichero3.csv";
+				Variables.urlCsv = ".\\Ficheros\\fichero.csv";
 				 
 				Variables.ficheroTxt = new File(Variables.urlTxt);
 				Variables.ficheroXml = new File(Variables.urlXml);
@@ -67,7 +68,8 @@ public class Demo {
 		if (respuestaOpcionesTipo == 1) {
 			System.out.println("¿Que desea hacer?");
 			System.out.println("1. leer Xml");
-			respuestaOpcionesAccion = entradaInt(1, 1,teclado);
+			System.out.println("2. crear libro");
+			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
 			menuXml(respuestaOpcionesAccion,teclado);
 			correcto = true;
@@ -75,14 +77,16 @@ public class Demo {
 
 			System.out.println("¿Que desea hacer?");
 			System.out.println("1. leer");
-			respuestaOpcionesAccion = entradaInt(1, 1,teclado);
+			System.out.println("2. crear libro");
+			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
 			menuTxt(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
 			System.out.println("¿Que desea hacer?");
 			System.out.println("1. leer");
-			respuestaOpcionesAccion = entradaInt(1, 1,teclado);
+			System.out.println("2. crear libro");
+			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
 			menuCsv(respuestaOpcionesAccion,teclado);
 			correcto = true;
@@ -124,8 +128,10 @@ public class Demo {
 				System.out.println("Dato incorrecto, Vuelve ha insertarlo.");
 			} else {
 				if (result.toUpperCase().equals("S")) {
+					teclado.nextLine();
 					return true;
 				} else if (result.toUpperCase().equals("N")) {
+					teclado.nextLine();
 					return false;
 				}
 				System.out.println("Tiene que insertar S o N.");
@@ -135,7 +141,44 @@ public class Demo {
 
 		return false;
 	}
+	
+	/*
+	 * metodo para crearLibro
+	 */
+	public static Libro crearLibro(Scanner teclado) {
+		String titulo, editorial, notas, materias; 
+		double altura;
+		int paginas,isbn;
 
+		System.out.print("Introduce el titulo: ");
+		titulo = teclado.nextLine();
+		
+		System.out.print("Introduce el editorial: ");
+		editorial = teclado.nextLine();
+		
+		System.out.print("Introduce las notas: ");
+		notas = teclado.nextLine();
+		
+		System.out.print("Introduce las materias: ");
+		materias = teclado.nextLine();
+		
+		System.out.print("Introduce la altura: ");
+		altura = teclado.nextDouble();
+		teclado.nextLine();
+		
+		System.out.print("Introduce las paginas: ");
+		paginas = teclado.nextInt();
+		teclado.nextLine();
+		
+		System.out.print("Introduce el isbn: ");
+		isbn = teclado.nextInt();
+		teclado.nextLine();
+		
+		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
+		
+		return libro;
+	}
+	
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension xml.
 	 */
@@ -143,15 +186,17 @@ public class Demo {
 		boolean correcto = false;
 		try {
 			ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-			listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, Variables.urlXml);
 			switch (opcion) {
 
 			case 1:
-				
+				listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, Variables.urlXml);
 				Metodos.listar(listaLibro);
 				correcto = true;
 				break;
-				
+			case 2:
+				crearLibroXml.crearLibro(teclado);
+				correcto = true;
+				break;
 			default:
 				System.out.println("opcion incorrecta");
 				correcto = false;
@@ -174,12 +219,18 @@ public class Demo {
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		lista = Metodos.cargarLista(Variables.ficheroTxt, lista);
 		
-		try {
-		
+		try {	
 			if (opcion == 1) {
 				Metodos.listar(lista);
 				correcto = true;
-			} 
+			} else if (opcion == 2) {
+				while(confirmacionEscribir) {
+					lista.add(crearLibro(teclado));
+					System.out.println("¿Quiere escribir otro libro? s/n");
+					confirmacionEscribir = confirmacionSN(teclado);
+					correcto = true;
+				}
+			}
 
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
@@ -193,16 +244,24 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension csv.
 	 */
-	public static void menuCsv(int opcion,Scanner teclado) {
+	public static boolean menuCsv(int opcion,Scanner teclado) {
+		boolean correcto=false;
 		switch (opcion) {
 
 		case 1:
 
 			Metodos.listar(ficheroCsv.cargarCsv(teclado));
+			correcto=true;
+			break;
+			
+		case 2:
+
+			ficheroCsv.crearArchivoCSV(teclado);
+			correcto=true;
 			break;
 
 		}
-
+		return correcto;
 	}
 
 }
