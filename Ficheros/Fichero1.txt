@@ -6,3 +6,4 @@ sdoiasdoiab;aposdbas;1231231;12312.0;oasbuda;1231231;apsidp;
 a;b;2;1.0;c;3;d;
 aaaa;bbbb;2222;1111.0;cccc;3333;dddd;
 jkhmn;jhnbjhmg;8767;765.0;jhgb;8765;jh;
+a;a;3;2.0;a;4;a;

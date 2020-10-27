@@ -40,6 +40,14 @@ public class Demo {
 				Variables.ficheroCsv = new File(Variables.urlCsv);
 			}	
 			
+			
+			if(!Variables.ficheroCsv.exists())
+				Variables.ficheroCsv.createNewFile();
+			if(!Variables.ficheroXml.exists())
+				Variables.ficheroXml.createNewFile();
+			if(!Variables.ficheroTxt.exists())
+				Variables.ficheroTxt.createNewFile();
+			
 			do {
 				menu(teclado);
 				System.out.println("¿Quiere hacer otras operaciones? s/n");
@@ -140,8 +148,9 @@ public class Demo {
 	 */
 	public static Libro crearLibro(Scanner teclado) {
 		String titulo, editorial, notas, materias; 
-		double altura;
-		int paginas,isbn;
+		double altura = 0.0;
+		int paginas = 0,isbn = 0;
+		boolean repetir = false;
 
 		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
@@ -155,17 +164,32 @@ public class Demo {
 		System.out.print("Introduce las materias: ");
 		materias = teclado.nextLine();
 		
-		System.out.print("Introduce la altura: ");
-		altura = teclado.nextDouble();
-		teclado.nextLine();
-		
-		System.out.print("Introduce las paginas: ");
-		paginas = teclado.nextInt();
-		teclado.nextLine();
-		
-		System.out.print("Introduce el isbn: ");
-		isbn = teclado.nextInt();
-		teclado.nextLine();
+		do
+		{
+			try
+			{
+				System.out.print("Introduce la altura: ");
+				altura = teclado.nextDouble();
+				teclado.nextLine();
+				
+				System.out.print("Introduce las paginas: ");
+				paginas = teclado.nextInt();
+				teclado.nextLine();
+				
+				System.out.print("Introduce el isbn: ");
+				isbn = teclado.nextInt();
+				teclado.nextLine();
+				repetir = false;
+			}
+			catch(Exception a)
+			{
+				System.out.println("Formato incorrecto.");
+				System.out.println("Vuelve ha insertar los datos.");
+				teclado.nextLine();
+				repetir = true;
+				//a.printStackTrace();
+			}
+		}while(repetir == true);
 		
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
 		
