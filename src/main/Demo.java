@@ -19,7 +19,7 @@ public class Demo {
 	 */
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
-		try {
+		try { 
 	  
 			if (Metodos.isWindows()) {
  
