@@ -150,7 +150,6 @@ public class Demo {
 		String titulo, editorial, notas, materias; 
 		double altura = 0.0;
 		int paginas = 0,isbn = 0;
-		boolean repetir = false;
 
 		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
@@ -163,33 +162,15 @@ public class Demo {
 		
 		System.out.print("Introduce las materias: ");
 		materias = teclado.nextLine();
+	
+		System.out.print("Introduce la altura: ");
+		altura = comprobacionDatoDouble(teclado);
 		
-		do
-		{
-			try
-			{
-				System.out.print("Introduce la altura: ");
-				altura = teclado.nextDouble();
-				teclado.nextLine();
-				
-				System.out.print("Introduce las paginas: ");
-				paginas = teclado.nextInt();
-				teclado.nextLine();
-				
-				System.out.print("Introduce el isbn: ");
-				isbn = teclado.nextInt();
-				teclado.nextLine();
-				repetir = false;
-			}
-			catch(Exception a)
-			{
-				System.out.println("Formato incorrecto.");
-				System.out.println("Vuelve ha insertar los datos.");
-				teclado.nextLine();
-				repetir = true;
-				//a.printStackTrace();
-			}
-		}while(repetir == true);
+		System.out.print("Introduce las paginas: ");
+		paginas = comprobacionDatoInt(teclado);
+		
+		System.out.print("Introduce el isbn: ");
+		isbn = comprobacionDatoInt(teclado);
 		
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
 		
@@ -283,4 +264,54 @@ public class Demo {
 		return correcto;
 	}
 
+	/**
+	 * Metodo temporal
+	 */
+	public static int comprobacionDatoInt(Scanner teclado)
+	{
+		int parametro = 0;
+		boolean repetir = true;
+		
+		do
+		{
+			try
+			{
+				parametro = teclado.nextInt();
+				teclado.nextLine();				
+				return parametro;
+			}
+			catch (Exception a)
+			{
+				System.out.println("Dato incorrecto");
+				System.out.println("Vuelve ha insertarlo: ");
+				teclado.nextLine();			
+			}
+		}while (repetir);
+		return parametro;
+	}
+
+	/**
+	 * Metodo temporal
+	 */
+	public static double comprobacionDatoDouble(Scanner teclado)
+	{
+		double parametro = 0;
+		boolean repetir = true;
+		
+		do
+		{
+			try
+			{
+				parametro = teclado.nextDouble();
+				teclado.nextLine();				return parametro;
+			}
+			catch (Exception a)
+			{
+				System.out.println("Dato incorrecto");
+				System.out.println("Vuelve ha insertarlo: ");
+				teclado.nextLine();
+			}
+		}while (repetir);
+		return parametro;
+	}
 }
