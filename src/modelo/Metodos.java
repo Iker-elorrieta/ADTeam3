@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.lang.Character;
+
 /*
  * Clase donde se apuntan los metodos que se usan en el programa.
  */
@@ -163,4 +165,12 @@ public class Metodos {
 		}
 	}
 
+	public static String validacion(String patron,String dato)
+	{
+		char abc = 'a';
+		System.out.println(java.lang.Character.isLetter(abc));
+		
+		return null;
+	}
+	
 }
