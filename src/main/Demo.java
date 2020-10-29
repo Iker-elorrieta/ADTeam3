@@ -303,7 +303,8 @@ public class Demo {
 			try
 			{
 				parametro = teclado.nextDouble();
-				teclado.nextLine();				return parametro;
+				teclado.nextLine();				
+				return parametro;
 			}
 			catch (Exception a)
 			{
@@ -314,4 +315,5 @@ public class Demo {
 		}while (repetir);
 		return parametro;
 	}
+
 }

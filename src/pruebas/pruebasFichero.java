@@ -212,7 +212,26 @@ class pruebasFichero {
 		boolean result=modelo.crearLibroXml.crearLibro(teclado);
 		assertEquals(true, result);
 	}
-
+	
+	@Test
+	void testDemoComprobacionDouble() {
+		String input ="s \n 2 \n 22";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		double result =main.Demo.comprobacionDatoDouble(teclado);
+		assertEquals(2, result);	
+	}
+	@Test
+	void testDemoComprobacionEntero() {
+		String input ="s \n 2 \n 22";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		double result =main.Demo.comprobacionDatoInt(teclado);
+		assertEquals(2, result);	
+	}
+	
 	String pruebaSys(String tipo)
 	{
 		 String urlTxt = "";
