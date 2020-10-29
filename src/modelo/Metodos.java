@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 /*
  * Clase donde se apuntan los metodos que se usan en el programa.
  */
@@ -17,15 +18,23 @@ public class Metodos {
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static ArrayList<Libro> cargarLista(File fichero, ArrayList<Libro> lista)  {
+	public static ArrayList cargarLista(File fichero, ArrayList<Libro> lista)  {
 		boolean correcto=false;
-		try (BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));){
+		try {
+			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
+			StringTokenizer token;
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
-				contenido.add(linea.split(";"));
+				token = new StringTokenizer(linea,";");
+				String[] tokens = new String[token.countTokens()];
+				for(int i = 0; token.hasMoreTokens();i++)
+				{
+					tokens[i] = token.nextToken();
+				}
+				contenido.add(tokens);
 			}
-			Variables.posicionNumero=0;
+
 			for (int i = 0; i < contenido.size(); i++) {
 				Libro libro = new Libro();
 					for (int y = 0; y < contenido.get(i).length; y++) {
@@ -47,13 +56,18 @@ public class Metodos {
 					}
 					lista.add(libro);
 					correcto=true;
-					Variables.posicionNumero++;
 			}
+			if(contenido.size()!=0)
+			{
+				Variables.posicionNumero = contenido.size() - 1;
+			}
+			ficheroR.close();
 			correcto=true;
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return lista;
@@ -78,7 +92,6 @@ public class Metodos {
 			System.out.println("No se encuentra el fichero");
 			correcto=false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return correcto;
