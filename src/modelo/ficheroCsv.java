@@ -26,15 +26,13 @@ public class ficheroCsv {
 		
 
 		try {
-			System.out.println("Introduce nombre del archivo");
-			String nombreArchivo = sc.nextLine();
-			String ruta = ".\\Ficheros\\"+nombreArchivo+".csv";
+			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
-
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");
 				
 			} else {
+			
 				
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
