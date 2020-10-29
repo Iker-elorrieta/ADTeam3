@@ -22,8 +22,8 @@ public class ficheroCsv {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 
 		StringTokenizer fields = null;
-		ArrayList<double[]> lista = new ArrayList<double[]>();
-		boolean seguir;
+		
+		
 
 		try {
 			System.out.println("Introduce nombre del archivo");
@@ -33,9 +33,9 @@ public class ficheroCsv {
 
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");
-				seguir = true;
+				
 			} else {
-				seguir = false;
+				
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
 				StringTokenizer tokens;
@@ -84,7 +84,18 @@ public class ficheroCsv {
 
 		boolean seguir = false;
 		try {
-			FileWriter fw = new FileWriter(Variables.urlCsv, true);
+			System.out.println("Introduce nombre del archivo");
+			String nombreArchivo = teclado.nextLine();
+			String ruta = ".\\Ficheros\\"+nombreArchivo+".csv";
+			FileWriter fw = new FileWriter(ruta, true);
+			File archivo = new File(ruta);
+
+			if (archivo.exists()) {
+				System.out.println("El fichero ya existe");
+				
+			} else {
+				
+			
 			do {
 
 				Libro libro = main.Demo.crearLibro(teclado);
@@ -108,7 +119,7 @@ public class ficheroCsv {
 			} while (seguir);
 			fw.close();
 
-		} catch (IOException e) {
+		} }catch (IOException e) {
 			System.out.println("Error al crear fichero ");
 			e.printStackTrace();
 			seguir = true;

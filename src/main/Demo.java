@@ -5,78 +5,91 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import modelo.Libro;
 import modelo.Metodos;
-import modelo.Utilidades;
 import modelo.Variables;
+import modelo.crearLibroXml;
 import modelo.ficheroCsv;
 
 public class Demo {
 
-	public static Scanner teclado = new Scanner(System.in);
-
-	/*
+	/* 
 	 * La clase main donde se empieza el programa.
 	 */
-	public static void main(String[] args) throws IOException {
-		if (Variables.ficheroTxt.createNewFile())
-			System.out.println("Se creo un archivo nuevo.");
-		else
-			Metodos.cargarLista(Variables.ficheroTxt);
-
-		do {
-			menu();
-			System.out.println("¿Quiere hacer otras operaciones? s/n");
-		} while (confirmacionSN());
+	public static void main(String[] args) {
+		Scanner teclado = new Scanner(System.in);
+		try { 
+	  
+			if (Metodos.isWindows()) {
+ 
+				Variables.urlTxt = ".\\Ficheros\\Fichero1.txt";
+				Variables.urlXml = ".\\Ficheros\\libreria.xml";
+				Variables.urlCsv = ".\\Ficheros\\fichero.csv";
+				 
+				Variables.ficheroTxt = new File(Variables.urlTxt);
+				Variables.ficheroXml = new File(Variables.urlXml);
+				Variables.ficheroCsv = new File(Variables.urlCsv);
+			} else if (Metodos.isUnix()){ 
+				Variables.urlTxt = "./Ficheros/Fichero1.txt";  
+				Variables.urlXml = "./Ficheros/libreria.xml";
+				Variables.urlCsv = "./Ficheros/Fichero3.csv";
+				
+				Variables.ficheroTxt = new File(Variables.urlTxt);
+				Variables.ficheroXml = new File(Variables.urlXml);
+				Variables.ficheroCsv = new File(Variables.urlCsv);
+			}	
+			
+			
+			if(!Variables.ficheroCsv.exists())
+				Variables.ficheroCsv.createNewFile();
+			if(!Variables.ficheroXml.exists())
+				Variables.ficheroXml.createNewFile();
+			if(!Variables.ficheroTxt.exists())
+				Variables.ficheroTxt.createNewFile();
+			
+			do {
+				menu(teclado);
+				System.out.println("¿Quiere hacer otras operaciones? s/n");
+			} while (confirmacionSN(teclado));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} 
+		
 	}
 
 	/*
 	 * Menu donde se encuentra las acciones que quiere realizar el cliente.
 	 */
-	public static boolean menu() {
-
+	public static boolean menu(Scanner teclado) {
+ 
 		boolean correcto = false;
 		int respuestaOpcionesTipo;
 		int respuestaOpcionesAccion;
-		boolean confirmacionEscribir;
 
 		System.out.println("Elige alguna de las opciones: ");
 		System.out.println("1) Xml");
 		System.out.println("2) txt");
-		System.out.println("3) Csv");
-		respuestaOpcionesTipo = entradaInt(1, 3);
-
+		System.out.println("3) Csv"); 
+		respuestaOpcionesTipo = entradaInt(1, 3,teclado);
+		
+		System.out.println("¿Que desea hacer? ");
+		System.out.println("1. leer");
+		System.out.println("2. crear libro");
 		if (respuestaOpcionesTipo == 1) {
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. Crear Xml");
-			System.out.println("2. leer Xml");
-			System.out.println("3. modificar Xml");
-			System.out.println("4. eliminar Xml");
-			respuestaOpcionesAccion = entradaInt(1, 4);
+			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
-			menuXml(respuestaOpcionesAccion);
+			menuXml(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 2) {
+			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. modificar");
-			System.out.println("3. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 3);
-
-			menuTxt(respuestaOpcionesAccion);
+			menuTxt(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
-			System.out.println("¿Que desea hacer?");
-			System.out.println("1. leer");
-			System.out.println("2. crear");
-			System.out.println("3. modificar");
-			System.out.println("4. eliminar");
-			respuestaOpcionesAccion = entradaInt(1, 4);
+			respuestaOpcionesAccion = entradaInt(1, 2,teclado);
 
-			menuCsv(respuestaOpcionesAccion);
+			menuCsv(respuestaOpcionesAccion,teclado);
 			correcto = true;
 		}
 		return correcto;
@@ -86,7 +99,7 @@ public class Demo {
 	 * Metodo para validar la entrada de numeros por teclado y controlar las
 	 * exceptciones.
 	 */
-	public static int entradaInt(int min, int max) {
+	public static int entradaInt(int min, int max, Scanner teclado) {
 		int result = 0;
 		do {
 			try {
@@ -96,7 +109,6 @@ public class Demo {
 					teclado.nextLine();
 				}
 			} catch (InputMismatchException a) {
-				// a.printStackTrace();
 				System.out.println("Tiene que insertar un numero:");
 				teclado.nextLine();
 			}
@@ -108,7 +120,7 @@ public class Demo {
 	/*
 	 * Metodo para preguntar al cliente si quiere seguir o no.
 	 */
-	public static boolean confirmacionSN() {
+	public static boolean confirmacionSN(Scanner teclado) {
 		String result;
 
 		do {
@@ -117,8 +129,10 @@ public class Demo {
 				System.out.println("Dato incorrecto, Vuelve ha insertarlo.");
 			} else {
 				if (result.toUpperCase().equals("S")) {
+					teclado.nextLine();
 					return true;
 				} else if (result.toUpperCase().equals("N")) {
+					teclado.nextLine();
 					return false;
 				}
 				System.out.println("Tiene que insertar S o N.");
@@ -128,134 +142,86 @@ public class Demo {
 
 		return false;
 	}
-
+	
 	/*
-	 * Metodo para la creacion de un nuevo objeto libro.
+	 * metodo para crearLibro
 	 */
-	public static void crearLibro(Scanner teclado) {
-		String titulo;
-		String editorial;
-		int paginas;
-		Double altura;
-		String notas;
-		int isbn;
-		String materias;
+	public static Libro crearLibro(Scanner teclado) {
+		String titulo, editorial, notas, materias; 
+		double altura = 0.0;
+		int paginas = 0,isbn = 0;
+		boolean repetir = false;
 
-		System.out.println("Inserte el titulo: ");
-//		Metodos.validar(Utilidades.enum.titulo = teclado.nextLine());
+		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
-
-		System.out.println("Inserte el editorial: ");
+		
+		System.out.print("Introduce el editorial: ");
 		editorial = teclado.nextLine();
-
-		System.out.println("Inserte las paginas: ");
-		paginas = teclado.nextInt();
-		teclado.nextLine();
-
-		System.out.println("Inserte al altura: ");
-		altura = teclado.nextDouble();
-		teclado.nextLine();
-
-		System.out.println("Inserte las notas: ");
+		
+		System.out.print("Introduce las notas: ");
 		notas = teclado.nextLine();
-
-		System.out.println("Inserte el isbn: ");
-		isbn = teclado.nextInt();
-		teclado.nextLine();
-
-		System.out.println("Inserte la materia: ");
+		
+		System.out.print("Introduce las materias: ");
 		materias = teclado.nextLine();
-
+		
+		do
+		{
+			try
+			{
+				System.out.print("Introduce la altura: ");
+				altura = teclado.nextDouble();
+				teclado.nextLine();
+				
+				System.out.print("Introduce las paginas: ");
+				paginas = teclado.nextInt();
+				teclado.nextLine();
+				
+				System.out.print("Introduce el isbn: ");
+				isbn = teclado.nextInt();
+				teclado.nextLine();
+				repetir = false;
+			}
+			catch(Exception a)
+			{
+				System.out.println("Formato incorrecto.");
+				System.out.println("Vuelve ha insertar los datos.");
+				teclado.nextLine();
+				repetir = true;
+				//a.printStackTrace();
+			}
+		}while(repetir == true);
+		
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
-
-		System.out.println(
-				"¿Quiere confirmar los datos del libro? Si elige n el libro no se guardara y tendra que volver ha insertarlo.");
-		System.out.println(libro.mostrar());
-		if (confirmacionSN()) {
-			Variables.listaLibros.add(libro);
-			Metodos.escribir(Variables.listaLibros);
-		}
-
+		
+		return libro;
 	}
-
+	
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension xml.
 	 */
-	public static boolean menuXml(int opcion) {
+	public static boolean menuXml(int opcion,Scanner teclado) {
 		boolean correcto = false;
 		try {
-			int paginas, isbn;
-			double altura;
-			String titulo, editorial, materias, notas;
-			char letra;
-			Libro libros = new Libro();
-			ArrayList<Libro> lisataLibro = new ArrayList<>();
-
+			ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 			switch (opcion) {
 
 			case 1:
-
-				do {
-					System.out.println("ingrese el titulo");
-					titulo = teclado.nextLine();
-					System.out.println("ingrese la editorial");
-					editorial = teclado.nextLine();
-					System.out.println("ingrese las paginas");
-					paginas = teclado.nextInt();
-					teclado.nextLine();
-					System.out.println("ingrese la altura");
-					altura = teclado.nextDouble();
-					teclado.nextLine();
-					System.out.println("ingrese las notas");
-					notas = teclado.nextLine();
-					System.out.println("ingrese el isbn");
-					isbn = teclado.nextInt();
-					teclado.nextLine();
-					System.out.println("ingrese la materia");
-					materias = teclado.nextLine();
-
-					libros = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
-
-					lisataLibro.add(libros);
-					System.out.println(libros.mostrar());
-
-					System.out.println("Desea crear mas libros S/N");
-					letra = teclado.next().charAt(0);
-					teclado.nextLine();
-
-				} while (letra == 's' || letra == 'S');
-
-				modelo.crearXml.crearXml(lisataLibro);
+				listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, Variables.urlXml);
+				Metodos.listar(listaLibro);
 				correcto = true;
 				break;
-
 			case 2:
-
-				modelo.leerPrincipalXml.leerPrincipal();
+				crearLibroXml.crearLibro(teclado);
 				correcto = true;
 				break;
-			case 3:
-				modelo.modificarXml.modXml();
-				break;
-
-			case 4:
-
-				File fichero = new File(Variables.urlXml);
-
-				if (fichero.delete())
-					System.out.println("El fichero ha sido borrado satisfactoriamente");
-				else
-					System.out.println("El fichero no puede ser borrado");
-				correcto = true;
-				break;
-
 			default:
 				System.out.println("opcion incorrecta");
-				correcto = true;
+				correcto = false;
 			}
-
+ 
 		} catch (Exception e) {
 			System.out.println("datos incorrectos");
+			correcto=false;
 		}
 		return correcto;
 
@@ -264,33 +230,30 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension txt.
 	 */
-	public static boolean menuTxt(int opcion) {
+	public static boolean menuTxt(int opcion,Scanner teclado) {
+		boolean confirmacionEscribir = true;
 		boolean correcto = false;
-		try {
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		lista = Metodos.cargarLista(Variables.ficheroTxt, lista);
+		
+		try {	
 			if (opcion == 1) {
-				Metodos.listar(Variables.listaLibros);
+				Metodos.listar(lista);
 				correcto = true;
 			} else if (opcion == 2) {
-				System.out.println("¿Quiere escribir un nuevo libro? s/n");
-				boolean confirmacionEscribir = confirmacionSN();
-				if (confirmacionEscribir) {
-					teclado.nextLine();
-					crearLibro();
+				while(confirmacionEscribir) {
+					lista.add(crearLibro(teclado));
+					System.out.println("¿Quiere escribir otro libro? s/n");
+					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
 				}
+				
+				Metodos.escribir(lista);
 			}
-			if (opcion == 3) {
-				if(Variables.ficheroTxt.delete())
-				{
-					System.out.println("Fichero de texto borrado.");
-				}
-				else
-				{
-					System.out.println("No se ha borrado el fichero.");
-				}
-			}
+
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
+			e.printStackTrace();
 			correcto = false;
 		}
 
@@ -300,32 +263,24 @@ public class Demo {
 	/*
 	 * Menu para listar y operar las opciones de los ficheros de extension csv.
 	 */
-	public static void menuCsv(int opcion) {
+	public static boolean menuCsv(int opcion,Scanner teclado) {
+		boolean correcto=false;
 		switch (opcion) {
 
 		case 1:
 
-			Metodos.listar(ficheroCsv.cargarCsv());
+			Metodos.listar(ficheroCsv.cargarCsv(teclado));
+			correcto=true;
 			break;
-
+			
 		case 2:
 
-			ficheroCsv.crearArchivoCSV();
-			
-
+			ficheroCsv.crearArchivoCSV(teclado);
+			correcto=true;
 			break;
-		case 3:
 
-			ficheroCsv.ModificarFichero();
-			
-			break;
-		case 4:
-			ficheroCsv.EliminarficheroCsv();
-			
-
-			break;
 		}
-
-
+		return correcto;
 	}
+
 }
