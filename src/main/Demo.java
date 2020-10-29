@@ -132,7 +132,7 @@ public class Demo {
 	/*
 	 * Metodo para la creacion de un nuevo objeto libro.
 	 */
-	public static void crearLibro() {
+	public static void crearLibro(Scanner teclado) {
 		String titulo;
 		String editorial;
 		int paginas;
