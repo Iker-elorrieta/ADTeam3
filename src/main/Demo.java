@@ -596,13 +596,20 @@ public class Demo {
 		boolean confirmacionEscribir = true;
 		boolean correcto = false;
 		ArrayList<Libro> lista = new ArrayList<Libro>();
+		
 		lista = Metodos.cargarLista(Variables.ficheroTxt, lista);
 		
 		try {	
 			if (opcion == 1) {
+			
+				
 				Metodos.listar(lista);
+			
 				correcto = true;
+				
 			} else if (opcion == 2) {
+				
+			
 				while(confirmacionEscribir) {
 					lista.add(crearLibro(teclado));
 					System.out.println("¿Quiere escribir otro libro? s/n");
