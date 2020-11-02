@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><Libreria xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="my.xsd"><libro id="1"><titulo>laksnd</titulo><editorial>oasdn</editorial><paginas>21</paginas><altura>1.0</altura><notas>asdokn</notas><isbn>1241</isbn><materias>aon</materias></libro></Libreria>
+=======
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Libreria xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="my.xsd"><libreria><libro><titulo>android</titulo><editorial>elorrieta</editorial><paginas>200</paginas><altura>20.0</altura><notas>ninguna</notas><isbn>124125412</isbn><materias>iniciacion</materias></libro></libreria><libreria><libro><titulo>acceso datos</titulo><editorial>elorrieta</editorial><paginas>300</paginas><altura>30.0</altura><notas/><isbn>13532</isbn><materias>repaso</materias></libro></libreria></Libreria>
+>>>>>>> branch 'Antonio' of https://github.com/Iker-elorrieta/ADTeam3.git

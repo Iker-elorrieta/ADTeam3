@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 Esta vez si;Funciona;6;3.3;A que va;123151;Eso;
+=======
+Tasd;asd;23;12.0;asdas;12315;asda;
+Prueba1;Steff;12;2.31;Hola;12345435;Reto;
+otra;venga;12;2.3;aver;1231515;otra;otra;venga;12;2.3;aver;1231515;otra;
+Aver;Otro intento;23;2.12;Sep;1231512;Creo que funciona;
+Aver;Otro intento;23;2.12;Sep;1231512;Creo que funciona;
+Esta vez si;Venga;3;3.3;A que va;123151;Ya te digo;
+>>>>>>> branch 'Antonio' of https://github.com/Iker-elorrieta/ADTeam3.git
