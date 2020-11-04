@@ -9,7 +9,6 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import modelo.Libro;
 import modelo.Metodos;
-import modelo.Variables;
 
 class pruebasFichero {
 
@@ -87,9 +86,9 @@ class pruebasFichero {
 			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
 			lista.add(libro);
 		}
-		int tamañoLista1 = listaLibro.size();
-		int tamañoLista2 = lista.size();
-		assertEquals(tamañoLista1, tamañoLista2);
+		int tamLista1 = listaLibro.size();
+		int tamLista2 = lista.size();
+		assertEquals(tamLista1, tamLista2);
 	}
 
 	@Test
@@ -239,6 +238,7 @@ class pruebasFichero {
 		boolean result = main.Demo.inicioPrograma(teclado);
 		assertEquals(true, result);
 	}
+	
 	@Test
 	void testInicioProgramaFalse() {
 		String input = "s n \n ";
