@@ -21,25 +21,19 @@ public class ficheroCsv {
 		BufferedReader br = null;
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 
-		StringTokenizer fields = null;
-		ArrayList<double[]> lista = new ArrayList<double[]>();
-		boolean seguir;
-
 		try {
 
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
 
 			if (!archivo.exists()) {
-				System.out.println("El fichero no existe");
-				seguir = true;
+				System.out.println("El fichero no existe");			
 			} else {
-				seguir = false;
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
 				StringTokenizer tokens;
 				while (null != line) {
-					tokens = new StringTokenizer(line, ";");
+					tokens = new StringTokenizer(line, SEPARATOR);
 
 					Libro libro = new Libro();
 
@@ -71,7 +65,6 @@ public class ficheroCsv {
 				try {
 					br.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

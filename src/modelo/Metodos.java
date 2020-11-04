@@ -13,20 +13,21 @@ import java.util.StringTokenizer;
  * Clase donde se apuntan los metodos que se usan en el programa.
  */
 public class Metodos {
-
+	
+	private static final String corte =";";
 	/*
 	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
 	 */
-	public static ArrayList cargarLista(File fichero, ArrayList<Libro> lista)  {
-		boolean correcto=false;
+	public static ArrayList<Libro> cargarLista(File fichero, ArrayList<Libro> lista)  {
+		
 		try {
 			BufferedReader ficheroR = new BufferedReader(new FileReader(fichero));
 			ArrayList<String[]> contenido = new ArrayList<String[]>();
 			StringTokenizer token;
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
-				token = new StringTokenizer(linea,";");
+				token = new StringTokenizer(linea,corte);
 				String[] tokens = new String[token.countTokens()];
 				for(int i = 0; token.hasMoreTokens();i++)
 				{
@@ -55,19 +56,15 @@ public class Metodos {
 						}
 					}
 					lista.add(libro);
-					correcto=true;
 			}
 			if(contenido.size()!=0)
 			{
 				Variables.posicionNumero = contenido.size() - 1;
 			}
 			ficheroR.close();
-			correcto=true;
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
-			correcto=false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return lista;
@@ -81,10 +78,10 @@ public class Metodos {
 		try (BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));)
 		{
 			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
-				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
-							+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
-							+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
-							+ listaLibros.get(i).getMaterias() + ";");
+				fichero.write(listaLibros.get(i).getTitulo() + corte + listaLibros.get(i).getEditorial() + corte
+							+ listaLibros.get(i).getPaginas() + corte + listaLibros.get(i).getAltura() + corte
+							+ listaLibros.get(i).getNotas() + corte + listaLibros.get(i).getIsbn() + corte
+							+ listaLibros.get(i).getMaterias() + corte);
 				fichero.newLine();
 			}
 			correcto=true;
