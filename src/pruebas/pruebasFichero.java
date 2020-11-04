@@ -9,11 +9,12 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import modelo.Libro;
 import modelo.Metodos;
-import modelo.Variables;
 
 class pruebasFichero {
 
-	private File fichero;
+
+	private File fichero; 
+	
 
 	@Test
 	void testListarTxt() {
@@ -81,7 +82,9 @@ class pruebasFichero {
 	@Test
 	void testLeerPrincipal() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
+
+		listaLibro=modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
+
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		for (int i = 0; i < listaLibro.size(); i++) {
 			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
@@ -220,6 +223,7 @@ class pruebasFichero {
 		assertEquals(true, result);
 	}
 
+
 	@Test
 	void testDemoComprobacionDouble() {
 		String input = "s \n 2 \n 22";
@@ -260,27 +264,34 @@ class pruebasFichero {
 		assertEquals(false, result);
 	}
 	
-	String pruebaSys(String tipo) {
-		String urlTxt = "";
-		String urlXml = "";
-		String urlCsv = "";
 
+	String pruebaSys(String tipo)
+	{
+		 String urlTxt = "";
+		 String urlXml = "";
+		 String urlCsv = "";
+		 
 		String sistema = System.getProperty("os.name").toLowerCase();
-
-		if (sistema.indexOf("win") >= 0) {
+		
+		if(sistema.indexOf("win") >= 0)
+		{
 			urlTxt = ".\\Ficheros\\Fichero1.txt";
 			urlXml = ".\\Ficheros\\libreria.xml";
 			urlCsv = ".\\Ficheros\\fichero.csv";
-		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
-			urlTxt = "./Ficheros/Fichero1.txt";
+		}
+		else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0 )
+		{
+			urlTxt = "./Ficheros/Fichero1.txt";  
 			urlXml = "./Ficheros/libreria.xml";
 			urlCsv = "./Ficheros/Fichero3.csv";
 		}
 
-		switch (tipo) {
+
+		switch (tipo) 
+		{
 		case "txt":
 			return urlTxt;
-
+			
 		case "csv":
 			return urlCsv;
 

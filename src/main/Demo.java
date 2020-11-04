@@ -60,7 +60,7 @@ public class Demo {
 				Variables.ficheroTxt.createNewFile();
 			do {
 				menu(teclado);
-				System.out.println("¿Quiere hacer otras operaciones? s/n");
+				System.out.println("Â¿Quiere hacer otras operaciones? s/n");
 			} while (confirmacionSN(teclado));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -84,7 +84,7 @@ public class Demo {
 		System.out.println("3) Csv");
 		respuestaOpcionesTipo = entradaInt(1, 3, teclado);
 
-		System.out.println("¿Que desea hacer? ");
+		System.out.println("Â¿Que desea hacer? ");
 		System.out.println("1. leer");
 		System.out.println("2. crear libro");
 		if (respuestaOpcionesTipo == 1) {
@@ -160,7 +160,9 @@ public class Demo {
 	public static Libro crearLibro(Scanner teclado) {
 		String titulo, editorial, notas, materias;
 		double altura = 0.0;
+
 		int paginas = 0, isbn = 0;
+
 
 		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
@@ -174,6 +176,7 @@ public class Demo {
 		System.out.print("Introduce las materias: ");
 		materias = teclado.nextLine();
 
+
 		System.out.print("Introduce la altura: ");
 		altura = comprobacionDatoDouble(teclado);
 
@@ -182,6 +185,7 @@ public class Demo {
 
 		System.out.print("Introduce el isbn: ");
 		isbn = comprobacionDatoInt(teclado);
+
 
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
 
@@ -236,7 +240,7 @@ public class Demo {
 			} else if (opcion == 2) {
 				while (confirmacionEscribir) {
 					lista.add(crearLibro(teclado));
-					System.out.println("¿Quiere escribir otro libro? s/n");
+					System.out.println("Â¿Quiere escribir otro libro? s/n");
 					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
 				}
@@ -293,12 +297,15 @@ public class Demo {
 				teclado.nextLine();
 			}
 		} while (repetir);
+
+	
 		return parametro;
 	}
 
 	/**
 	 * Metodo temporal
 	 */
+
 	public static double comprobacionDatoDouble(Scanner teclado) {
 		double parametro = 0;
 		boolean repetir = true;
@@ -309,11 +316,16 @@ public class Demo {
 				teclado.nextLine();
 				return parametro;
 			} catch (Exception a) {
+
+	
 				System.out.println("Dato incorrecto");
 				System.out.println("Vuelve ha insertarlo: ");
 				teclado.nextLine();
 			}
-		} while (repetir);
+
+
+		}while (repetir);
+
 		return parametro;
 	}
 }
