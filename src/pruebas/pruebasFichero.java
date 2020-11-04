@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import modelo.Libro;
 import modelo.Metodos;
+import modelo.Variables;
 
 class pruebasFichero {
 
@@ -154,7 +155,7 @@ class pruebasFichero {
 		boolean result = main.Demo.menuTxt(opcion, teclado);
 		assertEquals(true, result);
 	}
-
+ 
 	@Test
 	void testDemoMenuXml() {
 		String input = "4 ";
@@ -164,6 +165,16 @@ class pruebasFichero {
 		int opcion = 4;
 		boolean result = main.Demo.menuXml(opcion, teclado);
 		assertEquals(false, result);
+	}
+	@Test
+	void testDemoMenuXml2() {
+		String input = "2 \n Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 2;
+		boolean result = main.Demo.menuXml(opcion, teclado);
+		assertEquals(true, result);
 	}
 
 	@Test
@@ -205,7 +216,7 @@ class pruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = modelo.crearLibroXml.crearLibro(teclado);
+		boolean result = modelo.crearLibroXml.crearLibro(teclado,pruebaSys("xml"));
 		assertEquals(true, result);
 	}
 

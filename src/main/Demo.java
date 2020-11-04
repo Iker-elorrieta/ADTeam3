@@ -87,7 +87,6 @@ public class Demo {
 		System.out.println("¿Que desea hacer? ");
 		System.out.println("1. leer");
 		System.out.println("2. crear libro");
-		System.out.println("3. Eliminar libro");
 		if (respuestaOpcionesTipo == 1) {
 			respuestaOpcionesAccion = entradaInt(1, 3, teclado);
 
@@ -204,7 +203,7 @@ public class Demo {
 				correcto = true;
 				break;
 			case 2:
-				crearLibroXml.crearLibro(teclado);
+				crearLibroXml.crearLibro(teclado,Variables.urlXml);
 				correcto = true;
 				break;
 
