@@ -17,7 +17,7 @@ import org.w3c.dom.Node;
 
 public class crearLibroXml {
 
-	public static boolean crearLibro(Scanner teclado) {
+	public static boolean crearLibro(Scanner teclado,String urlXml) {
 
 		boolean correcto = false;
 		
@@ -28,7 +28,7 @@ public class crearLibroXml {
 			// clases para leer XML
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(new File(Variables.urlXml));
+			Document doc = docBuilder.parse(new File(urlXml));
 
 			// preparar el archivo XML para obtener los datos
 			doc.getDocumentElement().normalize();

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import main.Demo;
 
@@ -20,42 +21,42 @@ public class ficheroCsv {
 		BufferedReader br = null;
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 
-		String[] fields = null;
-		ArrayList<String[]> lista = new ArrayList<String[]>();
-		boolean seguir;
 		try {
-			
+
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
+
 			if (!archivo.exists()) {
-				System.out.println("El fichero no existe");
-				seguir = true;
+				System.out.println("El fichero no existe");			
 			} else {
-				seguir = false;
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
+				StringTokenizer tokens;
 				while (null != line) {
-					fields = line.split(SEPARATOR);
-
-					lista.add(fields);
-
-					line = br.readLine();
-				}
-				for (int linea = 0; linea < lista.size(); linea++) {
+					tokens = new StringTokenizer(line, SEPARATOR);
 
 					Libro libro = new Libro();
 
-					libro.setTitulo(lista.get(linea)[0]);
-					libro.setEditorial(lista.get(linea)[1]);
-					libro.setPaginas(Integer.parseInt(lista.get(linea)[2]));
-					libro.setAltura(Double.parseDouble(lista.get(linea)[3]));
-					libro.setNotas(lista.get(linea)[4]);
-					libro.setIsbn(Integer.parseInt(lista.get(linea)[5]));
-					libro.setMaterias(lista.get(linea)[6]);
-					listaLibro.add(libro);
-				}
+					String titulo = tokens.nextToken();
+					libro.setTitulo(titulo);
+					String editorial = tokens.nextToken();
+					libro.setEditorial(editorial);
+					String paginas = tokens.nextToken();
+					libro.setPaginas(Integer.parseInt(paginas));
+					String altura = tokens.nextToken();
+					libro.setAltura(Double.parseDouble(altura));
+					String notas = tokens.nextToken();
+					libro.setNotas(notas);
+					String isbn = tokens.nextToken();
+					libro.setIsbn(Integer.parseInt(isbn));
+					String materias = tokens.nextToken();
+					libro.setMaterias(materias);
 
+					listaLibro.add(libro);
+					line = br.readLine();
+				}
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error al leer fichero");
@@ -64,7 +65,6 @@ public class ficheroCsv {
 				try {
 					br.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -73,10 +73,10 @@ public class ficheroCsv {
 	}
 
 	public static boolean crearArchivoCSV(Scanner teclado) {
-		
-		boolean seguir = false;	
+
+		boolean seguir = false;
 		try {
-			FileWriter fw = new FileWriter(Variables.urlCsv,true);
+			FileWriter fw = new FileWriter(Variables.urlCsv, true);
 			do {
 
 				Libro libro = main.Demo.crearLibro(teclado);
@@ -96,16 +96,16 @@ public class ficheroCsv {
 				System.out.println("desea crear otro libro?");
 
 				seguir = Demo.confirmacionSN(teclado);
-				
+
 			} while (seguir);
 			fw.close();
 
 		} catch (IOException e) {
 			System.out.println("Error al crear fichero ");
 			e.printStackTrace();
-			seguir=true;
+			seguir = true;
 		}
 		return seguir;
 	}
-	
+
 }
