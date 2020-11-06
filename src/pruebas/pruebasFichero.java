@@ -9,12 +9,14 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import modelo.Libro;
 import modelo.Metodos;
+import modelo.Variables;
 
+/**
+ * Clase de pruebas del programa
+ */
 class pruebasFichero {
 
-
-	private File fichero; 
-	
+	private File fichero;
 
 	@Test
 	void testListarTxt() {
@@ -82,9 +84,7 @@ class pruebasFichero {
 	@Test
 	void testLeerPrincipal() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-
-		listaLibro=modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
-
+		listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		for (int i = 0; i < listaLibro.size(); i++) {
 			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
@@ -158,6 +158,17 @@ class pruebasFichero {
 		boolean result = main.Demo.menuTxt(opcion, teclado);
 		assertEquals(true, result);
 	}
+	
+	@Test
+	void testDemoMenuTxt3() {
+		String input = "Fichero1";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 3;
+		boolean result = main.Demo.menuTxt(opcion, teclado);
+		assertEquals(true, result);
+	}
  
 	@Test
 	void testDemoMenuXml() {
@@ -169,6 +180,7 @@ class pruebasFichero {
 		boolean result = main.Demo.menuXml(opcion, teclado);
 		assertEquals(false, result);
 	}
+	
 	@Test
 	void testDemoMenuXml2() {
 		String input = "2 \n Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
@@ -176,6 +188,17 @@ class pruebasFichero {
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
 		int opcion = 2;
+		boolean result = main.Demo.menuXml(opcion, teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testDemoMenuXml3() {
+		String input = "libreria";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 3;
 		boolean result = main.Demo.menuXml(opcion, teclado);
 		assertEquals(true, result);
 	}
@@ -203,6 +226,17 @@ class pruebasFichero {
 	}
 
 	@Test
+	void testDemoMenuCsv3() {
+		String input = "fichero";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 3;
+		boolean result = main.Demo.menuCsv(opcion, teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
 	void testDemoMenuCsv() {
 		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -220,10 +254,31 @@ class pruebasFichero {
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
 		boolean result = modelo.crearLibroXml.crearLibro(teclado,pruebaSys("xml"));
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testCrearXmlBase() {
+		boolean result = modelo.crearXml.generateXml(pruebaSys("xml"));
 		assertEquals(true, result);
 	}
-
-
+	
+	@Test
+	void testCrearXmlBaseFalse() {
+		boolean result = modelo.crearXml.generateXml(pruebaSys("ml"));
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testEliminarFichero() {
+		String input = "libreria";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.eliminarFichero(teclado, ".xml");
+		assertEquals(true, result);
+	}
+	
 	@Test
 	void testDemoComprobacionDouble() {
 		String input = "s \n 2 \n 22";
@@ -264,34 +319,28 @@ class pruebasFichero {
 		assertEquals(false, result);
 	}
 	
+	
+	String pruebaSys(String tipo) {
+		String urlTxt = "";
+		String urlXml = "";
+		String urlCsv = "";
 
-	String pruebaSys(String tipo)
-	{
-		 String urlTxt = "";
-		 String urlXml = "";
-		 String urlCsv = "";
-		 
 		String sistema = System.getProperty("os.name").toLowerCase();
-		
-		if(sistema.indexOf("win") >= 0)
-		{
+
+		if (sistema.indexOf("win") >= 0) {
 			urlTxt = ".\\Ficheros\\Fichero1.txt";
 			urlXml = ".\\Ficheros\\libreria.xml";
 			urlCsv = ".\\Ficheros\\fichero.csv";
-		}
-		else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0 )
-		{
-			urlTxt = "./Ficheros/Fichero1.txt";  
+		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
+			urlTxt = "./Ficheros/Fichero1.txt";
 			urlXml = "./Ficheros/libreria.xml";
 			urlCsv = "./Ficheros/Fichero3.csv";
 		}
 
-
-		switch (tipo) 
-		{
+		switch (tipo) {
 		case "txt":
 			return urlTxt;
-			
+
 		case "csv":
 			return urlCsv;
 

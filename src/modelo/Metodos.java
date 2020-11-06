@@ -8,16 +8,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
-/*
+
+/**
  * Clase donde se apuntan los metodos que se usan en el programa.
+ *
  */
 public class Metodos {
-	
-	private static final String corte =";";
-	/*
-	 * Metodo para rellenar la lista del probrama con los libros apuntados en el
+
+	/**
+	 *  Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
+	 * @param fichero
+	 * @param lista
+	 * @return ArrayList<Libro>
 	 */
 	public static ArrayList<Libro> cargarLista(File fichero, ArrayList<Libro> lista)  {
 		
@@ -27,7 +32,7 @@ public class Metodos {
 			StringTokenizer token;
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
-				token = new StringTokenizer(linea,corte);
+				token = new StringTokenizer(linea,";");
 				String[] tokens = new String[token.countTokens()];
 				for(int i = 0; token.hasMoreTokens();i++)
 				{
@@ -64,24 +69,27 @@ public class Metodos {
 			ficheroR.close();
 		} catch (FileNotFoundException fn) {
 			System.out.println("No se encuentra el fichero");
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
 		return lista;
 	}
 
-	/*
+	/**
 	 * Metodo para insertar en el txt un libro.
+	 * @param listaLibros
+	 * @return boolean 
 	 */
 	public static boolean escribir(ArrayList<Libro> listaLibros ) {
 		boolean correcto = false;
 		try (BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));)
 		{
 			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
-				fichero.write(listaLibros.get(i).getTitulo() + corte + listaLibros.get(i).getEditorial() + corte
-							+ listaLibros.get(i).getPaginas() + corte + listaLibros.get(i).getAltura() + corte
-							+ listaLibros.get(i).getNotas() + corte + listaLibros.get(i).getIsbn() + corte
-							+ listaLibros.get(i).getMaterias() + corte);
+				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
+							+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
+							+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
+							+ listaLibros.get(i).getMaterias() + ";");
 				fichero.newLine();
 			}
 			correcto=true;
@@ -94,8 +102,10 @@ public class Metodos {
 		return correcto;
 	}
 	
-	/*
+	/**
 	 * Metodo para mostrar los libros actualmente en el fichero y el programa.
+	 * @param ArrayList listaLibros
+	 * @return boolean 
 	 */
 	public static boolean listar(ArrayList<Libro> listaLibros) {
 
@@ -156,4 +166,36 @@ public class Metodos {
 		}
 	}
 
+	/**
+	 *  Metodo que elimina el fichero introducido por el usuario 
+	 * @param Scanne teclado
+	 * @param String extension
+	 * @return boolean 
+	 */
+	public static boolean eliminarFichero(Scanner teclado,String extension) {
+		boolean correcto=false;
+			
+		String nombreFichero;
+		System.out.println("introduzca nombre del fichero");
+		nombreFichero = teclado.nextLine();
+		String ruta = ".\\Ficheros\\"+ nombreFichero + extension;
+		File archivo = new File(ruta);
+		
+		if (archivo.exists()) {
+			if (archivo.delete()) {
+				System.out.println("El fichero ha sido borrado satisfactoriamente");
+				correcto=true;
+			} else {
+				System.out.println("El fichero no pudó ser borrado");
+				correcto=false;
+			}
+		}else {
+			System.out.println("no existe el fichero");
+			correcto=false;
+		}
+
+		return correcto;
+	}
+	
+	
 }

@@ -16,10 +16,19 @@ public class ficheroCsv {
 
 	public static final String SEPARATOR = ";";
 
+	/**
+	 * Metodo que carga datos Csv
+	 * @param sc
+	 * @return ArrayList<Libro>
+	 */
 	public static ArrayList<Libro> cargarCsv(Scanner sc) {
 
 		BufferedReader br = null;
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+
+		StringTokenizer fields = null;
+		ArrayList<double[]> lista = new ArrayList<double[]>();
+		boolean seguir;
 
 		try {
 
@@ -27,13 +36,15 @@ public class ficheroCsv {
 			File archivo = new File(ruta);
 
 			if (!archivo.exists()) {
-				System.out.println("El fichero no existe");			
+				System.out.println("El fichero no existe");
+				seguir = true;
 			} else {
+				seguir = false;
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
 				StringTokenizer tokens;
 				while (null != line) {
-					tokens = new StringTokenizer(line, SEPARATOR);
+					tokens = new StringTokenizer(line, ";");
 
 					Libro libro = new Libro();
 
@@ -65,6 +76,7 @@ public class ficheroCsv {
 				try {
 					br.close();
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -72,6 +84,11 @@ public class ficheroCsv {
 		return listaLibro;
 	}
 
+	/**
+	 * Metodo que crea Archivos Csv
+	 * @param teclado
+	 * @return boolean 
+	 */
 	public static boolean crearArchivoCSV(Scanner teclado) {
 
 		boolean seguir = false;
@@ -93,7 +110,7 @@ public class ficheroCsv {
 				fw.flush();
 
 				System.out.println("Fichero creado con exito");
-				System.out.println("desea crear otro libro?");
+				System.out.println("desea crear otro libro?  S/N");
 
 				seguir = Demo.confirmacionSN(teclado);
 

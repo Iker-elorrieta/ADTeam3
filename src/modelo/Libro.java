@@ -1,6 +1,8 @@
 package modelo;
-/*
+
+/**
  * Clase libro para rellenar la libreria.
+ *
  */
 public class Libro {
 	
