@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import modelo.Libro;
 import modelo.Metodos;
+import modelo.Patrones;
 import modelo.Variables;
 import modelo.crearLibroXml;
 import modelo.ficheroCsv;
@@ -178,30 +179,65 @@ public class Demo {
 		String titulo, editorial, notas, materias;
 		double altura = 0.0;
 		int paginas = 0, isbn = 0;
-
+	
 		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
-
+		while(!Metodos.validacion(Patrones.titulo.getNombre(), titulo))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			titulo = teclado.nextLine();
+		}
+	
 		System.out.print("Introduce el editorial: ");
 		editorial = teclado.nextLine();
-
+		while(!Metodos.validacion(Patrones.editorial.getNombre(), editorial))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			editorial = teclado.nextLine();
+		}
+	
 		System.out.print("Introduce las notas: ");
 		notas = teclado.nextLine();
-
+		while(!Metodos.validacion(Patrones.notas.getNombre(), notas))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			notas = teclado.nextLine();
+		}
+		
 		System.out.print("Introduce las materias: ");
 		materias = teclado.nextLine();
-
+		while(!Metodos.validacion(Patrones.materias.getNombre(), materias))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			materias = teclado.nextLine();
+		}
+		
 		System.out.print("Introduce la altura: ");
 		altura = comprobacionDatoDouble(teclado);
-
+		while(!Metodos.validacion(Patrones.altura.getNombre(), altura+""))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			altura = comprobacionDatoDouble(teclado);
+		}
+		
 		System.out.print("Introduce las paginas: ");
 		paginas = comprobacionDatoInt(teclado);
-
+		while(!Metodos.validacion(Patrones.paginas.getNombre(), paginas+""))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			paginas = comprobacionDatoInt(teclado);
+		}
+		
 		System.out.print("Introduce el isbn: ");
 		isbn = comprobacionDatoInt(teclado);
-
+		while(!Metodos.validacion(Patrones.isbn.getNombre(), isbn+""))
+		{
+			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
+			isbn = comprobacionDatoInt(teclado);
+		}
+		
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
-
+	
 		return libro;
 	}
 
