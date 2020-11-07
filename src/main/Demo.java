@@ -94,21 +94,22 @@ public class Demo {
 		respuestaOpcionesTipo = entradaInt(1, 3, teclado);
 
 		System.out.println("¿Que desea hacer? ");
-		System.out.println("1. leer");
-		System.out.println("2. crear libro");
-		System.out.println("3. Eliminar libro");
+		System.out.println("1. Leer");
+		System.out.println("2. Crear libro");
+		System.out.println("3. Eliminar archivo");
+		System.out.println("4. Crear archivo / Seleccionar archivo");
 		if (respuestaOpcionesTipo == 1) {
-			respuestaOpcionesAccion = entradaInt(1, 3, teclado);
+			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
 
 			menuXml(respuestaOpcionesAccion, teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 2) {
-			respuestaOpcionesAccion = entradaInt(1, 3, teclado);
+			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
 
 			menuTxt(respuestaOpcionesAccion, teclado);
 			correcto = true;
 		} else if (respuestaOpcionesTipo == 3) {
-			respuestaOpcionesAccion = entradaInt(1, 3, teclado);
+			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
 
 			menuCsv(respuestaOpcionesAccion, teclado);
 			correcto = true;
@@ -286,6 +287,30 @@ public class Demo {
 				Metodos.eliminarFichero(teclado, ".xml");
 				correcto = true;
 				break;
+			case 4:
+				System.out.print("Escriba el nombre del archivo: ");
+				String nombre = teclado.next();
+				String prefix = "";
+				if (Metodos.isWindows())
+					prefix = ".\\Ficheros\\";
+				else if(Metodos.isUnix())
+					prefix = "./Ficheros/";
+				String url = prefix+nombre+".xml";
+				
+				File archivo = new File(url);
+				
+				if (!archivo.exists()) {
+					modelo.crearXml.generateXml(url);
+					Variables.urlXml = url;
+					Variables.ficheroXml = archivo;
+				}
+				else
+				{
+					System.out.println("Archivo ya existe.");
+					Variables.urlXml = url;
+					Variables.ficheroXml = archivo;
+				}
+				break;
 			default:
 				System.out.println("opcion incorrecta");
 				correcto = false;
@@ -328,6 +353,32 @@ public class Demo {
 				Metodos.eliminarFichero(teclado, ".txt");
 				correcto = true;
 			}
+			else if(opcion == 4)
+			{
+				System.out.print("Escriba el nombre del archivo: ");
+				String nombre = teclado.next();
+				String prefix = "";
+				if (Metodos.isWindows())
+					prefix = ".\\Ficheros\\";
+				else if(Metodos.isUnix())
+					prefix = "./Ficheros/";
+				String url = prefix+nombre+".txt";
+				
+				File archivo = new File(url);
+				
+				if(!archivo.exists())
+				{
+					archivo.createNewFile();
+					Variables.urlTxt = url;
+					Variables.ficheroTxt = archivo;
+				}
+				else
+				{
+					System.out.println("El archivo ya existe.");
+					Variables.urlTxt = url;
+					Variables.ficheroTxt = archivo;
+				}
+			}
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
 			e.printStackTrace();
@@ -366,7 +417,39 @@ public class Demo {
 			
 			break;
 			
+		case 4:
 
+			System.out.print("Escriba el nombre del archivo: ");
+			String nombre = teclado.next();
+			String prefix = "";
+			if (Metodos.isWindows())
+				prefix = ".\\Ficheros\\";
+			else if(Metodos.isUnix())
+				prefix = "./Ficheros/";
+			String url = prefix+nombre+".csv";
+			
+			File archivo = new File(url);
+			
+			if(!archivo.exists())
+			{
+				try {
+					archivo.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Variables.urlCsv = url;
+				Variables.ficheroCsv = archivo;
+			}
+			else
+			{
+				System.out.println("Archivo ya existe.");
+				Variables.urlCsv = url;
+				Variables.ficheroCsv = archivo;
+			}
+		
+			break;
+			
 		}
 		return correcto;
 	}
