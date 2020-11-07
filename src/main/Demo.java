@@ -67,7 +67,7 @@ public class Demo {
 				Variables.ficheroTxt.createNewFile();
 			do {
 				menu(teclado);
-				System.out.println("¿Quiere hacer otras operaciones? s/n");
+				System.out.println("ï¿½Quiere hacer otras operaciones? s/n");
 			} while (confirmacionSN(teclado));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -93,7 +93,7 @@ public class Demo {
 		System.out.println("3) Csv");
 		respuestaOpcionesTipo = entradaInt(1, 3, teclado);
 
-		System.out.println("¿Que desea hacer? ");
+		System.out.println("ï¿½Que desea hacer? ");
 		System.out.println("1. Leer");
 		System.out.println("2. Crear libro");
 		System.out.println("3. Eliminar archivo");
@@ -343,7 +343,7 @@ public class Demo {
 			} else if (opcion == 2) {
 				while (confirmacionEscribir) {
 					lista.add(crearLibro(teclado));
-					System.out.println("¿Quiere escribir otro libro? s/n");
+					System.out.println("ï¿½Quiere escribir otro libro? s/n");
 					confirmacionEscribir = confirmacionSN(teclado);
 					correcto = true;
 				}

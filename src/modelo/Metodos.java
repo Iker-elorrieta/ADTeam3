@@ -178,7 +178,12 @@ public class Metodos {
 		String nombreFichero;
 		System.out.println("introduzca nombre del fichero");
 		nombreFichero = teclado.nextLine();
-		String ruta = ".\\Ficheros\\"+ nombreFichero + extension;
+		String prefix = "";
+		if (Metodos.isWindows())
+			prefix = ".\\Ficheros\\";
+		else if(Metodos.isUnix())
+			prefix = "./Ficheros/";
+		String ruta = prefix + nombreFichero + extension;
 		File archivo = new File(ruta);
 		
 		if (archivo.exists()) {
@@ -186,7 +191,7 @@ public class Metodos {
 				System.out.println("El fichero ha sido borrado satisfactoriamente");
 				correcto=true;
 			} else {
-				System.out.println("El fichero no pudó ser borrado");
+				System.out.println("El fichero no pudï¿½ ser borrado");
 				correcto=false;
 			}
 		}else {
@@ -213,7 +218,7 @@ public class Metodos {
 	 * 
 	 * @return retorna true o false si el dato para validar esta correcto
 	 * 
-	 * caracteres como ÑÇöü se considera caracteres especiales
+	 * caracteres como ï¿½ï¿½ï¿½ï¿½ se considera caracteres especiales
 	 * con lo cual este metodo devolvera false en cuanto tenga alguno es estos caracteres.
 	 */
 	public static boolean validacion(String patron,String dato)
@@ -274,7 +279,7 @@ public class Metodos {
 		}
 		
 		
-		//comprobar que no se pueda poner un rango minimo mas pequeño que el maximo
+		//comprobar que no se pueda poner un rango minimo mas pequeï¿½o que el maximo
 		if(Integer.parseInt(finalLongitud) < Integer.parseInt(principioLongitud))
 		{
 			int cambio = Integer.parseInt(finalLongitud);
