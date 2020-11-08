@@ -191,7 +191,7 @@ public class Metodos {
 				System.out.println("El fichero ha sido borrado satisfactoriamente");
 				correcto=true;
 			} else {
-				System.out.println("El fichero no pud� ser borrado");
+				System.out.println("El fichero no pudo ser borrado");
 				correcto=false;
 			}
 		}else {

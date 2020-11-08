@@ -18,13 +18,45 @@ class pruebasFichero {
 
 	private File fichero;
 
+	// metodos demo
 	@Test
-	void testListarTxt() {
-		ArrayList<Libro> lista = new ArrayList<Libro>();
-		fichero = new File(pruebaSys("txt"));
-		lista = Metodos.cargarLista(fichero, lista);
-		boolean result = Metodos.listar(lista);
+	void testDemoComprobacionDouble() {
+		String input = "s \n 2 \n 22";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		double result = main.Demo.comprobacionDatoDouble(teclado);
+		assertEquals(2, result);
+	}
+
+	@Test
+	void testDemoComprobacionEntero() {
+		String input = "s \n 2 \n 22";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		double result = main.Demo.comprobacionDatoInt(teclado);
+		assertEquals(2, result);
+	}
+
+	@Test
+	void testInicioPrograma() {
+		String input = "1 \n 1 \n n \n ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = main.Demo.inicioPrograma(teclado);
 		assertEquals(true, result);
+	}
+
+	@Test
+	void testInicioProgramaFalse() {
+		String input = "s n \n ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = main.Demo.inicioPrograma(teclado);
+		assertEquals(false, result);
 	}
 
 	@Test
@@ -63,36 +95,12 @@ class pruebasFichero {
 
 	@Test
 	void testDemoConfirmacion2() {
-		String input = "a \n n \n";
+		String input = "132 \n a \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
 		boolean result = main.Demo.confirmacionSN(teclado);
 		assertEquals(false, result);
-	}
-
-	@Test
-	void testDemoConfirmacion() {
-		String input = "a \n n \n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		boolean result = main.Demo.confirmacionSN(teclado);
-		assertEquals(false, result);
-	}
-
-	@Test
-	void testLeerPrincipal() {
-		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
-		ArrayList<Libro> lista = new ArrayList<Libro>();
-		for (int i = 0; i < listaLibro.size(); i++) {
-			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
-			lista.add(libro);
-		}
-		int tamLista1 = listaLibro.size();
-		int tamLista2 = lista.size();
-		assertEquals(tamLista1, tamLista2);
 	}
 
 	@Test
@@ -137,6 +145,16 @@ class pruebasFichero {
 		assertEquals(false, result);
 	}
 
+	// test txt
+	@Test
+	void testListarTxt() {
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		fichero = new File(pruebaSys("txt"));
+		lista = Metodos.cargarLista(fichero, lista);
+		boolean result = Metodos.listar(lista);
+		assertEquals(true, result);
+	}
+
 	@Test
 	void testDemoMenuTxt() {
 		String input = "1 \n 1 ";
@@ -158,10 +176,10 @@ class pruebasFichero {
 		boolean result = main.Demo.menuTxt(opcion, teclado);
 		assertEquals(true, result);
 	}
-	
+
 	@Test
 	void testDemoMenuTxt3() {
-		String input = "Fichero1";
+		String input = "fichero";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -169,10 +187,22 @@ class pruebasFichero {
 		boolean result = main.Demo.menuTxt(opcion, teclado);
 		assertEquals(true, result);
 	}
- 
+
 	@Test
-	void testDemoMenuXml() {
-		String input = "4 ";
+	void testDemoMenuTxt4() {
+		String input = "fichero";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 4;
+		boolean result = main.Demo.menuTxt(opcion, teclado);
+		assertEquals(true, result);
+	}
+	
+	// test xml
+	@Test
+	void testDemoMenuXml4() {
+		String input = "libreria";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -180,10 +210,10 @@ class pruebasFichero {
 		boolean result = main.Demo.menuXml(opcion, teclado);
 		assertEquals(false, result);
 	}
-	
+
 	@Test
 	void testDemoMenuXml2() {
-		String input = "2 \n Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -191,7 +221,7 @@ class pruebasFichero {
 		boolean result = main.Demo.menuXml(opcion, teclado);
 		assertEquals(true, result);
 	}
-	
+
 	@Test
 	void testDemoMenuXml3() {
 		String input = "libreria";
@@ -204,6 +234,64 @@ class pruebasFichero {
 	}
 
 	@Test
+	void testDemoMenuXmlFalse() {
+		String input = "35";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 5;
+		boolean result = main.Demo.menuXml(opcion, teclado);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testLeerPrincipal() {
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+		listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		for (int i = 0; i < listaLibro.size(); i++) {
+			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
+			lista.add(libro);
+		}
+		int tamLista1 = listaLibro.size();
+		int tamLista2 = lista.size();
+		assertEquals(tamLista1, tamLista2);
+	}
+
+	@Test
+	void testCrearXml() {
+		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = modelo.crearLibroXml.crearLibro(teclado, pruebaSys("xml"));
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testCrearXmlBase() {
+		boolean result = modelo.crearXml.generateXml(pruebaSys("xml"));
+		assertEquals(true, result);
+	}
+
+	@Test
+	void testCrearXmlBaseFalse() {
+		boolean result = modelo.crearXml.generateXml(pruebaSys("ml"));
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testEliminarFichero() {
+		String input = "prueba";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.eliminarFichero(teclado, ".xml");
+		assertEquals(false, result);
+	}
+
+	// test Libro
+	@Test
 	void testLibro() {
 		Libro libro = new Libro();
 
@@ -215,6 +303,7 @@ class pruebasFichero {
 		assertEquals(libros, result);
 	}
 
+	// test csv
 	@Test
 	void testCrearCsv() {
 		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
@@ -235,7 +324,7 @@ class pruebasFichero {
 		boolean result = main.Demo.menuCsv(opcion, teclado);
 		assertEquals(true, result);
 	}
-	
+
 	@Test
 	void testDemoMenuCsv() {
 		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
@@ -248,78 +337,113 @@ class pruebasFichero {
 	}
 
 	@Test
-	void testCrearXml() {
+	void testDemoMenuCsv4() {
+		String input = "ficheroCg";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 4;
+		boolean result = main.Demo.menuCsv(opcion, teclado);
+		assertEquals(true, result);
+	}
+
+	@Test
+	void testDemoMenuCsvFalse() {
+		String input = "ficheroC";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 4;
+		boolean result = main.Demo.menuCsv(opcion, teclado);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testCargarCsv() {
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
 		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = modelo.crearLibroXml.crearLibro(teclado,pruebaSys("xml"));
-		assertEquals(false, result);
-	}
-	
-	@Test
-	void testCrearXmlBase() {
-		boolean result = modelo.crearXml.generateXml(pruebaSys("xml"));
-		assertEquals(true, result);
-	}
-	
-	@Test
-	void testCrearXmlBaseFalse() {
-		boolean result = modelo.crearXml.generateXml(pruebaSys("ml"));
-		assertEquals(false, result);
-	}
-	
-	@Test
-	void testEliminarFichero() {
-		String input = "libreria";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		boolean result = Metodos.eliminarFichero(teclado, ".xml");
-		assertEquals(true, result);
-	}
-	
-	@Test
-	void testDemoComprobacionDouble() {
-		String input = "s \n 2 \n 22";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		double result = main.Demo.comprobacionDatoDouble(teclado);
-		assertEquals(2, result);
+		listaLibro = modelo.ficheroCsv.cargarCsv(teclado);
+		ArrayList<Libro> lista = new ArrayList<Libro>();
+		for (int i = 0; i < listaLibro.size(); i++) {
+			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
+			lista.add(libro);
+		}
+		int tamLista1 = listaLibro.size();
+		int tamLista2 = lista.size();
+		assertEquals(tamLista1, tamLista2);
 	}
 
 	@Test
-	void testDemoComprobacionEntero() {
-		String input = "s \n 2 \n 22";
+	void testEliminar() {
+		String input = "ficheroCg";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		double result = main.Demo.comprobacionDatoInt(teclado);
-		assertEquals(2, result);
+		int opcion = 4;
+		boolean result = modelo.Metodos.eliminarFichero(teclado, ".csv");
+		assertEquals(true, result);
+	}
+
+	// test de validacion
+	@Test
+	void testValidacion() {
+		String patron = "[a-z0-9\\.\\s]{1,100}";
+		String dato = "Esta vez si.";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(true, result);
 	}
 
 	@Test
-	void testInicioPrograma() {
-		String input = "1 \n 1 \n n \n ";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		boolean result = main.Demo.inicioPrograma(teclado);
-		assertEquals(true, result);
-	}
-	
-	@Test
-	void testInicioProgramaFalse() {
-		String input = "s n \n ";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		boolean result = main.Demo.inicioPrograma(teclado);
+	void testValidacionFalse() {
+		String patron = "[a-z0-9\\.\\s]{1,100}";
+		String dato = "";
+		boolean result = modelo.Metodos.validacion(patron, dato);
 		assertEquals(false, result);
 	}
-	
-	
+
+	@Test
+	void testValidacionFalse2() {
+		String patron = "[a-z0-9\\.\\s]{1,2} \n  ";
+		String dato = "asfgas,gfas-gasg \n 12412";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testValidacionFalse3() {
+		String patron = "[0-9]{1,4}";
+		String dato = "ads \n 125734";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testValidacionFals() {
+		String patron = "[0-9]{4,1}";
+		String dato = "";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testValidacionFa() {
+		String patron = "[9-0]{1,4}";
+		String dato = "";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+
+	@Test
+	void testValidaFa() {
+		String patron = "[a-z]{1,100}";
+		String dato = "4211.";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+
 	String pruebaSys(String tipo) {
 		String urlTxt = "";
 		String urlXml = "";
@@ -350,4 +474,5 @@ class pruebasFichero {
 		return "";
 
 	}
+
 }

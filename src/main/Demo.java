@@ -93,7 +93,7 @@ public class Demo {
 		System.out.println("3) Csv");
 		respuestaOpcionesTipo = entradaInt(1, 3, teclado);
 
-		System.out.println("ï¿½Que desea hacer? ");
+		System.out.println("¿Que desea hacer? ");
 		System.out.println("1. Leer");
 		System.out.println("2. Crear libro");
 		System.out.println("3. Eliminar archivo");
@@ -371,6 +371,7 @@ public class Demo {
 					archivo.createNewFile();
 					Variables.urlTxt = url;
 					Variables.ficheroTxt = archivo;
+					correcto = true;
 				}
 				else
 				{
@@ -435,17 +436,18 @@ public class Demo {
 				try {
 					archivo.createNewFile();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				Variables.urlCsv = url;
 				Variables.ficheroCsv = archivo;
+				correcto=true;
 			}
 			else
 			{
 				System.out.println("Archivo ya existe.");
 				Variables.urlCsv = url;
 				Variables.ficheroCsv = archivo;
+				correcto=false;
 			}
 		
 			break;
