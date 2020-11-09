@@ -651,6 +651,6 @@ public class Demo {
 		}
 		return correcto;
 	}
->>>>>>> branch 'Antonio' of https://github.com/Iker-elorrieta/ADTeam3.git
+
 
 }
