@@ -218,7 +218,7 @@ public class Metodos {
 	 * 
 	 * @return retorna true o false si el dato para validar esta correcto
 	 * 
-	 * caracteres como ï¿½ï¿½ï¿½ï¿½ se considera caracteres especiales
+	 * caracteres como ÑÇöü se considera caracteres especiales
 	 * con lo cual este metodo devolvera false en cuanto tenga alguno es estos caracteres.
 	 */
 	public static boolean validacion(String patron,String dato)

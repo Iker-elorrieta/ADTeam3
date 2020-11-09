@@ -136,12 +136,18 @@ class pruebasFichero {
 	@Test
 	void testWin() {
 		boolean result = Metodos.isWindows();
+		if(Metodos.isWindows())
 		assertEquals(true, result);
+		else
+		assertEquals(false, result);
 	}
 
 	@Test
 	void testUnix() {
 		boolean result = Metodos.isUnix();
+		if(Metodos.isUnix())
+		assertEquals(true, result);
+		else
 		assertEquals(false, result);
 	}
 
