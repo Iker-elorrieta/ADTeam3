@@ -1,4 +1,3 @@
-
 package modelo;
 
 import java.io.BufferedReader;
@@ -17,33 +16,28 @@ public class ficheroCsv {
 
 	public static final String SEPARATOR = ";";
 
+	/**
+	 * Metodo que carga datos Csv
+	 * @param sc
+	 * @return ArrayList<Libro>
+	 */
 	public static ArrayList<Libro> cargarCsv(Scanner sc) {
 
 		BufferedReader br = null;
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-
-		StringTokenizer fields = null;
-		boolean seguir;
-		
-		
 		try {
-			do {
-		
-				System.out.println("Introduce nombre del archivo");
-				String nombreArchivo = sc.nextLine();
-				String ruta = ".\\Ficheros\\"+nombreArchivo+".csv";
-				File archivo = new File(ruta);
+
+			String ruta = Variables.urlCsv;
+			File archivo = new File(ruta);
+			
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");
-				seguir = true;
 			} else {
-				seguir = false;
-				
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
 				StringTokenizer tokens;
 				while (null != line) {
-					tokens = new StringTokenizer(line,SEPARATOR );
+					tokens = new StringTokenizer(line, SEPARATOR);
 
 					Libro libro = new Libro();
 
@@ -57,7 +51,7 @@ public class ficheroCsv {
 					libro.setAltura(Double.parseDouble(tokens.nextToken()));
 					
 					libro.setNotas(tokens.nextToken());
-				
+					
 					libro.setIsbn(Integer.parseInt(tokens.nextToken()));
 					
 					libro.setMaterias(tokens.nextToken());
@@ -66,7 +60,6 @@ public class ficheroCsv {
 					line = br.readLine();
 				}
 			}
-			}while(seguir);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +69,6 @@ public class ficheroCsv {
 				try {
 					br.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -84,28 +76,16 @@ public class ficheroCsv {
 		return listaLibro;
 	}
 
+	/**
+	 * Metodo que crea Archivos Csv
+	 * @param teclado
+	 * @return boolean 
+	 */
 	public static boolean crearArchivoCSV(Scanner teclado) {
-		String ruta;
-		boolean seguir = false,repetir;
-		try {
-			do {
-			System.out.println("Introduce nombre del archivo");
-			String nombreArchivo = teclado.nextLine();
-			if (Metodos.isWindows()) {
-			ruta = ".\\Ficheros\\"+nombreArchivo+".csv";
-			}else if (Metodos.isUnix()){
-				ruta = "./Ficheros/"+nombreArchivo+".csv";
-			}
-		
-			FileWriter fw = new FileWriter(ruta, true);
-			File archivo = new File(ruta);
 
-			if (archivo.exists()) {
-				System.out.println("El fichero ya existe");
-				repetir =  true;
-			} else {
-				
-			repetir = false;
+		boolean seguir = false;
+		try {
+			FileWriter fw = new FileWriter(Variables.urlCsv, true);
 			do {
 
 				Libro libro = main.Demo.crearLibro(teclado);
@@ -122,14 +102,14 @@ public class ficheroCsv {
 				fw.flush();
 
 				System.out.println("Fichero creado con exito");
-				System.out.println("desea crear otro libro?");
+				System.out.println("desea crear otro libro?  S/N");
 
 				seguir = Demo.confirmacionSN(teclado);
 
 			} while (seguir);
 			fw.close();
-			}while(repetir);
-		} }catch (IOException e) {
+
+		} catch (IOException e) {
 			System.out.println("Error al crear fichero ");
 			e.printStackTrace();
 			seguir = true;
@@ -138,4 +118,3 @@ public class ficheroCsv {
 	}
 
 }
-

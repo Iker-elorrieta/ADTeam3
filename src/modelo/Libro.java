@@ -1,13 +1,15 @@
 package modelo;
-/*
+
+/**
  * Clase libro para rellenar la libreria.
+ *
  */
 public class Libro {
 	
 	private String titulo;
 	private String editorial;
 	private int paginas;
-	private Double altura;
+	private double altura;
 	private String notas;
 	private int isbn;
 	private String materias;
@@ -22,7 +24,7 @@ public class Libro {
 	 * (titulo,editorial,paginas,altura,notas,isbn,materias)
 	 * paginas y isbn tienen que ser enteros y altura tiene que ser un numero con decimales.
 	 */
-	public Libro(String titulo, String editorial, int paginas, Double altura, String notas, int isbn, String materias)
+	public Libro(String titulo, String editorial, int paginas, double altura, String notas, int isbn, String materias)
 	{
 		this.titulo = titulo;
 		this.editorial = editorial;
