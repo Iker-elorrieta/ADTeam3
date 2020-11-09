@@ -29,7 +29,7 @@ public class ficheroCsv {
 
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
-
+			
 			if (!archivo.exists()) {
 				System.out.println("El fichero no existe");
 			} else {
@@ -37,24 +37,24 @@ public class ficheroCsv {
 				String line = br.readLine();
 				StringTokenizer tokens;
 				while (null != line) {
-					tokens = new StringTokenizer(line, ";");
+					tokens = new StringTokenizer(line, SEPARATOR);
 
 					Libro libro = new Libro();
 
-					String titulo = tokens.nextToken();
-					libro.setTitulo(titulo);
-					String editorial = tokens.nextToken();
-					libro.setEditorial(editorial);
-					String paginas = tokens.nextToken();
-					libro.setPaginas(Integer.parseInt(paginas));
-					String altura = tokens.nextToken();
-					libro.setAltura(Double.parseDouble(altura));
-					String notas = tokens.nextToken();
-					libro.setNotas(notas);
-					String isbn = tokens.nextToken();
-					libro.setIsbn(Integer.parseInt(isbn));
-					String materias = tokens.nextToken();
-					libro.setMaterias(materias);
+					
+					libro.setTitulo(tokens.nextToken());
+					
+					libro.setEditorial(tokens.nextToken());
+					
+					libro.setPaginas(Integer.parseInt(tokens.nextToken()));
+					
+					libro.setAltura(Double.parseDouble(tokens.nextToken()));
+					
+					libro.setNotas(tokens.nextToken());
+					
+					libro.setIsbn(Integer.parseInt(tokens.nextToken()));
+					
+					libro.setMaterias(tokens.nextToken());
 
 					listaLibro.add(libro);
 					line = br.readLine();
