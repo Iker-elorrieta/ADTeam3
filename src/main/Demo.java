@@ -86,18 +86,24 @@ public class Demo {
 		boolean correcto = false;
 		int respuestaOpcionesTipo;
 		int respuestaOpcionesAccion;
-
-		System.out.println("Elige alguna de las opciones: ");
-		System.out.println("1) Xml");
-		System.out.println("2) txt");
-		System.out.println("3) Csv");
+		System.out.println("*********MENU PRINCIPAL**********");
+		System.out.println("*                               *");
+		System.out.println("* Elige alguna de las opciones: *");
+		System.out.println("* 1) Xml                        *");
+		System.out.println("* 2) txt                        *");
+		System.out.println("* 3) Csv                        *");
+		System.out.println("*                               *");
+		System.out.println("*********************************");
 		respuestaOpcionesTipo = entradaInt(1, 3, teclado);
 
-		System.out.println("¿Que desea hacer? ");
-		System.out.println("1. Leer");
-		System.out.println("2. Crear libro");
-		System.out.println("3. Eliminar archivo");
-		System.out.println("4. Crear archivo / Seleccionar archivo");
+		System.out.println("******************************************");
+		System.out.println("* ¿Que desea hacer?                      *");
+		System.out.println("*                                        *");
+		System.out.println("* 1. Leer                                *");
+		System.out.println("* 2. Crear libro                         *");
+		System.out.println("* 3. Eliminar archivo                    *");
+		System.out.println("* 4. Crear archivo / Seleccionar archivo *");
+		System.out.println("******************************************");
 		if (respuestaOpcionesTipo == 1) {
 			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
 

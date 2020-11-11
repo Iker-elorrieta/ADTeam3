@@ -440,4 +440,37 @@ public class Metodos {
 		return true;
 	}
 
+	public static void Permisos(File fichero,Scanner sc) {
+		if (!fichero.exists()) {
+			System.out.println("El fichero no existe");
+		}else {
+			System.out.println("Elige una opcion");
+			System.out.println("1.-Dar permisos de lectura");
+			System.out.println("2.-Dar permisos de escritura");
+			System.out.println("3.-Dar permisos de ejecucion");
+			System.out.println("4.-Quitar todos los permisos");
+			int opcion = sc.nextInt();
+			
+			switch (opcion) {
+			case 1:
+				fichero.setReadable(true);
+				System.out.println("permiso de lectura otorgado");
+			case 2:
+				fichero.setWritable(true);
+				System.out.println("permiso de escritura otorgado");
+
+			case 3:
+				fichero.setExecutable(true);
+				System.out.println("permiso de ejecucion otorgado");
+
+			case 4:
+				fichero.setReadable(false);
+				fichero.setWritable(false);
+				fichero.setExecutable(false);
+				System.out.println("permisos quitados");
+			}
+		}
+	
+
+	}
 }
