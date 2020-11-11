@@ -16,18 +16,22 @@ public class ficheroCsv {
 
 	public static final String SEPARATOR = ";";
 
+	/**
+	 * Metodo que carga datos Csv
+	 * @param sc
+	 * @return ArrayList<Libro>
+	 */
 	public static ArrayList<Libro> cargarCsv(Scanner sc) {
 
 		BufferedReader br = null;
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-
 		try {
 
 			String ruta = Variables.urlCsv;
 			File archivo = new File(ruta);
-
+			
 			if (!archivo.exists()) {
-				System.out.println("El fichero no existe");			
+				System.out.println("El fichero no existe");
 			} else {
 				br = new BufferedReader(new FileReader(ruta));
 				String line = br.readLine();
@@ -37,20 +41,20 @@ public class ficheroCsv {
 
 					Libro libro = new Libro();
 
-					String titulo = tokens.nextToken();
-					libro.setTitulo(titulo);
-					String editorial = tokens.nextToken();
-					libro.setEditorial(editorial);
-					String paginas = tokens.nextToken();
-					libro.setPaginas(Integer.parseInt(paginas));
-					String altura = tokens.nextToken();
-					libro.setAltura(Double.parseDouble(altura));
-					String notas = tokens.nextToken();
-					libro.setNotas(notas);
-					String isbn = tokens.nextToken();
-					libro.setIsbn(Integer.parseInt(isbn));
-					String materias = tokens.nextToken();
-					libro.setMaterias(materias);
+					
+					libro.setTitulo(tokens.nextToken());
+					
+					libro.setEditorial(tokens.nextToken());
+					
+					libro.setPaginas(Integer.parseInt(tokens.nextToken()));
+					
+					libro.setAltura(Double.parseDouble(tokens.nextToken()));
+					
+					libro.setNotas(tokens.nextToken());
+					
+					libro.setIsbn(Integer.parseInt(tokens.nextToken()));
+					
+					libro.setMaterias(tokens.nextToken());
 
 					listaLibro.add(libro);
 					line = br.readLine();
@@ -72,6 +76,11 @@ public class ficheroCsv {
 		return listaLibro;
 	}
 
+	/**
+	 * Metodo que crea Archivos Csv
+	 * @param teclado
+	 * @return boolean 
+	 */
 	public static boolean crearArchivoCSV(Scanner teclado) {
 
 		boolean seguir = false;
@@ -93,7 +102,7 @@ public class ficheroCsv {
 				fw.flush();
 
 				System.out.println("Fichero creado con exito");
-				System.out.println("desea crear otro libro?");
+				System.out.println("desea crear otro libro?  S/N");
 
 				seguir = Demo.confirmacionSN(teclado);
 

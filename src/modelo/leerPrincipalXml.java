@@ -10,7 +10,12 @@ import org.xml.sax.SAXException;
 
 public class leerPrincipalXml {	
 	
-
+	/**
+	 *  Metodo que lee muestra por pantalla el Xml 
+	 * @param listaLibros
+	 * @param rutaFichero
+	 * @return ArrayList<Libro>
+	 */
 	public static ArrayList<Libro> leerPrincipal(ArrayList<Libro> listaLibros,String rutaFichero)  {
 
 		try {

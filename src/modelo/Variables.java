@@ -3,9 +3,8 @@ package modelo;
 import java.io.File;
 import java.util.ArrayList;
 
-/*
+/**
  * Clase donde se apuntan las variables que se usan en todo el programa.
- *
  */
 public class Variables { 
 	

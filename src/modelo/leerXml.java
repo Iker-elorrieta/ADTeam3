@@ -6,6 +6,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * Clase que lee el Xml del Archivo 
+ *
+ */
 public class leerXml extends DefaultHandler  {
 	
 
