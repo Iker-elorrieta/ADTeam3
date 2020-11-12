@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -142,6 +143,9 @@ public class Metodos {
 		return correcto;
 	}
 	
+	/** 
+	 * Metodo de comprobacion de So para windows
+	 */
 	public static boolean isWindows() 
 	{
 		if(Variables.OS.indexOf("win") >= 0)
@@ -154,6 +158,9 @@ public class Metodos {
 		}
 	}
 	
+	/** 
+	 * Metodo de comprobacion de So para windows
+	 */
 	public static boolean isUnix() 
 	{
 		if(Variables.OS.indexOf("nix") >= 0 || Variables.OS.indexOf("nux") >= 0 || Variables.OS.indexOf("aix") > 0 )
@@ -438,6 +445,43 @@ public class Metodos {
 		}
 		
 		return true;
+	}
+
+	/**
+	 * @param nombre del archivo que quiere econtrar.
+	 * @return devolvera la ruta de este
+	 */
+	public static String buscarFichero(String nombreArchivo)
+	{
+		EncontrarFichero buscador = new EncontrarFichero(nombreArchivo);
+		buscador.start();
+		System.out.print("Buscando");
+		int contador = 0;
+		Random r = new Random();
+		int limite = r.nextInt(30);
+		while(buscador.getEstado().equals("buscando"))
+		{
+			try {
+				Thread.sleep(1000);
+				contador++;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(contador <= limite || contador <= 5)
+			System.out.print(".");
+			else
+			{
+				limite = r.nextInt(30);
+				System.out.println();
+				System.out.print("Buscando");
+				contador = 0;
+			}
+		}
+		
+		if(buscador.getEstado().equals("esperando recogida"))
+		System.out.println("");
+		return buscador.recogerResult();
 	}
 
 }
