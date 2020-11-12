@@ -19,6 +19,14 @@ import org.w3c.dom.Text;
 
 public class crearXml {
 
+	private static final String libro = "libro";
+	private static final String ftitulo = "titulo";
+	private static final String feditorial = "editorial";
+	private static final String fpaginas = "paginas";
+	private static final String faltura = "altura";
+	private static final String fnotas = "notas";
+	private static final String fisbn = "isbn";
+	private static final String fmaterias = "materias";
 	/**
 	 * Metodo que genera Xml base cuando no existe el fichero
 	 * @param ruta
@@ -47,27 +55,27 @@ public class crearXml {
 			Element raiz = document.getDocumentElement();
 			// agregamos una nueva etiqueta al doc
 			// primero creamos la etiqueta
-			Element nuevoLibro = document.createElement("libro");
+			Element nuevoLibro = document.createElement(libro);
 			// creamos sus etiquetas hijas
-			Element titulo = document.createElement("titulo");
+			Element titulo = document.createElement(ftitulo);
 			titulo.setTextContent(lLibro.getTitulo());
 			// editorial
-			Element editorial = document.createElement("editorial");
+			Element editorial = document.createElement(feditorial);
 			editorial.setTextContent(lLibro.getEditorial());
 			// paginas
-			Element paginas = document.createElement("paginas");
+			Element paginas = document.createElement(fpaginas);
 			paginas.setTextContent("" + lLibro.getPaginas());
 			// altura
-			Element altura = document.createElement("altura");
+			Element altura = document.createElement(faltura);
 			altura.setTextContent("" + lLibro.getAltura());
 			// notas
-			Element notas = document.createElement("notas");
+			Element notas = document.createElement(fnotas);
 			notas.setTextContent(lLibro.getNotas());
 			// isbn
-			Element isbn = document.createElement("isbn");
+			Element isbn = document.createElement(fisbn);
 			isbn.setTextContent("" + lLibro.getIsbn());
 			// materias
-			Element materias = document.createElement("materias");
+			Element materias = document.createElement(fmaterias);
 			materias.setTextContent(lLibro.getMaterias());
 
 			nuevoLibro.appendChild(titulo);

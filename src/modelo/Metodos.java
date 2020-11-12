@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
 /**
  * Clase donde se apuntan los metodos que se usan en el programa.
  *
  */
 public class Metodos {
-
+	public static final String SEPARATOR = ";";
 	/**
 	 *  Metodo para rellenar la lista del probrama con los libros apuntados en el
 	 * fichero txt.
@@ -32,7 +33,7 @@ public class Metodos {
 			StringTokenizer token;
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
-				token = new StringTokenizer(linea,";");
+				token = new StringTokenizer(linea,SEPARATOR);
 				String[] tokens = new String[token.countTokens()];
 				for(int i = 0; token.hasMoreTokens();i++)
 				{

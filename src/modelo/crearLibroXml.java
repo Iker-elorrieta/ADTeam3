@@ -18,6 +18,14 @@ import main.Demo;
 
 public class crearLibroXml {
 
+	private static final String libro = "libro";
+	private static final String ftitulo = "titulo";
+	private static final String feditorial = "editorial";
+	private static final String fpaginas = "paginas";
+	private static final String faltura = "altura";
+	private static final String fnotas = "notas";
+	private static final String fisbn = "isbn";
+	private static final String fmaterias = "materias";
 	/**
 	 * metodo que crea libro Xml 
 	 * @param teclado
@@ -43,27 +51,27 @@ public class crearLibroXml {
 
 				// agregamos una nueva etiqueta al doc
 				// primero creamos la etiqueta
-				Element nuevoLibro = doc.createElement("libro");
+				Element nuevoLibro = doc.createElement(libro);
 				// creamos sus etiquetas hijas
-				Element titulo = doc.createElement("titulo");
+				Element titulo = doc.createElement(ftitulo);
 				titulo.setTextContent(lLibro.getTitulo());
 				// editorial
-				Element editorial = doc.createElement("editorial");
+				Element editorial = doc.createElement(feditorial);
 				editorial.setTextContent(lLibro.getEditorial());
 				// paginas
-				Element paginas = doc.createElement("paginas");
+				Element paginas = doc.createElement(fpaginas);
 				paginas.setTextContent("" + lLibro.getPaginas());
 				// altura
-				Element altura = doc.createElement("altura");
+				Element altura = doc.createElement(faltura);
 				altura.setTextContent("" + lLibro.getAltura());
 				// notas
-				Element notas = doc.createElement("notas");
+				Element notas = doc.createElement(fnotas);
 				notas.setTextContent(lLibro.getNotas());
 				// isbn
-				Element isbn = doc.createElement("isbn");
+				Element isbn = doc.createElement(fisbn);
 				isbn.setTextContent("" + lLibro.getIsbn());
 				// materias
-				Element materias = doc.createElement("materias");
+				Element materias = doc.createElement(fmaterias);
 				materias.setTextContent(lLibro.getMaterias());
 
 				nuevoLibro.appendChild(titulo);
