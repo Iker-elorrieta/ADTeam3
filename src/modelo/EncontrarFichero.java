@@ -10,6 +10,7 @@ public class EncontrarFichero extends Thread {
 	private String fichero;
 	private String estado = "buscando";
 	private String result;
+	private int lugarProgreso;
 	
 	public EncontrarFichero(String fichero)
 	{
@@ -41,7 +42,7 @@ public class EncontrarFichero extends Thread {
 		
 	}
 	
-	public ArrayList<String> test()
+	public ArrayList<String> encontrarEspaciosAlmacenamiento()
 	{
 		ArrayList<String> result = new ArrayList<String>();
 		/*
@@ -64,13 +65,15 @@ public class EncontrarFichero extends Thread {
 	
 	public String econtrarFichero(String fichero)
 	{
-		ArrayList<String> discos = test();
-		for(int i = 0; i < discos.size()  ; i++)
+		ArrayList<String> discos = encontrarEspaciosAlmacenamiento();
+		for(int i = 0 ; i < discos.size() ; i++)
 		{
 			String ruta = subdirectoriosRecursivos(discos.get(i), fichero);
+			lugarProgreso = i;
 			if(!ruta.equals(""))
 			{
 				i = discos.size();
+				lugarProgreso = i;
 				return ruta;
 			}
 //			System.out.println("");
@@ -106,12 +109,10 @@ public class EncontrarFichero extends Thread {
         		}
         		else
         		{
-        			
         			if(files[y].getName().equals(nombrefichero))
         			{
         				return files[y].getAbsolutePath();
         			}
-        			
         		}
         	}
         	
@@ -133,4 +134,15 @@ public class EncontrarFichero extends Thread {
 	{
 		return estado;
 	}
+
+	public int getProgreso()
+	{
+		return lugarProgreso;
+	}
+	
+	public int limiteProgreso()
+	{
+		return encontrarEspaciosAlmacenamiento().size();
+	}
+	
 }

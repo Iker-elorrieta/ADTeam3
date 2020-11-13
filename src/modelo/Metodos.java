@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -448,36 +447,50 @@ public class Metodos {
 	}
 
 	/**
-	 * @param nombre del archivo que quiere econtrar.
+	 * @param nombre del archivo que quiere econtrar con la extension correspondiente.
+	 * 
+	 * (este metodo no devuelvera todos los ficheros que hay con ese nombre en distintas carpetas
+	 * ni comprueba el contenido, solo devuelve el primer fichero que encuentra)
+	 * Los espacios de la barra de progreso "Buscando[    ]" significa la cantidad de dispositivos
+	 * de almacenamiento de datos que estan conectadas al ordenador, cada barra que aparece significa
+	 * que ha acabado de buscar por un dispositivo (Ejemplo dispositivos C:\\ D:\\ etc...)
+	 * si aparecen las barras de golpe significa que se encontro en el primer dispositivo.
+	 * 
 	 * @return devolvera la ruta de este
+	 * 
 	 */
 	public static String buscarFichero(String nombreArchivo)
 	{
 		EncontrarFichero buscador = new EncontrarFichero(nombreArchivo);
 		buscador.start();
-		System.out.print("Buscando");
-		int contador = 0;
-		Random r = new Random();
-		int limite = r.nextInt(30);
+		int i = 0;
+		String progreso = "[";
+		for(int y = 0 ; y < buscador.limiteProgreso(); y++)
+			progreso += " ";
+		progreso+="]";
+		int anterior = buscador.getProgreso();
+		System.out.print("Buscando"+progreso);
 		while(buscador.getEstado().equals("buscando"))
 		{
 			try {
+				if(buscador.getProgreso() != anterior)
+				{
+					anterior = buscador.getProgreso();
+					progreso = progreso.substring(0,i) + "-" + progreso.substring(progreso.indexOf(" ")+1,progreso.indexOf("]")+1);
+					System.out.print("\r"+"Buscando"+progreso);
+					i++;
+				}
 				Thread.sleep(1000);
-				contador++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(contador <= limite || contador <= 5)
-			System.out.print(".");
-			else
-			{
-				limite = r.nextInt(30);
-				System.out.println();
-				System.out.print("Buscando");
-				contador = 0;
-			}
 		}
+		progreso = "[";
+		for(int y = 0 ; y < buscador.limiteProgreso(); y++)
+			progreso += "-";
+		progreso+="]";
+		System.out.print("\r"+"Buscando"+progreso);
 		
 		if(buscador.getEstado().equals("esperando recogida"))
 		System.out.println("");
