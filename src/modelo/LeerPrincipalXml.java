@@ -8,7 +8,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 
-public class leerPrincipalXml {	
+public class LeerPrincipalXml {	
 	
 	/**
 	 *  Metodo que lee muestra por pantalla el Xml 
@@ -21,7 +21,7 @@ public class leerPrincipalXml {
 		try {
 			
 			SAXParserFactory factory = SAXParserFactory.newInstance();
-			leerXml leerXml = new leerXml();
+			LeerXml leerXml = new LeerXml();
 			SAXParser parser = factory.newSAXParser(); 
 			parser.parse(rutaFichero, leerXml); 
 			listaLibros = leerXml.obtenerlibros();

@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 
 import main.Demo;
 
-public class crearLibroXml {
+public class CrearLibroXml {
 
 	/**
 	 * metodo que crea libro Xml 

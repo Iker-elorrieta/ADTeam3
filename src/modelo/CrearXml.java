@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-public class crearXml {
+public class CrearXml {
 
 	/**
 	 * Metodo que genera Xml base cuando no existe el fichero

@@ -10,7 +10,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Clase que lee el Xml del Archivo 
  *
  */
-public class leerXml extends DefaultHandler  {
+public class LeerXml extends DefaultHandler  {
 	
 
 	boolean titulo = false;

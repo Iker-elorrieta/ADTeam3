@@ -14,7 +14,7 @@ import modelo.Variables;
 /**
  * Clase de pruebas del programa
  */
-class pruebasFichero {
+class PruebasFichero {
 
 	private File fichero;
 
@@ -168,11 +168,12 @@ class pruebasFichero {
 
 	@Test
 	void testDemoMenuTxt2() {
-		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		String input = ".  \n El avion de los suenos \n . \n DreamWork \n $ \n pegi 8 \n . \n Educativo \n 3,3 \n 5 \n 5 \n a \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
 		int opcion = 2;
+		Variables.urlTxt= pruebaSys("txt");
 		boolean result = main.Demo.menuTxt(opcion, teclado);
 		assertEquals(true, result);
 	}
@@ -213,11 +214,12 @@ class pruebasFichero {
 
 	@Test
 	void testDemoMenuXml2() {
-		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		String input = ".  \n El avion de los suenos \n . \n DreamWork \n $ \n pegi 8 \n . \n Educativo \n a \n 3,3 \n 5 \n 5 \n a \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
 		int opcion = 2;
+		Variables.urlXml = pruebaSys("xml");
 		boolean result = main.Demo.menuXml(opcion, teclado);
 		assertEquals(true, result);
 	}
@@ -247,7 +249,7 @@ class pruebasFichero {
 	@Test
 	void testLeerPrincipal() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
+		listaLibro = modelo.LeerPrincipalXml.leerPrincipal(listaLibro, pruebaSys("xml"));
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		for (int i = 0; i < listaLibro.size(); i++) {
 			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
@@ -260,23 +262,24 @@ class pruebasFichero {
 
 	@Test
 	void testCrearXml() {
-		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		String input = ".  \n El avion de los suenos \n . \n DreamWork \n $ \n pegi 8 \n . \n Educativo \n a \n 3,3 \n 5 \n 5 \n a \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = modelo.crearLibroXml.crearLibro(teclado, pruebaSys("xml"));
+		Variables.urlXml = pruebaSys("xml");
+		boolean result = modelo.CrearLibroXml.crearLibro(teclado, pruebaSys("xml"));
 		assertEquals(false, result);
 	}
 
 	@Test
 	void testCrearXmlBase() {
-		boolean result = modelo.crearXml.generateXml(pruebaSys("xml"));
+		boolean result = modelo.CrearXml.generateXml(pruebaSys("xml"));
 		assertEquals(true, result);
 	}
 
 	@Test
 	void testCrearXmlBaseFalse() {
-		boolean result = modelo.crearXml.generateXml(pruebaSys("ml"));
+		boolean result = modelo.CrearXml.generateXml(pruebaSys("ml"));
 		assertEquals(false, result);
 	}
 
@@ -306,11 +309,12 @@ class pruebasFichero {
 	// test csv
 	@Test
 	void testCrearCsv() {
-		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		String input = ".  \n El avion de los suenos \n . \n DreamWork \n $ \n pegi 8 \n . \n Educativo \n a \n 3,3 \n 5 \n 5 \n a \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = modelo.ficheroCsv.crearArchivoCSV(teclado);
+		Variables.urlCsv = pruebaSys("csv");
+		boolean result = modelo.FicheroCsv.crearArchivoCSV(teclado);
 		assertEquals(false, result);
 	}
 
@@ -327,7 +331,7 @@ class pruebasFichero {
 
 	@Test
 	void testDemoMenuCsv() {
-		String input = "Esta vez si \n Venga \n A que va \n Ya te digo \n 3,3 \n 3  \n 123151 \n n  ";
+		String input = ".  \n El avion de los suenos \n . \n DreamWork \n $ \n pegi 8 \n . \n Educativo \n a \n 3,3 \n 5 \n 5 \n a \n 123151 \n n  ";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -365,7 +369,7 @@ class pruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		listaLibro = modelo.ficheroCsv.cargarCsv(teclado);
+		listaLibro = modelo.FicheroCsv.cargarCsv(teclado);
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		for (int i = 0; i < listaLibro.size(); i++) {
 			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");

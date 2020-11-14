@@ -10,8 +10,8 @@ import modelo.Libro;
 import modelo.Metodos;
 import modelo.Patrones;
 import modelo.Variables;
-import modelo.crearLibroXml;
-import modelo.ficheroCsv;
+import modelo.CrearLibroXml;
+import modelo.FicheroCsv;
 
 public class Demo {
 
@@ -62,7 +62,7 @@ public class Demo {
 			if (!Variables.ficheroCsv.exists())
 				Variables.ficheroCsv.createNewFile();
 			if (!Variables.ficheroXml.exists())
-				modelo.crearXml.generateXml(Variables.urlXml);
+				modelo.CrearXml.generateXml(Variables.urlXml);
 			if (!Variables.ficheroTxt.exists())
 				Variables.ficheroTxt.createNewFile();
 			do {
@@ -264,11 +264,11 @@ public class Demo {
 					letra = teclado.next().charAt(0);
 
 					if (letra == 's') {
-						modelo.crearXml.generateXml(Variables.urlXml);
+						modelo.CrearXml.generateXml(Variables.urlXml);
 						System.out.println("libro base creado");
 					}
 				} else {
-					listaLibro = modelo.leerPrincipalXml.leerPrincipal(listaLibro, Variables.urlXml);
+					listaLibro = modelo.LeerPrincipalXml.leerPrincipal(listaLibro, Variables.urlXml);
 					Metodos.listar(listaLibro);
 					correcto = true;
 				}
@@ -277,9 +277,9 @@ public class Demo {
 			case 2:
 
 				if (!Variables.ficheroXml.exists()) {
-					modelo.crearXml.generateXml(Variables.urlXml);
+					modelo.CrearXml.generateXml(Variables.urlXml);
 				}
-				crearLibroXml.crearLibro(teclado, Variables.urlXml);
+				CrearLibroXml.crearLibro(teclado, Variables.urlXml);
 				correcto = true;
 				break;
 
@@ -300,7 +300,7 @@ public class Demo {
 				File archivo = new File(url);
 				
 				if (!archivo.exists()) {
-					modelo.crearXml.generateXml(url);
+					modelo.CrearXml.generateXml(url);
 					Variables.urlXml = url;
 					Variables.ficheroXml = archivo;
 				}
@@ -401,13 +401,13 @@ public class Demo {
 
 		case 1:
 
-			Metodos.listar(ficheroCsv.cargarCsv(teclado));
+			Metodos.listar(FicheroCsv.cargarCsv(teclado));
 			correcto = true;
 			break;
 
 		case 2:
 
-			ficheroCsv.crearArchivoCSV(teclado);
+			FicheroCsv.crearArchivoCSV(teclado);
 			correcto = true;
 			break;
 			

@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 
 import main.Demo;
 
-public class ficheroCsv {
+public class FicheroCsv {
 
 	public static final String SEPARATOR = ";";
 

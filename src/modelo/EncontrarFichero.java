@@ -46,8 +46,8 @@ public class EncontrarFichero extends Thread {
 	{
 		ArrayList<String> result = new ArrayList<String>();
 		/*
-			//System.out.println("Drive Letter: " + aDrive);
-			//System.out.println("\tType: " + fsv.getSystemTypeDescription(aDrive));
+			//System.out.println("Drive Letter: " + aDrive); ruta del dispositivo
+			//System.out.println("\tType: " + fsv.getSystemTypeDescription(aDrive)); nombre del dispositivo
 			//System.out.println();
 		 * 
 		 	https://stackoverflow.com/questions/21059703/how-can-a-java-program-list-all-partitions-and-get-the-free-space-of-them-on-lin
