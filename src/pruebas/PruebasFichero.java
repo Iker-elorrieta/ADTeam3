@@ -314,6 +314,7 @@ class PruebasFichero {
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
 		Variables.urlCsv = pruebaSys("csv");
+		// no se porque da fallo... lo intente arreglar XD por alguna razon no encuentra la ruta
 		boolean result = Metodos.crearArchivoCSV(teclado);
 		assertEquals(false, result);
 	}
