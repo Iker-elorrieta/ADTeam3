@@ -11,7 +11,7 @@ public class Libro {
 	private int paginas;
 	private double altura;
 	private String notas;
-	private int isbn;
+	private long isbn;
 	private String materias;
 	
 	public Libro()
@@ -24,7 +24,7 @@ public class Libro {
 	 * (titulo,editorial,paginas,altura,notas,isbn,materias)
 	 * paginas y isbn tienen que ser enteros y altura tiene que ser un numero con decimales.
 	 */
-	public Libro(String titulo, String editorial, int paginas, double altura, String notas, int isbn, String materias)
+	public Libro(String titulo, String editorial, int paginas, double altura, String notas, long isbn, String materias)
 	{
 		this.titulo = titulo;
 		this.editorial = editorial;
@@ -65,7 +65,7 @@ public class Libro {
 	public String getNotas() {
 		return notas;
 	}
-	public int getIsbn() {
+	public long getIsbn() {
 		return isbn;
 	}
 	public String getMaterias() {
@@ -87,7 +87,7 @@ public class Libro {
 	public void setNotas(String notas) {
 		this.notas = notas;
 	}
-	public void setIsbn(int isbn) {
+	public void setIsbn(Long isbn) {
 		this.isbn = isbn;
 	}
 	public void setMaterias(String materias) {

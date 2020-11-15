@@ -10,8 +10,6 @@ import modelo.Libro;
 import modelo.Metodos;
 import modelo.Patrones;
 import modelo.Variables;
-import modelo.CrearLibroXml;
-import modelo.FicheroCsv;
 
 public class Demo {
 
@@ -62,7 +60,7 @@ public class Demo {
 			if (!Variables.ficheroCsv.exists())
 				Variables.ficheroCsv.createNewFile();
 			if (!Variables.ficheroXml.exists())
-				modelo.CrearXml.generateXml(Variables.urlXml);
+				Metodos.generateXml(Variables.urlXml);
 			if (!Variables.ficheroTxt.exists())
 				Variables.ficheroTxt.createNewFile();
 			do {
@@ -264,11 +262,11 @@ public class Demo {
 					letra = teclado.next().charAt(0);
 
 					if (letra == 's') {
-						modelo.CrearXml.generateXml(Variables.urlXml);
+						Metodos.generateXml(Variables.urlXml);
 						System.out.println("libro base creado");
 					}
 				} else {
-					listaLibro = modelo.LeerPrincipalXml.leerPrincipal(listaLibro, Variables.urlXml);
+					listaLibro = Metodos.leerXml(Variables.urlXml);
 					Metodos.listar(listaLibro);
 					correcto = true;
 				}
@@ -277,9 +275,9 @@ public class Demo {
 			case 2:
 
 				if (!Variables.ficheroXml.exists()) {
-					modelo.CrearXml.generateXml(Variables.urlXml);
+					Metodos.generateXml(Variables.urlXml);
 				}
-				CrearLibroXml.crearLibro(teclado, Variables.urlXml);
+				Metodos.crearLibro(teclado, Variables.urlXml);
 				correcto = true;
 				break;
 
@@ -300,7 +298,7 @@ public class Demo {
 				File archivo = new File(url);
 				
 				if (!archivo.exists()) {
-					modelo.CrearXml.generateXml(url);
+					Metodos.generateXml(url);
 					Variables.urlXml = url;
 					Variables.ficheroXml = archivo;
 				}
@@ -378,6 +376,7 @@ public class Demo {
 					System.out.println("El archivo ya existe.");
 					Variables.urlTxt = url;
 					Variables.ficheroTxt = archivo;
+					correcto = true;
 				}
 			}
 		} catch (Exception e) {
@@ -397,17 +396,18 @@ public class Demo {
 	 */
 	public static boolean menuCsv(int opcion, Scanner teclado) {
 		boolean correcto = false;
+		final String extension = ".csv";
 		switch (opcion) {
 
 		case 1:
 
-			Metodos.listar(FicheroCsv.cargarCsv(teclado));
+			Metodos.listar(Metodos.cargarCsv(teclado));
 			correcto = true;
 			break;
 
 		case 2:
 
-			FicheroCsv.crearArchivoCSV(teclado);
+			Metodos.crearArchivoCSV(teclado);
 			correcto = true;
 			break;
 			
@@ -427,7 +427,7 @@ public class Demo {
 				prefix = ".\\Ficheros\\";
 			else if(Metodos.isUnix())
 				prefix = "./Ficheros/";
-			String url = prefix+nombre+".csv";
+			String url = prefix+nombre+extension;
 			
 			File archivo = new File(url);
 			

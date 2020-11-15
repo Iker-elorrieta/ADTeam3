@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -12,7 +11,6 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class LeerXml extends DefaultHandler  {
 	
-
 	boolean titulo = false;
 	boolean editorial = false;
 	boolean paginas = false;
@@ -20,25 +18,29 @@ public class LeerXml extends DefaultHandler  {
 	boolean notas = false;
 	boolean isbn = false;
 	boolean materias = false;
-	
+	final String parametroTitulo = "titulo",	 parametroEditorial = "editorial", 
+				 parametroPaginas = "paginas",	 parametroAltura = "altura", 
+				 parametroNotas = "notas",		 parametroIsbn = "isbn", 
+				 parametroMaterias = "materias";
+
 	private ArrayList<Libro> listalibros= new ArrayList<Libro>();
 	Libro libro = new Libro();
 
 	@Override
 	public void startElement(String uri, String localName, String Name, Attributes attributos) throws SAXException {
-		if (Name.equals("titulo"))
+		if (Name.equals(parametroTitulo))
 			titulo = true;
-		if (Name.equals("editorial"))
+		if (Name.equals(parametroEditorial))
 			editorial = true;
-		if (Name.equals("paginas"))
+		if (Name.equals(parametroPaginas))
 			paginas = true;
-		if (Name.equals("altura"))
+		if (Name.equals(parametroAltura))
 			altura = true;
-		if (Name.equals("notas"))
+		if (Name.equals(parametroNotas))
 			notas = true;
-		if (Name.equals("isbn"))
+		if (Name.equals(parametroIsbn))
 			isbn = true;
-		if (Name.equals("materias"))
+		if (Name.equals(parametroMaterias))
 			materias = true;
 	}
 
@@ -69,7 +71,7 @@ public class LeerXml extends DefaultHandler  {
 			notas=false;
 		}
 		if (isbn) {			
-			libro.setIsbn(Integer.parseInt(new String(ch, start, length)));
+			libro.setIsbn(Long.parseLong(new String(ch, start, length)));
 			isbn=false;
 		}
 		if (materias) {			
