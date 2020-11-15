@@ -6,10 +6,9 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Permisos {
+		
+	public static boolean cambioPermiso(Scanner teclado) {
 
-	public static boolean cambioPermiso() {
-
-		Scanner teclado = new java.util.Scanner(System.in);
 		int opcion;
 		boolean correcto=false;
 		try {

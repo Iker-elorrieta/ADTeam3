@@ -451,12 +451,12 @@ class PruebasFichero {
 	//permisos
 	@Test
 	void testPermisos() {
-		String input = "1 \n juan \n prueba.txt \n F";
+		String input = "1 \n juan \n prueba.txt \n F \n 3";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = modelo.Permisos.cambioPermiso();
-		assertEquals(true, result);
+		boolean result = modelo.Permisos.cambioPermiso(teclado);
+		assertEquals(false, result);
 	}
 	
 	String pruebaSys(String tipo) {
