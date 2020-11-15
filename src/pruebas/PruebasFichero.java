@@ -448,6 +448,17 @@ class PruebasFichero {
 		assertEquals(false, result);
 	}
 
+	//permisos
+	@Test
+	void testPermisos() {
+		String input = "1 \n juan \n prueba.txt \n F";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = modelo.Permisos.cambioPermiso();
+		assertEquals(true, result);
+	}
+	
 	String pruebaSys(String tipo) {
 		String urlTxt = "";
 		String urlXml = "";

@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class Permisos {
 
-	public static void main(String[] args) {
+	public static boolean cambioPermiso() {
 
 		Scanner teclado = new java.util.Scanner(System.in);
 		int opcion;
-		boolean correcto;
+		boolean correcto=false;
 		try {
 
 			do {
@@ -39,14 +39,19 @@ public class Permisos {
 
 		} catch (Exception e) {
 			e.getMessage();
+			correcto = false;
 		}
+		return correcto;
 	}
 
-	private static void quitarPermiso(Scanner teclado) {
+	private static boolean quitarPermiso(Scanner teclado) {
+		
+		String usuario;
+		String nombreFichero;
+		String nomFichero;
+		boolean correcto=false;
 		try {
-			String usuario;
-			String nombreFichero;
-			String nomFichero;
+			
 
 			System.out.println("ingrese el nombre del usuario al cual le dara permisos");
 			usuario = teclado.next();
@@ -62,22 +67,26 @@ public class Permisos {
 			while ((resultOfExecution = br.readLine()) != null) {
 				System.out.println(resultOfExecution);
 			}
+			correcto=true;
 		} catch (Exception e) {
 			e.getMessage();
+			correcto=false;
 		}
+		return correcto;
 
 	}
 
-	private static void agregarPermiso(Scanner teclado) {
-
+	private static boolean agregarPermiso(Scanner teclado) {
+		String usuario;
+		String nombreFichero;
+		String permiso;
+		String nomFichero;
+		int permisoUnix;
+		Runtime builder = Runtime.getRuntime();
+		String permisoLetras = null;
+		boolean correcto=false;
 		try {
-			String usuario;
-			String nombreFichero;
-			String permiso;
-			String nomFichero;
-			int permisoUnix;
-			Runtime builder = Runtime.getRuntime();
-			String permisoLetras = null;
+		
 
 			if (modelo.Metodos.isWindows()) {
 
@@ -103,7 +112,7 @@ public class Permisos {
 				while ((resultOfExecution = br.readLine()) != null) {
 					System.out.println(resultOfExecution);
 				}
-
+				correcto=true;
 			} else if (modelo.Metodos.isUnix()) {
 
 				System.out.println("ingrese el nombre del archivo");
@@ -145,11 +154,14 @@ public class Permisos {
 
 				out.getInputStream();
 				System.out.println("cambio realizado ");
+				correcto=true;
 			}
 
 		} catch (Exception e) {
 			System.out.println(" no se realiazo el cambio de permiso");
+			correcto=false;
 		}
+		return correcto;
 
 	}
 
