@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Variables { 
 	
-	public static String urlTxt= ".\\Ficheros\\Fichero1.txt";
+	public static String urlTxt= ".\\Ficheros\\fichero.txt";
 	public static String urlXml= ".\\Ficheros\\libreria.xml";
 	public static String urlCsv= ".\\Ficheros\\fichero.csv";
 	public static File ficheroTxt = new File(urlTxt);
@@ -23,5 +23,6 @@ public class Variables {
 	 * Variable para mantener la cuenta desde donde empezar ha insertar libros en el fichero.
 	 */
 	public static int posicionNumero;
+	final public static String versionXml = "1.0";
 	
 }

@@ -11,11 +11,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import main.Demo;
+
 /**
  * Clase donde se apuntan los metodos que se usan en el programa.
- *
  */
 public class Metodos {
+	public static final String SEPARATOR = ";";
 
 	/**
 	 *  Metodo para rellenar la lista del probrama con los libros apuntados en el
@@ -32,7 +52,7 @@ public class Metodos {
 			StringTokenizer token;
 			String linea = "";
 			while ((linea = ficheroR.readLine()) != null) {
-				token = new StringTokenizer(linea,";");
+				token = new StringTokenizer(linea, SEPARATOR);
 				String[] tokens = new String[token.countTokens()];
 				for(int i = 0; token.hasMoreTokens();i++)
 				{
@@ -55,7 +75,7 @@ public class Metodos {
 						} else if (y == 4) {
 							libro.setNotas(contenido.get(i)[y]);
 						} else if (y == 5) {
-							libro.setIsbn(Integer.parseInt(contenido.get(i)[y]));
+							libro.setIsbn(Long.parseLong(contenido.get(i)[y]));
 						} else if (y == 6) {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
@@ -86,10 +106,10 @@ public class Metodos {
 		try (BufferedWriter fichero = new BufferedWriter(new FileWriter(Variables.urlTxt, true));)
 		{
 			for (int i = Variables.posicionNumero; i < listaLibros.size(); i++) {
-				fichero.write(listaLibros.get(i).getTitulo() + ";" + listaLibros.get(i).getEditorial() + ";"
-							+ listaLibros.get(i).getPaginas() + ";" + listaLibros.get(i).getAltura() + ";"
-							+ listaLibros.get(i).getNotas() + ";" + listaLibros.get(i).getIsbn() + ";"
-							+ listaLibros.get(i).getMaterias() + ";");
+				fichero.write(listaLibros.get(i).getTitulo() + SEPARATOR + listaLibros.get(i).getEditorial() + SEPARATOR
+							+ listaLibros.get(i).getPaginas() + SEPARATOR + listaLibros.get(i).getAltura() + SEPARATOR
+							+ listaLibros.get(i).getNotas() + SEPARATOR + listaLibros.get(i).getIsbn() + SEPARATOR
+							+ listaLibros.get(i).getMaterias() + SEPARATOR);
 				fichero.newLine();
 			}
 			correcto=true;
@@ -119,20 +139,20 @@ public class Metodos {
 		String materias;
 		
 		try {
-			System.out.println("   Titulo" + "\t\t" + "Editorial" + "\t" + "Paginas" + "\t\t" + "Altura" + "\t\t" + "Notas"
-					+ "\t\t" + "Isbn" + "\t\t" + "Materias");
+			System.out.println(" Titulo" + "\t\t" + " Editorial" + "\t" + " Paginas" + "\t" + "Altura" + "\t\t" + " Notas"
+					+ "\t\t" + "Isbn" + "\t\t" + " Materias");
 			for (int i = 0; i < listaLibros.size(); i++) {
-				titulo = listaLibros.get(i).getTitulo() + "        ";
-				editorial = listaLibros.get(i).getEditorial() + "       ";
-				paginas = listaLibros.get(i).getPaginas() + "        ";
-				altura = listaLibros.get(i).getAltura() + "       ";
-				notas = listaLibros.get(i).getNotas() + "       ";
-				isbn = listaLibros.get(i).getIsbn() + "       ";
-				materias = listaLibros.get(i).getMaterias() + "      ";
+				titulo = listaLibros.get(i).getTitulo() + "                       ";
+				editorial = listaLibros.get(i).getEditorial() + "                 ";
+				paginas = listaLibros.get(i).getPaginas() + "                     ";
+				altura = listaLibros.get(i).getAltura() + "                       ";
+				notas = listaLibros.get(i).getNotas() + "                         ";
+				isbn = listaLibros.get(i).getIsbn() + "                           ";
+				materias = listaLibros.get(i).getMaterias() + "                   ";
 
-				System.out.println((i+1)+"   "+titulo.substring(0, 5) + "\t\t" + editorial.substring(0, 5) + "\t\t"
-						+ paginas.substring(0, 2) + "\t\t" + altura.substring(0, 4) + "\t\t" + notas.substring(0, 5)
-						+ "\t\t" + isbn.substring(0, 5) + "\t\t" + materias.substring(0, 5));
+				System.out.println(titulo.substring(0, 10) + "\t" + editorial.substring(0, 10) + "\t "
+						+ paginas.substring(0, 3) + "\t\t" + altura.substring(0, 4) + "\t\t" + notas.substring(0, 10)
+						+ "\t" + isbn.substring(0, 13) + "\t" + materias.substring(0, 10));
 			}
 			correcto=true;
 		} catch (Exception e) {
@@ -141,6 +161,7 @@ public class Metodos {
 
 		return correcto;
 	}
+	
 	
 	/** 
 	 * Metodo de comprobacion de So para windows
@@ -157,6 +178,7 @@ public class Metodos {
 		}
 	}
 	
+	
 	/** 
 	 * Metodo de comprobacion de So para windows
 	 */
@@ -172,6 +194,7 @@ public class Metodos {
 		}
 	}
 
+	
 	/**
 	 *  Metodo que elimina el fichero introducido por el usuario 
 	 * @param Scanne teclado
@@ -182,7 +205,7 @@ public class Metodos {
 		boolean correcto=false;
 			
 		String nombreFichero;
-		System.out.println("introduzca nombre del fichero");
+		System.out.println("Introduzca nombre del fichero");
 		nombreFichero = teclado.nextLine();
 		String prefix = "";
 		if (Metodos.isWindows())
@@ -201,12 +224,13 @@ public class Metodos {
 				correcto=false;
 			}
 		}else {
-			System.out.println("no existe el fichero");
+			System.out.println("No existe el fichero");
 			correcto=false;
 		}
 
 		return correcto;
 	}
+	
 	
 	/**
 	 * @param el patron puede tener [] y {}, dentro de [] se tendra que meter tipo de dato y de donde hasta donde
@@ -215,7 +239,7 @@ public class Metodos {
 	 * 
 	 * Posibles opciones: 
 	 * insertar solo letras [a-z]
-	 * insertar letras y espacios [a-z\\s] 
+	 * insertar letras y espacios [a-z\\s]
 	 * insertar solo numeros [0-9]
 	 * insertar numeros y espacios [0-9\\s]
 	 * insertar letras y numeros sin caracteres especiales [a-z0-9]
@@ -224,32 +248,27 @@ public class Metodos {
 	 * 
 	 * @return retorna true o false si el dato para validar esta correcto
 	 * 
-	 * caracteres como ï¿½ï¿½ï¿½ï¿½ se considera caracteres especiales
+	 * caracteres como ÑÇÖÔÜÛ etc. se considera caracteres especiales
 	 * con lo cual este metodo devolvera false en cuanto tenga alguno es estos caracteres.
 	 */
 	public static boolean validacion(String patron,String dato)
-	{
+	{	// https://www.isbn-international.org/content/what-isbn#:~:text=An%20ISBN%20is%20an%20International,digit%20to%20validate%20the%20number.
 		String rango = patron.substring(patron.indexOf("[")+1,patron.indexOf("[")+4); 
 		String segundoRango = patron.substring(patron.indexOf(rango)+rango.length(),patron.indexOf(rango)+rango.length()+3);
 		String principioSegundoRango = "";
 		String finalSegundoRango = "";
-		boolean espacios;
-		boolean comas;
+		boolean espacios = false;
+		boolean comas = false;
+		boolean barras = false;
 		
-		if(patron.substring(patron.indexOf("]")-2,patron.indexOf("]")).equals("\\s"))
+		if(patron.contains("\\s"))
 			espacios = true;
-		else
-			espacios = false;
-		
-		if(patron.contains("."))
-		{
-			if(patron.substring(patron.indexOf("\\"),patron.indexOf("\\")+2).equals("\\."))
-				comas = true;
-			else
-				comas = false;
-		}
-		else
-			comas = false;
+
+		if(patron.contains("\\."))
+			comas = true;
+
+		if(patron.contains("\\-"))
+			barras = true;
 		
 		//comprobar que el rango es una letra o un digito para prevenir la insercion de caracteres especiales
 		if(Character.isLetter(segundoRango.charAt(0)) || Character.isDigit(segundoRango.charAt(0)))
@@ -446,6 +465,7 @@ public class Metodos {
 		return true;
 	}
 
+	
 	/**
 	 * @param nombre del archivo que quiere econtrar con la extension correspondiente.
 	 * 
@@ -496,4 +516,291 @@ public class Metodos {
 		return buscador.recogerResult();
 	}
 
+	
+	/**
+	 * metodo que crea libro Xml 
+	 * @param teclado
+	 * @param urlXml
+	 * @return boolean 
+	 */
+	public static boolean crearLibro(Scanner teclado, String urlXml) {
+
+		boolean correcto = false;
+		// parametros libro;
+		final String nombreElemento = "libro";
+		final String titulo = "titulo",editorial = "editorial",paginas = "paginas",altura = "altura",notas = "notas",isbn = "isbn",materias = "materias";
+		
+		do {
+			Libro lLibro = main.Demo.crearLibro(teclado);
+			try {
+				// clases para leer XML
+				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+				Document doc = docBuilder.parse(new File(urlXml));
+
+				// preparar el archivo XML para obtener los datos
+				doc.getDocumentElement().normalize();
+				Node nodoRaiz = doc.getDocumentElement();
+
+				// agregamos una nueva etiqueta al doc
+				// primero creamos la etiqueta
+				Element nuevoLibro = doc.createElement(nombreElemento);
+				// creamos sus etiquetas hijas
+				Element parametroTitulo = doc.createElement(titulo);
+				parametroTitulo.setTextContent(lLibro.getTitulo());
+				// editorial
+				Element parametroEditorial = doc.createElement(editorial);
+				parametroEditorial.setTextContent(lLibro.getEditorial());
+				// paginas
+				Element parametroPaginas = doc.createElement(paginas);
+				parametroPaginas.setTextContent("" + lLibro.getPaginas());
+				// altura
+				Element parametroAltura = doc.createElement(altura);
+				parametroAltura.setTextContent("" + lLibro.getAltura());
+				// notas
+				Element parametroNotas = doc.createElement(notas);
+				parametroNotas.setTextContent(lLibro.getNotas());
+				// isbn
+				Element parametroIsbn = doc.createElement(isbn);
+				parametroIsbn.setTextContent("" + lLibro.getIsbn());
+				// materias
+				Element parametroMaterias = doc.createElement(materias);
+				parametroMaterias.setTextContent(lLibro.getMaterias());
+
+				nuevoLibro.appendChild(parametroTitulo);
+				nuevoLibro.appendChild(parametroEditorial);
+				nuevoLibro.appendChild(parametroPaginas);
+				nuevoLibro.appendChild(parametroAltura);
+				nuevoLibro.appendChild(parametroNotas);
+				nuevoLibro.appendChild(parametroIsbn);
+				nuevoLibro.appendChild(parametroMaterias);
+				nodoRaiz.appendChild(nuevoLibro);
+
+				TransformerFactory transFactory = TransformerFactory.newInstance();
+				Transformer trasnFormer = transFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(new File(Variables.urlXml));
+				trasnFormer.transform(source, result);
+				correcto = true;
+				System.out.println("Libro creado correctamente ");
+				System.out.println("¿Desea crear otro libro?  S/N");
+				
+				correcto=Demo.confirmacionSN(teclado);
+				
+			} catch (Exception e) {
+				correcto = false;		
+				System.out.println("No se ha creado el libro");
+			}
+		} while (correcto);
+
+		return correcto;
+	}
+
+	
+	/**
+	 * Metodo que genera Xml base cuando no existe el fichero
+	 * @param ruta
+	 * @return boolean 
+	 */
+	public static boolean generateXml(String ruta) {
+		boolean correc = false;
+		String name = "libreria";
+		final String nombreElemento = "libro";
+		final String titulo = "titulo",editorial = "editorial",paginas = "paginas",altura = "altura",notas = "notas",isbn = "isbn",materias = "materias";
+		final String resetearString = "base";
+		final int resetaerNum = 0;
+		
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			DOMImplementation implementation = builder.getDOMImplementation();
+			Document document = implementation.createDocument(null, name, null);
+			document.setXmlVersion(Variables.versionXml);
+			Libro lLibro = new Libro();
+			lLibro.setTitulo(resetearString);
+			lLibro.setEditorial(resetearString);
+			lLibro.setNotas(resetearString);
+			lLibro.setMaterias(resetearString);
+			lLibro.setAltura((double) resetaerNum);
+			lLibro.setPaginas(resetaerNum);
+			lLibro.setIsbn(Long.parseLong(resetaerNum+""));
+
+			// Main Node
+			Element raiz = document.getDocumentElement();
+			// agregamos una nueva etiqueta al doc
+			// primero creamos la etiqueta
+			Element nuevoLibro = document.createElement(nombreElemento);
+			// creamos sus etiquetas hijas
+			Element parametroTitulo = document.createElement(titulo);
+			parametroTitulo.setTextContent(lLibro.getTitulo());
+			// editorial
+			Element parametroEditorial = document.createElement(editorial);
+			parametroEditorial.setTextContent(lLibro.getEditorial());
+			// paginas
+			Element parametroPaginas = document.createElement(paginas);
+			parametroPaginas.setTextContent("" + lLibro.getPaginas());
+			// altura
+			Element parametroAltura = document.createElement(altura);
+			parametroAltura.setTextContent("" + lLibro.getAltura());
+			// notas
+			Element parametroNotas = document.createElement(notas);
+			parametroNotas.setTextContent(lLibro.getNotas());
+			// isbn
+			Element parametroIsbn = document.createElement(isbn);
+			parametroIsbn.setTextContent("" + lLibro.getIsbn());
+			// materias
+			Element parametroMaterias = document.createElement(materias);
+			parametroMaterias.setTextContent(lLibro.getMaterias());
+
+			nuevoLibro.appendChild(parametroTitulo);
+			nuevoLibro.appendChild(parametroEditorial);
+			nuevoLibro.appendChild(parametroPaginas);
+			nuevoLibro.appendChild(parametroAltura);
+			nuevoLibro.appendChild(parametroNotas);
+			nuevoLibro.appendChild(parametroIsbn);
+			nuevoLibro.appendChild(parametroMaterias);
+			raiz.appendChild(nuevoLibro);
+			
+			// Generate XML
+			Source source = new DOMSource(document);
+			// Indicamos donde lo queremos almacenar
+			Result result = new StreamResult(new File(ruta)); // nombre del archivo
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.transform(source, result);
+			correc = true;
+		} catch (Exception e) {
+			System.out.println("error crear libroxml");
+			correc = false;
+		}
+
+		return correc;
+	}
+
+	
+	/**
+	 * Metodo que carga datos Csv
+	 * @param sc
+	 * @return ArrayList<Libro>
+	 */
+	public static ArrayList<Libro> cargarCsv(Scanner sc) {
+		BufferedReader br = null;
+		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
+		
+		try {
+
+			String ruta = Variables.urlCsv;
+			File archivo = new File(ruta);
+			
+			if (!archivo.exists()) {
+				System.out.println("El fichero no existe");
+			} else {
+				br = new BufferedReader(new FileReader(ruta));
+				String line = br.readLine();
+				StringTokenizer tokens;
+				while (null != line) {
+					tokens = new StringTokenizer(line, SEPARATOR);
+
+					Libro libro = new Libro();
+
+					libro.setTitulo(tokens.nextToken());
+					
+					libro.setEditorial(tokens.nextToken());
+					
+					libro.setPaginas(Integer.parseInt(tokens.nextToken()));
+					
+					libro.setAltura(Double.parseDouble(tokens.nextToken()));
+					
+					libro.setNotas(tokens.nextToken());
+					
+					libro.setIsbn(Long.parseLong(tokens.nextToken()));
+					
+					libro.setMaterias(tokens.nextToken());
+
+					listaLibro.add(libro);
+					line = br.readLine();
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al leer fichero");
+		} finally {
+			if (null != br) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return listaLibro;
+	}
+
+	
+	/**
+	 * Metodo que crea Archivos Csv
+	 * @param teclado
+	 * @return boolean 
+	 */
+	public static boolean crearArchivoCSV(Scanner teclado) {
+
+		boolean seguir = false;
+		try {
+			FileWriter fw = new FileWriter(Variables.urlCsv, true);
+			do {
+
+				Libro libro = main.Demo.crearLibro(teclado);
+
+				fw.append(libro.getTitulo()).append(SEPARATOR);
+
+				fw.append(libro.getEditorial()).append(SEPARATOR);
+				fw.append(String.valueOf(libro.getPaginas())).append(SEPARATOR);
+				fw.append(String.valueOf(libro.getAltura())).append(SEPARATOR);
+				fw.append(libro.getNotas()).append(SEPARATOR);
+				fw.append(String.valueOf(libro.getIsbn())).append(SEPARATOR);
+				fw.append(libro.getMaterias()).append(SEPARATOR + "\n");
+
+				fw.flush();
+
+				System.out.println("Fichero creado con exito");
+				System.out.println("¿Desea crear otro libro?  S/N");
+
+				seguir = Demo.confirmacionSN(teclado);
+
+			} while (seguir);
+			fw.close();
+
+		} catch (IOException e) {
+			System.out.println("Error al crear fichero ");
+			e.printStackTrace();
+			seguir = true;
+		}
+		return seguir;
+	}
+
+	
+	/**
+	 *  Metodo que lee muestra por pantalla el Xml 
+	 * @param listaLibros
+	 * @param rutaFichero
+	 * @return ArrayList<Libro>
+	 */
+	public static ArrayList<Libro> leerXml(ArrayList<Libro> listaLibros,String rutaFichero)  {
+		try {
+			
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			LeerXml leerXml = new LeerXml();
+			SAXParser parser = factory.newSAXParser(); 
+			parser.parse(rutaFichero, leerXml); 
+			listaLibros = leerXml.obtenerlibros();
+		} catch (IOException e) {
+			System.out.println("error leerPrincipalXml");
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+		
+		return listaLibros;
+	}
 }

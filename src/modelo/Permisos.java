@@ -5,21 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+import main.Demo;
+
 public class Permisos {
+		
+	public static boolean cambioPermiso(Scanner teclado) {
 
-	public static void main(String[] args) {
-
-		Scanner teclado = new java.util.Scanner(System.in);
 		int opcion;
-		boolean correcto;
+		boolean correcto=false;
 		try {
 
 			do {
 				System.out.println("¿Que desea hacer?");
 				System.out.println("1) Agregar permisos");
-				System.out.println("2) quitar permisos");
-				System.out.println("3) salir");
-				opcion = teclado.nextInt();
+				System.out.println("2) Quitar permisos");
+				System.out.println("3) Salir");
+				opcion = Demo.entradaInt(1, 3, teclado);
 
 				if (opcion == 1) {
 					agregarPermiso(teclado);
@@ -39,20 +40,25 @@ public class Permisos {
 
 		} catch (Exception e) {
 			e.getMessage();
+			correcto = false;
 		}
+		return correcto;
 	}
 
-	private static void quitarPermiso(Scanner teclado) {
+	private static boolean quitarPermiso(Scanner teclado) {
+		String usuario;
+		String nombreFichero;
+		String nomFichero;
+		boolean correcto=false;
+		
 		try {
-			String usuario;
-			String nombreFichero;
-			String nomFichero;
-
-			System.out.println("ingrese el nombre del usuario al cual le dara permisos");
+			System.out.println("Ingrese el nombre del usuario al cual le dara permisos");
 			usuario = teclado.next();
-
-			System.out.println("ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
+			teclado.nextLine();
+			
+			System.out.println("Ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
 			nomFichero = teclado.next();
+			teclado.nextLine();
 
 			nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
 
@@ -62,30 +68,36 @@ public class Permisos {
 			while ((resultOfExecution = br.readLine()) != null) {
 				System.out.println(resultOfExecution);
 			}
+			correcto=true;
 		} catch (Exception e) {
 			e.getMessage();
+			correcto=false;
 		}
+		return correcto;
 
 	}
 
-	private static void agregarPermiso(Scanner teclado) {
-
+	private static boolean agregarPermiso(Scanner teclado) {
+		String usuario;
+		String nombreFichero;
+		String permiso;
+		String nomFichero;
+		int permisoUnix;
+		Runtime builder = Runtime.getRuntime();
+		String permisoLetras = null;
+		boolean correcto=false;
+		
 		try {
-			String usuario;
-			String nombreFichero;
-			String permiso;
-			String nomFichero;
-			int permisoUnix;
-			Runtime builder = Runtime.getRuntime();
-			String permisoLetras = null;
-
 			if (modelo.Metodos.isWindows()) {
 
-				System.out.println("ingrese el nombre del usuario al cual le dara permisos");
+				System.out.println("Ingrese el nombre del usuario al cual le dara permisos");
 				usuario = teclado.next();
+				teclado.nextLine();
 
-				System.out.println("ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
+				System.out.println("Ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
 				nomFichero = teclado.next();
+				teclado.nextLine();
+				
 				nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
 				System.out.println("que permiso desea agregar");
 				System.out.println("F - acceso total");
@@ -95,6 +107,7 @@ public class Permisos {
 				System.out.println("W - acceso de solo escritura");
 				System.out.println("D - acceso de eliminación");
 				permiso = teclado.next();
+				teclado.nextLine();
 
 				Process process = Runtime.getRuntime()
 						.exec("cmd /c ICACLS " + nombreFichero + " /grant " + usuario + ":(" + permiso + ")");
@@ -103,11 +116,12 @@ public class Permisos {
 				while ((resultOfExecution = br.readLine()) != null) {
 					System.out.println(resultOfExecution);
 				}
-
+				correcto=true;
 			} else if (modelo.Metodos.isUnix()) {
 
-				System.out.println("ingrese el nombre del archivo");
+				System.out.println("Ingrese el nombre del archivo");
 				nomFichero = teclado.next();
+				teclado.nextLine();
 
 				nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
 
@@ -120,7 +134,7 @@ public class Permisos {
 				System.out.println("5 = lectura y ejecución");
 				System.out.println("6 = lectura y escritura");
 				System.out.println("7 = lectura, escritura y ejecución");
-				permisoUnix = teclado.nextInt();
+				permisoUnix = Demo.entradaInt(0, 7, teclado);
 
 				if (permisoUnix == 0) {
 					permisoLetras = "---";
@@ -144,12 +158,15 @@ public class Permisos {
 				Process out = builder.exec(cmd);
 
 				out.getInputStream();
-				System.out.println("cambio realizado ");
+				System.out.println("Cambio realizado");
+				correcto=true;
 			}
 
 		} catch (Exception e) {
-			System.out.println(" no se realiazo el cambio de permiso");
+			System.out.println("No se realiazo el cambio de permiso");
+			correcto=false;
 		}
+		return correcto;
 
 	}
 

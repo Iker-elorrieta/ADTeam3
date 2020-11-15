@@ -45,13 +45,6 @@ public class EncontrarFichero extends Thread {
 	public ArrayList<String> encontrarEspaciosAlmacenamiento()
 	{
 		ArrayList<String> result = new ArrayList<String>();
-		/*
-			//System.out.println("Drive Letter: " + aDrive); ruta del dispositivo
-			//System.out.println("\tType: " + fsv.getSystemTypeDescription(aDrive)); nombre del dispositivo
-			//System.out.println();
-		 * 
-		 	https://stackoverflow.com/questions/21059703/how-can-a-java-program-list-all-partitions-and-get-the-free-space-of-them-on-lin
-		 */
 		 FileSystemView fsv = FileSystemView.getFileSystemView();
 		 File[] drives = File.listRoots();
 		 
@@ -61,6 +54,9 @@ public class EncontrarFichero extends Thread {
 		        }
 		 }
 		 return result;
+		 /* Ref:
+		 	https://stackoverflow.com/questions/21059703/how-can-a-java-program-list-all-partitions-and-get-the-free-space-of-them-on-lin
+		 */
 	}
 	
 	public String econtrarFichero(String fichero)
