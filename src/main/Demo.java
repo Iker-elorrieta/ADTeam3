@@ -349,7 +349,7 @@ public class Demo {
 			}
 		} catch (Exception e) {
 			System.out.println("error menuTxt");
-			e.printStackTrace();
+//			e.printStackTrace();
 			correcto = false;
 		}
 

@@ -430,7 +430,8 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuXml2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
+		double altura = 3.3;
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -443,7 +444,8 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuTxt2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
+		double altura = 3.3;
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -457,7 +459,8 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuCsv() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
+		double altura = 3.3;
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -471,7 +474,8 @@ class PruebasFichero {
 	@Test
 	void testCargarCsv() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
+		double altura = 3.3;
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -662,7 +666,7 @@ class PruebasFichero {
 	//mover entre carpetas por consola
 	@Test
 	void testMoverEntreCarpetas() {
-		String input = "1 \n 2 \n";
+		String input = "1 \n 3 \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
