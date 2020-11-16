@@ -143,10 +143,9 @@ public class Demo {
 	 * @return objeto Libro
 	 */
 	public static Libro crearLibro(Scanner teclado) {
-		String titulo, editorial, notas, materias;
+		String titulo, editorial, notas, materias, isbn;
 		double altura = 0.0;
 		int paginas = 0;
-		long isbn = 0;
 	
 		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
@@ -197,11 +196,11 @@ public class Demo {
 		}
 		
 		System.out.print("Introduce el isbn: ");
-		isbn = Metodos.comprobacionDatoInt(teclado);
+		isbn = teclado.nextLine();
 		while(!Metodos.validacion(Patrones.isbn.getNombre(), isbn+""))
 		{
 			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
-			isbn = Metodos.comprobacionDatoInt(teclado);
+			isbn = teclado.nextLine();
 		}
 		
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);

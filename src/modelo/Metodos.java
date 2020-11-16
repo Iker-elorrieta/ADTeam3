@@ -75,7 +75,7 @@ public class Metodos {
 						} else if (y == 4) {
 							libro.setNotas(contenido.get(i)[y]);
 						} else if (y == 5) {
-							libro.setIsbn(Long.parseLong(contenido.get(i)[y]));
+							libro.setIsbn(contenido.get(i)[y]);
 						} else if (y == 6) {
 							libro.setMaterias(contenido.get(i)[y]);
 						}
@@ -284,15 +284,17 @@ public class Metodos {
 		//comprobar que el rango es una letra o un digito para prevenir la insercion de caracteres especiales
 		if(!Character.isLetter(principioRango.toUpperCase().charAt(0)) && !Character.isDigit(principioRango.toUpperCase().charAt(0)))
 		{
-			System.out.println("entro caracter special");
+			System.out.println("No puede insertar caracter especial en el rango");
 			return false;
 		}
 		else if(!rango.contains("-"))
 		{
+			System.out.println("Al rango le falta la barra de espacio.");
 			return false;
 		}
 		else if(!segundoRango.equals("") && !segundoRango.contains("-"))
 		{
+			System.out.println("Al rango le falta la barra de espacio.");
 			return false;
 		}
 		
@@ -308,12 +310,24 @@ public class Metodos {
 		//comprobar que el dato insertado esta dentro del rango
 		if(dato.length() > Integer.parseInt(finalLongitud) || dato.length() < Integer.parseInt(principioLongitud))
 		{
+			System.out.println("El dato sobrepasa el limite.");
 			return false;
 		}
 		
 		if(dato.contains("."))
-		if(dato.substring(dato.indexOf(".")+1).contains("."))
+		{
+			if(dato.substring(dato.indexOf(".")+1).contains("."))
+			{
+				System.out.println("El dato contiene demasiados puntos.");
+				return false;
+			}
+		}
+		
+		if(dato.charAt(dato.length()-1) == '-' && barras)
+		{
+			System.out.println("El dato no puede acabar con una barra.");
 			return false;
+		}
 		
 		//comprobar caracteres especiales
 		for(int i = 0; i < dato.length(); i++)
@@ -322,12 +336,24 @@ public class Metodos {
 			{
 				if((dato.charAt(i) == '\s' && !espacios))
 				{
+					System.out.println("No puede introducir espacios.");
 					return false;
 				}
 				else if (dato.charAt(i) == '.' && !comas)
+				{
+					System.out.println("No puede introducir puntos.");
 					return false;
-				else if (dato.charAt(i) != '\s' && dato.charAt(i) != '.')
+				}
+				else if(dato.charAt(i) == '-' && !barras)
+				{
+					System.out.println("No puede introducir barras.");
 					return false;
+				}
+				else if (dato.charAt(i) != '\s' && dato.charAt(i) != '.' && dato.charAt(i) != '-')
+				{
+					System.out.println("No puede introducir caracteres especiales.");
+					return false;
+				}
 			}
 		}
 				
@@ -349,13 +375,17 @@ public class Metodos {
 				//comprobar si tiene digito
 				if (Character.isDigit(dato.charAt(i)))
 				{
+					System.out.println("No puede insertar digitos.");
 					return false;
 				}
 				else if (((int)dato.toUpperCase().charAt(i) > (int)finalRango.toUpperCase().charAt(0) || 
 				   (int)dato.toUpperCase().charAt(i) < (int)principioRango.toUpperCase().charAt(0)))
 				{
-				 if (dato.charAt(i) != '\s' && dato.charAt(i) != '.')
-						return false;
+					 if (dato.charAt(i) != '\s' && dato.charAt(i) != '.' && dato.charAt(i) != '-')
+					 {
+						 System.out.println("No puede insertar caracteres especiales.");
+						 return false;
+					 }
 				}
 			}
 		}
@@ -377,6 +407,7 @@ public class Metodos {
 					if(Integer.parseInt(dato.toUpperCase().charAt(i)+"") < Integer.parseInt(principioRango) ||
 					   Integer.parseInt(dato.toUpperCase().charAt(i)+"") > Integer.parseInt(finalRango))
 					{
+						System.out.println("Numero Fuera del rango");
 						return false;
 					}	
 				}
@@ -398,8 +429,11 @@ public class Metodos {
 					if (((int)dato.toUpperCase().charAt(i) > (int)finalRango.toUpperCase().charAt(0) || 
 					   (int)dato.toUpperCase().charAt(i) < (int)principioRango.toUpperCase().charAt(0)))
 					{
-					 if (dato.charAt(i) != '\s' && dato.charAt(i) != '.')
-							return false;
+						 if (dato.charAt(i) != '\s' && dato.charAt(i) != '.' && dato.charAt(i) != '-')
+						 {
+							 System.out.println("No puede insertar caracteres especiales.");
+							 return false;
+						 }
 					}
 					
 				}
@@ -418,6 +452,7 @@ public class Metodos {
 						if(Integer.parseInt(dato.charAt(i)+"") < Integer.parseInt(principioSegundoRango) ||
 						   Integer.parseInt(dato.charAt(i)+"") > Integer.parseInt(finalSegundoRango))
 						{
+							System.out.println("Numero fuera del rango.");
 							return false;
 						}
 					}
@@ -584,7 +619,7 @@ public class Metodos {
 			lLibro.setMaterias(resetearString);
 			lLibro.setAltura((double) resetaerNum);
 			lLibro.setPaginas(resetaerNum);
-			lLibro.setIsbn(Long.parseLong(resetaerNum+""));
+			lLibro.setIsbn(resetaerNum+"");
 
 			// Main Node
 			Element raiz = document.getDocumentElement();
@@ -608,7 +643,7 @@ public class Metodos {
 			parametroNotas.setTextContent(lLibro.getNotas());
 			// isbn
 			Element parametroIsbn = document.createElement(isbn);
-			parametroIsbn.setTextContent("" + lLibro.getIsbn());
+			parametroIsbn.setTextContent(lLibro.getIsbn());
 			// materias
 			Element parametroMaterias = document.createElement(materias);
 			parametroMaterias.setTextContent(lLibro.getMaterias());
@@ -672,7 +707,7 @@ public class Metodos {
 					
 					libro.setNotas(tokens.nextToken());
 					
-					libro.setIsbn(Long.parseLong(tokens.nextToken()));
+					libro.setIsbn(tokens.nextToken());
 					
 					libro.setMaterias(tokens.nextToken());
 
@@ -1195,7 +1230,6 @@ public class Metodos {
 		 return result;
 	}
 	
-	
 	/**
 	 * Este metodo Muestra los ficheros que hay en la ruta especificada y devuelve la ruta absoluta de este. 
 	 * @param teclado
@@ -1238,7 +1272,6 @@ public class Metodos {
 		
 		return result;
 	}
-	
 	
 	/**
 	 * Metodo que devuelve el nombre de cada fichero o directorio de una ruta.
@@ -1286,6 +1319,12 @@ public class Metodos {
         	return result;
 	}
 
+	/**
+	 * Metodo que devuelve un array con todos los ficheros o directorios de la ruta insertada.
+	 * @param url
+	 * @param tipo
+	 * @return
+	 */
 	public static ArrayList<File> devolucion(String url, String tipo)
 	{
 		ArrayList<File> array = new ArrayList<File>();
@@ -1317,7 +1356,6 @@ public class Metodos {
         return array;
 	}
 	
-	
 	/**
 	 * Metodo para comprobar si el dato insertado es del mismo tipo.
 	 */
@@ -1338,7 +1376,6 @@ public class Metodos {
 		return parametro;
 	}
 	
-
 	/**
 	 * Metodo para comprobar si el dato insertado es del mismo tipo.
 	 */
@@ -1360,7 +1397,6 @@ public class Metodos {
 		return parametro;
 	}
 	
-
 	/**
 	 * Metodo para preguntar al cliente si quiere seguir o no.
 	 * @param teclado
@@ -1388,7 +1424,6 @@ public class Metodos {
 
 		return false;
 	}
-	
 	
 	/**
 	 * Metodo para validar la entrada de numeros por teclado y controlar las

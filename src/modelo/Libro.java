@@ -11,7 +11,7 @@ public class Libro {
 	private int paginas;
 	private double altura;
 	private String notas;
-	private long isbn;
+	private String isbn;
 	private String materias;
 	
 	public Libro()
@@ -19,12 +19,19 @@ public class Libro {
 		
 	}
 	
-	/*
+	/**
 	 * Los parametros que se necesitan para crear un libro con este constructor son
 	 * (titulo,editorial,paginas,altura,notas,isbn,materias)
 	 * paginas y isbn tienen que ser enteros y altura tiene que ser un numero con decimales.
+	 * @param titulo
+	 * @param editorial
+	 * @param paginas
+	 * @param altura
+	 * @param notas
+	 * @param isbn
+	 * @param materias
 	 */
-	public Libro(String titulo, String editorial, int paginas, double altura, String notas, long isbn, String materias)
+	public Libro(String titulo, String editorial, int paginas, double altura, String notas, String isbn, String materias)
 	{
 		this.titulo = titulo;
 		this.editorial = editorial;
@@ -65,7 +72,7 @@ public class Libro {
 	public String getNotas() {
 		return notas;
 	}
-	public long getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 	public String getMaterias() {
@@ -87,7 +94,7 @@ public class Libro {
 	public void setNotas(String notas) {
 		this.notas = notas;
 	}
-	public void setIsbn(Long isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 	public void setMaterias(String materias) {

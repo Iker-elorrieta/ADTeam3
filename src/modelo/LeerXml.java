@@ -71,7 +71,7 @@ public class LeerXml extends DefaultHandler  {
 			notas=false;
 		}
 		if (isbn) {			
-			libro.setIsbn(Long.parseLong(new String(ch, start, length)));
+			libro.setIsbn(new String(ch, start, length));
 			isbn=false;
 		}
 		if (materias) {			

@@ -236,6 +236,14 @@ class PruebasFichero {
 		boolean result = modelo.Metodos.validacion(patron, dato);
 		assertEquals(false, result);
 	}
+	
+	@Test
+	void validarNumeroLetraFueraRango() {
+		String patron = "[a-b0-9]{50,1}";
+		String dato = "c";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
 
 	@Test
 	void validaLongitudNumero() {
@@ -317,11 +325,34 @@ class PruebasFichero {
 		assertEquals(false, result);
 	}
 	
+	@Test
+	void validarNumeroIsbnCorrecto() {
+		String patron = "[0-9\\-]{17,17}";
+		String dato = "123-456-789-111-1";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void validarNumeroIsbnSinBarra() {
+		String patron = "[0-9]{17,17}";
+		String dato = "123-456-789-111-1";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void validarNumeroIsbnAcabarEnBarra() {
+		String patron = "[0-9\\-]{1,30}";
+		String dato = "123-456-789-111-1-";
+		boolean result = modelo.Metodos.validacion(patron, dato);
+		assertEquals(false, result);
+	}
+	
 	// ------------- Test Programa -----------
 	
 	// crear ficheros
 	
-	// despues de rellenarlos comprobamos si se muestran
 	@Test
 	void ficheroSinEncontrarMenu() {
 		String input = "s \n 1 \n 1 \nn\n";
@@ -399,7 +430,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuXml2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n1234567891111 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -412,7 +443,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuTxt2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5\n 1234567891111 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -426,7 +457,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuCsv() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5\n 1234567891111 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -440,7 +471,7 @@ class PruebasFichero {
 	@Test
 	void testCargarCsv() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5\n 1234567891111 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -448,7 +479,7 @@ class PruebasFichero {
 		listaLibro = Metodos.cargarCsv(teclado);
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		for (int i = 0; i < listaLibro.size(); i++) {
-			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
+			Libro libro = new Libro("El avion de los suenos", "DreamWork", 5, 3.3, "pegi 8", "123-456-789-111-1", "Educativo");
 			lista.add(libro);
 		}
 		int tamLista1 = listaLibro.size();
@@ -538,7 +569,7 @@ class PruebasFichero {
 		ArrayList<Libro> listaLibro = Metodos.leerXml(pruebaSys("xml"));
 		ArrayList<Libro> lista = new ArrayList<Libro>();
 		for (int i = 0; i < listaLibro.size(); i++) {
-			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", 12352, "fundamentos");
+			Libro libro = new Libro("android", "elorrieta", 200, 21, "no", "123-456-789-111-1", "fundamentos");
 			lista.add(libro);
 		}
 		int tamLista1 = listaLibro.size();
@@ -588,7 +619,7 @@ class PruebasFichero {
 	// mover ficheros
 	@Test
 	void testMoverFicheroRutaExacta() {
-		String input = "n \n 2 \n s \nD:\\Steff\\Reto\\ADTeam3\\Ficheros\nD:\\Steff\\Reto\\ADTeam3\\Ficheros\\muevemePorfa.csv\n s \nD:\\basura\\moveMePlz.txt\nD:\\basura\n s \n";
+		String input = "n \n 2 \n s \n"+pruebaSys("carpeta")+"\n"+pruebaSys("fichero")+"\n s \n"+pruebaSys("fichero")+"\n"+pruebaSys("carpeta")+"\n s \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -654,8 +685,6 @@ class PruebasFichero {
 		}
 	}
 		
-		
-	
 	// Prueba borrar fichero txt
 	@Test
 	void testDemoMenuTxt3() {
@@ -733,17 +762,22 @@ class PruebasFichero {
 		String urlTxt = "";
 		String urlXml = "";
 		String urlCsv = "";
-
+		String urlMoverFichero = "";
+		String urlMoverDirectorio = "";
 		String sistema = System.getProperty("os.name").toLowerCase();
 
 		if (sistema.indexOf("win") >= 0) {
 			urlTxt = ".\\Ficheros\\ficheroPrueba.txt";
 			urlXml = ".\\Ficheros\\ficheroPrueba.xml";
 			urlCsv = ".\\Ficheros\\ficheroPrueba.csv";
+			urlMoverFichero = "D:\\Steff\\Reto\\ADTeam3\\Ficheros\\muevemePorfa.csv";
+			urlMoverDirectorio = "D:\\basura";
 		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
 			urlTxt = "./Ficheros/ficheroPrueba.txt";
 			urlXml = "./Ficheros/ficheroPrueba.xml";
 			urlCsv = "./Ficheros/ficheroPrueba.csv";
+			urlMoverFichero = "D:/Steff/Reto/ADTeam3/Ficheros/muevemePorfa.csv";
+			urlMoverDirectorio = "D:/basura";
 		}
 
 		switch (tipo) {
@@ -755,6 +789,12 @@ class PruebasFichero {
 
 		case "xml":
 			return urlXml;
+			
+		case "fichero":
+			return urlMoverFichero;
+			
+		case "carpeta":
+			return urlMoverDirectorio;
 		}
 		return "";
 

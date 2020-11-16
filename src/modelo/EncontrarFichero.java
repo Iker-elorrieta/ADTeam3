@@ -77,13 +77,11 @@ public class EncontrarFichero extends Thread {
 		}
          
 		int y = 0;
-        int i = 1;
         while (y < files.length) {
         	if(Character.isLetter(files[y].getName().charAt(0)) || Character.isDigit(files[y].getName().charAt(0)))
         	{
         		if(files[y].isDirectory())
         		{
-        			File nombre = files[y];
 	        		result = subdirectoriosRecursivos(files[y].getAbsolutePath(),nombrefichero);
         		}
         		else
