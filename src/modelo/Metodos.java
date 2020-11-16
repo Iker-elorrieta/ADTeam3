@@ -830,7 +830,7 @@ public class Metodos {
 				} else if (opcion == 3) {
 					correcto = false;
 				}
-			} while (correcto = true);
+			} while (correcto);
 
 		} catch (Exception e) {
 			e.getMessage();
@@ -849,31 +849,39 @@ public class Metodos {
 		String nombreFichero;
 		String nomFichero;
 		boolean correcto=false;
-		
+		Process process;
+		BufferedReader br;
 		try {
 			System.out.println("Ingrese el nombre del usuario al cual le dara permisos");
 			usuario = teclado.next();
 			teclado.nextLine();
 			
-			System.out.println("Ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
-			nomFichero = teclado.next();
-			teclado.nextLine();
+			process = Runtime.getRuntime().exec("cmd /c net user " + usuario);
+			br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			
+			if ((br.readLine()) == null) {
+				System.out.println("el usario no existe");
+			}else {
+				
+				System.out.println("Ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
+				nomFichero = teclado.next();
+				teclado.nextLine();
 
-			nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
+				nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
 
-			Process process = Runtime.getRuntime().exec("cmd /c ICACLS " + nombreFichero + " /remove " + usuario);
-			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String resultOfExecution = null;
-			while ((resultOfExecution = br.readLine()) != null) {
-				System.out.println(resultOfExecution);
-			}
-			correcto=true;
+				process = Runtime.getRuntime().exec("cmd /c ICACLS " + nombreFichero + " /remove " + usuario);
+				br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				String resultOfExecution = null;
+				while ((resultOfExecution = br.readLine()) != null) {
+					System.out.println(resultOfExecution);
+				}
+				correcto=true;
+			}	
 		} catch (Exception e) {
 			e.getMessage();
 			correcto=false;
 		}
 		return correcto;
-
 	}
 
 	/**
@@ -890,7 +898,8 @@ public class Metodos {
 		Runtime builder = Runtime.getRuntime();
 		String permisoLetras = null;
 		boolean correcto=false;
-		
+		Process process;
+		BufferedReader br;
 		try {
 			if (isWindows()) {
 
@@ -898,28 +907,38 @@ public class Metodos {
 				usuario = teclado.next();
 				teclado.nextLine();
 
-				System.out.println("Ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
-				nomFichero = teclado.next();
-				teclado.nextLine();
+				process = Runtime.getRuntime().exec("cmd /c net user " + usuario);
+				br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 				
-				nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
-				System.out.println("que permiso desea agregar");
-				System.out.println("F - acceso total");
-				System.out.println("M - acceso de modificación");
-				System.out.println("RX - acceso de lectura y ejecución");
-				System.out.println("R - acceso de solo lectura");
-				System.out.println("W - acceso de solo escritura");
-				System.out.println("D - acceso de eliminación");
-				permiso = teclado.next();
-				teclado.nextLine();
+				if ((br.readLine()) == null) {
+					System.out.println("el usario no existe");
+				}else {
 
-				Process process = Runtime.getRuntime().exec("cmd /c ICACLS " + nombreFichero + " /grant " + usuario + ":(" + permiso + ")");
-				BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-				String resultOfExecution = null;
-				while ((resultOfExecution = br.readLine()) != null) {
-					System.out.println(resultOfExecution);
+					System.out.println("Ingrese el nombre del archivo y la extension(xml,txt,csv....) ");
+					nomFichero = teclado.next();
+					teclado.nextLine();
+					
+					nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
+					System.out.println("que permiso desea agregar");
+					System.out.println("F - acceso total");
+					System.out.println("M - acceso de modificación");
+					System.out.println("RX - acceso de lectura y ejecucion");
+					System.out.println("R - acceso de solo lectura");
+					System.out.println("W - acceso de solo escritura");
+					System.out.println("D - acceso de eliminacion");
+					permiso = teclado.next();
+					teclado.nextLine();
+
+					process = Runtime.getRuntime().exec("cmd /c ICACLS " + nombreFichero + " /grant " + usuario + ":(" + permiso + ")");
+					br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+					String resultOfExecution = null;
+					while ((resultOfExecution = br.readLine()) != null) {
+						System.out.println(resultOfExecution);
+					}
+					correcto=true;
 				}
-				correcto=true;
+				
+				
 			} else if (isUnix()) {
 
 				System.out.println("Ingrese el nombre del archivo");
