@@ -9,7 +9,7 @@ public enum Patrones {
 		materias("[a-z0-9\\s]{1,100}"),
 		altura("[0-9\\.]{1,4}"),
 		paginas("[0-9]{1,4}"),
-		isbn("[0-9]{1,13}");
+		isbn("[0-9]{13,13}");
 		
 		
 		// private obligatorio.

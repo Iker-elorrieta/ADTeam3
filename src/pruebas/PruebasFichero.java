@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
+
+import main.Demo;
 import modelo.Libro;
 import modelo.Metodos;
 import modelo.Variables;
@@ -23,7 +25,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		double result = main.Demo.comprobacionDatoDouble(teclado);
+		double result = Metodos.comprobacionDatoDouble(teclado);
 		assertEquals(2, result);
 	}
 
@@ -33,7 +35,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		double result = main.Demo.comprobacionDatoInt(teclado);
+		double result = Metodos.comprobacionDatoInt(teclado);
 		assertEquals(2, result);
 	}
 	
@@ -45,7 +47,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		int result = main.Demo.entradaInt(min, max, teclado);
+		int result = Metodos.entradaInt(min, max, teclado);
 		assertEquals(2, result);
 	}
 	
@@ -57,7 +59,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		int result = main.Demo.entradaInt(min, max, teclado);
+		int result = Metodos.entradaInt(min, max, teclado);
 		assertEquals(2, result);
 	}
 	
@@ -67,7 +69,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = main.Demo.confirmacionSN(teclado);
+		boolean result = Metodos.confirmacionSN(teclado);
 		assertEquals(true, result);
 	}
 	
@@ -77,7 +79,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		boolean result = main.Demo.confirmacionSN(teclado);
+		boolean result = Metodos.confirmacionSN(teclado);
 		assertEquals(false, result);
 	}
 	
@@ -322,7 +324,7 @@ class PruebasFichero {
 	// despues de rellenarlos comprobamos si se muestran
 	@Test
 	void ficheroSinEncontrarMenu() {
-		String input = "1 \n 1 \nn\n";
+		String input = "s \n 1 \n 1 \nn\n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -397,7 +399,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuXml2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n 3,3 \n 5 \n 5 \n a \n 123151 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n1234567891111 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -410,7 +412,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuTxt2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n 3,3 \n 5 \n 5 \n a \n 123151 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5\n 1234567891111 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -424,7 +426,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuCsv() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n 3,3 \n 5 \n 5 \n a \n 123151 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5\n 1234567891111 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -438,7 +440,7 @@ class PruebasFichero {
 	@Test
 	void testCargarCsv() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n 3,3 \n 5 \n 5 \n a \n 123151 \n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5\n 1234567891111 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -457,7 +459,7 @@ class PruebasFichero {
 	// despues de rellenarlos comprobamos si se muestran
 	@Test
 	void inicio() {
-		String input = "1 \n 1 \n n \n";
+		String input = "s \n 1 \n 1 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -467,7 +469,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenu1() {
-		String input = "1 \n 1 \n n \n";
+		String input = "s \n 1 \n 1 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -478,7 +480,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenu2() {
-		String input = "2 \n 1 \n n \n";
+		String input = "s \n 2 \n 1 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -500,7 +502,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenu3() {
-		String input = "3 \n 1 \n n \n";
+		String input = "s \n 3 \n 1 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -545,15 +547,15 @@ class PruebasFichero {
 	}
 	
 	//permisos
-//	@Test
-//	void testPermisos() {
-//		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
-//		InputStream in = new ByteArrayInputStream(input.getBytes());
-//		System.setIn(in);
-//		Scanner teclado = new Scanner(System.in);
-//		boolean result = Metodos.cambioPermiso(teclado);
-//		assertEquals(false, result);
-//	}
+	@Test
+	void testPermisos() {
+		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
 
 	@Test
 	void testCrearXmlBaseFalse() {
@@ -561,10 +563,20 @@ class PruebasFichero {
 		assertEquals(false, result);
 	}
 	
-	// Prueba borrar fichero csv falso
 	@Test
-	void testDemoMenuCsvFalse() {
-		String input = "abcdef";
+	void testDemoMenuCsvParaMover() {
+		String input = "muevemePorfa";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 4;
+		boolean result = main.Demo.menuCsv(opcion, teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testDemoMenuCsvParaMoverFalso() {
+		String input = "ficheroPrueba";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -572,6 +584,77 @@ class PruebasFichero {
 		boolean result = main.Demo.menuCsv(opcion, teclado);
 		assertEquals(false, result);
 	}
+	
+	// mover ficheros
+	@Test
+	void testMoverFicheroRutaExacta() {
+		String input = "n \n 2 \n s \nD:\\Steff\\Reto\\ADTeam3\\Ficheros\nD:\\Steff\\Reto\\ADTeam3\\Ficheros\\muevemePorfa.csv\n s \nD:\\basura\\moveMePlz.txt\nD:\\basura\n s \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Demo.menu(teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testDemoMenuTxtArchivoNoEncontrado() {
+		String input = "moveMePlz";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		int opcion = 4;
+		boolean result = main.Demo.menuTxt(opcion, teclado);
+		assertEquals(true, result);
+	}
+	
+	@Test
+	void testMoverFicheroRutaManualmenteFalse() {
+		String input = "n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 2 \n n \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Demo.moverFichero(teclado);
+		assertEquals(false, result);
+	}
+	
+	// mover ficheros
+	@Test
+	void testMoverFicheroRutaManualmente() {
+		String input = "n \n 2 \n n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 2 \n s \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Demo.menu(teclado);
+		assertEquals(true, result);
+	}
+	
+	//mover entre carpetas por consola
+	@Test
+	void testMoverEntreCarpetas() {
+		String input = "1 \n 2 \n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		File archivo = new File(pruebaSys("txt").substring(2));
+		String ruta = archivo.getAbsolutePath();
+		String result = "";
+		if(ruta.contains("\\"))
+		{
+			ruta = ruta.substring(0,ruta.lastIndexOf("\\"));
+			ruta = ruta.substring(0,ruta.lastIndexOf("\\"));
+			result = Metodos.moverEntreCarpetas(teclado, ruta);
+			assertEquals(archivo.getAbsoluteFile().toString().substring(0,archivo.getAbsoluteFile().toString().lastIndexOf("\\")), result);
+		}
+		else if(ruta.contains("/"))
+		{
+			ruta = ruta.substring(0,ruta.lastIndexOf("/"));
+			ruta = ruta.substring(0,ruta.lastIndexOf("/"));
+			result = Metodos.moverEntreCarpetas(teclado, ruta.substring(0,ruta.lastIndexOf("/",ruta.lastIndexOf("/"))));
+			assertEquals(archivo.getAbsoluteFile().toString().substring(0,archivo.getAbsoluteFile().toString().lastIndexOf("/")), result);
+		}
+	}
+		
+		
 	
 	// Prueba borrar fichero txt
 	@Test

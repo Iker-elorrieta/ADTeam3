@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -29,8 +30,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-
-import main.Demo;
 
 /**
  * Clase donde se apuntan los metodos que se usan en el programa.
@@ -434,6 +433,7 @@ public class Metodos {
 	 * 
 	 * (este metodo no devuelvera todos los ficheros que hay con ese nombre en distintas carpetas
 	 * ni comprueba el contenido, solo devuelve el primer fichero que encuentra)
+	 * 
 	 * Los espacios de la barra de progreso "Buscando[    ]" significa la cantidad de dispositivos
 	 * de almacenamiento de datos que estan conectadas al ordenador, cada barra que aparece significa
 	 * que ha acabado de buscar por un dispositivo (Ejemplo dispositivos C:\\ D:\\ etc...)
@@ -547,7 +547,7 @@ public class Metodos {
 				System.out.println("Libro creado correctamente ");
 				System.out.println("¿Desea crear otro libro?  S/N");
 				
-				correcto=Demo.confirmacionSN(teclado);
+				correcto = confirmacionSN(teclado);
 				
 			} catch (Exception e) {
 				correcto = false;		
@@ -724,7 +724,7 @@ public class Metodos {
 				System.out.println("Fichero creado con exito");
 				System.out.println("¿Desea crear otro libro?  S/N");
 
-				seguir = Demo.confirmacionSN(teclado);
+				seguir = confirmacionSN(teclado);
 
 			} while (seguir);
 			fw.close();
@@ -779,7 +779,7 @@ public class Metodos {
 				System.out.println("1) Agregar permisos");
 				System.out.println("2) Quitar permisos");
 				System.out.println("3) Salir");
-				opcion = Demo.entradaInt(1, 3, teclado);
+				opcion = entradaInt(1, 3, teclado);
 
 				if (opcion == 1) {
 					agregarPermiso(teclado);
@@ -902,7 +902,7 @@ public class Metodos {
 				System.out.println("5 = lectura y ejecución");
 				System.out.println("6 = lectura y escritura");
 				System.out.println("7 = lectura, escritura y ejecución");
-				permisoUnix = Demo.entradaInt(0, 7, teclado);
+				permisoUnix = entradaInt(0, 7, teclado);
 
 				if (permisoUnix == 0) {
 					permisoLetras = "---";
@@ -936,6 +936,484 @@ public class Metodos {
 		}
 		return correcto;
 
+	}
+
+	/**
+	 * Mediante este metodo se encuentra un directorio que se devuelve al metodo seleccionarDirectorio.
+	 * @param teclado
+	 * @param urlDefecto
+	 * @return
+	 */
+	public static File encontrarDirectorio(Scanner teclado, String urlDefecto)
+	{
+		String url = urlDefecto;
+		File archivoParaMover = null;
+		
+		System.out.println("¿Sabe la ruta completa al directorio?");
+		if(confirmacionSN(teclado))
+		{
+			System.out.print("Escriba la ruta: ");
+			url = teclado.nextLine();
+			archivoParaMover = new File(url);
+			
+			while(!archivoParaMover.isDirectory() && !url.equals("0"))
+			{
+				System.out.println("Ruta incorrecta, vuelve ha insertarla.");
+				System.out.println("Si quiere salir inserte 0");
+				url = teclado.nextLine();
+				archivoParaMover = new File(url);
+			}
+			
+			if(url.equals("0"))
+			{
+				url = urlDefecto;
+			}
+			else
+			{
+				return archivoParaMover = new File(url);
+			}
+		}
+		
+		System.out.println("¿Quieres buscarlo manualmente?");
+		if(confirmacionSN(teclado))
+		{
+			System.out.println("¿Quiere buscarlo empezando por una ruta indicada o desde la ruta por defecto? responda con 1 o 2");
+			int opcion = entradaInt(1,2,teclado);
+			
+			if(opcion == 1)
+			{
+				System.out.print("Escriba la ruta: ");
+				url = teclado.nextLine();
+				archivoParaMover = new File(seleccionarDirectorio(teclado, url));
+				return archivoParaMover;
+			}
+			else if(opcion == 2)
+			{
+				archivoParaMover = new File(seleccionarDirectorio(teclado, urlDefecto));
+				return archivoParaMover;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Este metodo devolvera el directorio seleccionado despues de enseñar los disponibles.
+	 * Si el directorio que busca no se encuentra en esta lista volvera al metodo encontrarDirectorio.
+	 * @param teclado
+	 * @param url
+	 * @return
+	 */
+	public static String seleccionarDirectorio(Scanner teclado, String url)
+	{
+		String result = "";
+		String lista = ficheros(url,"carpetas");
+		if(lista.equals(""))
+		{
+				System.out.println("No hay mas carpetas en esta ruta.");
+				url = moverEntreCarpetas(teclado, url);
+				return seleccionarDirectorio(teclado, url);
+		}
+		else if(!lista.equals(""))
+		{
+			System.out.println(lista);
+			System.out.println("¿La carpeta ha la que quiere mover se encuentra en esta lista?");
+			if(confirmacionSN(teclado))
+			{
+				System.out.print("Escriba el numero del directorio: ");
+				result = devolucion(url,"carpetas").get(entradaInt(1,devolucion(url,"carpetas").size(),teclado) - 1).getAbsolutePath();
+				return result;
+			}
+			else
+			{
+				url = moverEntreCarpetas(teclado, url);
+				return seleccionarDirectorio(teclado, url);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Mediante este metodo se encuentra un fichero al quie quiere modificar.
+	 * @param teclado
+	 * @param urlDefecto
+	 * @return
+	 */
+	public static File encontrarFichero(Scanner teclado, String urlDefecto)
+	{
+		String url = urlDefecto;
+		File archivoParaMover = null;
+		
+		System.out.println("¿Sabe la ruta completa al fichero?");
+		if(confirmacionSN(teclado))
+		{
+			System.out.print("Escriba la ruta: ");
+			url = teclado.nextLine();
+			archivoParaMover = new File(url);
+			
+			while(!archivoParaMover.isFile() && !url.equals("0"))
+			{
+				System.out.println("Ruta incorrecta, vuelve ha insertarla.");
+				System.out.println("Si quiere salir inserte 0");
+				url = teclado.nextLine();
+				archivoParaMover = new File(url);
+			}
+			
+			if(url.equals("0"))
+			{
+				url = urlDefecto;
+			}
+			else
+			{
+				return archivoParaMover = new File(url);
+			}
+		}
+		
+		
+		System.out.println("¿Quiere escribir el nombre del fichero para que el programa lo busque?");
+		System.out.println("Ten en cuenta que esto devolvera el primer fichero con ese nombre, no todos los ficheros con el nombre.");
+		boolean respuesta;
+		if(confirmacionSN(teclado))
+		{
+			do
+			{
+				System.out.println("Escriba el nombre del fichero: ");
+				System.out.println("Si escribe el nombre equivocado tendra que esperar a que el metodos busque por todo el ordenador para volver ha intentar");
+				url = buscarFichero(teclado.nextLine());
+				System.out.println("¿Es este el fichero que busca?: ");
+				System.out.println(url);
+				respuesta = confirmacionSN(teclado);
+				if(!respuesta)
+				{
+					System.out.println("¿Quiere volver ha intentar? Si introduce la ruta desde una carpeta mas exacta devolvera otra ruta.");
+					respuesta = confirmacionSN(teclado);
+					if(!respuesta)
+						url = urlDefecto;
+				}
+				else
+				{
+					respuesta = false;
+					return archivoParaMover = new File(url);
+				}
+			}while(respuesta);
+			
+		}
+		
+		
+		System.out.println("¿Quieres buscarlo manualmente?");
+		if(confirmacionSN(teclado))
+		{
+			System.out.println("¿Quiere buscarlo empezando por una ruta indicada o desde la ruta por defecto? responda con 1 o 2");
+			int opcion = entradaInt(1,2,teclado);
+			if(opcion == 1)
+			{
+				System.out.print("Escriba la ruta: ");
+				url = teclado.nextLine();
+				archivoParaMover = new File(seleccionarFichero(teclado, url));
+				return archivoParaMover;
+			}
+			else if(opcion == 2)
+			{
+				archivoParaMover = new File(seleccionarFichero(teclado, urlDefecto));
+				return archivoParaMover;
+			}
+		}
+		
+		
+		return archivoParaMover;
+	}
+	
+	/**
+	 * Este metodo sirve para buscar ficheros y directorios dentro o fuera de otros,
+	 * este va en cadena con el metodo sleccionarFichero.
+	 * @param teclado
+	 * @param url
+	 * @return
+	 */
+	public static String moverEntreCarpetas(Scanner teclado, String url)
+	{
+		System.out.println(ficheros(url,"carpetas"));
+		System.out.println("¿Quiere ir en algun directorio de mas arriba o volver a un directorio anterior? 1 o 2");
+		int opcion = entradaInt(1,2,teclado);
+		
+		if(opcion == 1)
+		{
+			System.out.println("Escriba el numero de la carpeta a la que quiere acceder.");
+			ArrayList<File> directorios = devolucion(url,"carpetas");
+			int carpeta = entradaInt(1, directorios.size(), teclado);
+			return directorios.get(carpeta-1).getPath();
+		}
+		else
+		{
+			try
+			{
+				url = url.substring(0,url.lastIndexOf("\\"));
+				return moverEntreCarpetas(teclado, url);
+			}
+			catch(Exception noHayMasBarras)
+			{
+				ArrayList<String> listaDispositivos = encontrarEspaciosAlmacenamiento();
+				for(int i = 0 ; i < listaDispositivos.size() ; i++)
+				{
+					System.out.println((i+1) + ") " + listaDispositivos.get(i));
+				}
+				System.out.println("No puede ir mas atras, tiene que seleccionar un dispositivo: ");
+				int dispositivo = entradaInt(1, listaDispositivos.size(), teclado);
+				
+				if(ficheros(listaDispositivos.get(dispositivo-1).substring(0,listaDispositivos.get(dispositivo-1).length()-1),"ficheros").equals("") || ficheros(listaDispositivos.get(dispositivo-1).substring(0,listaDispositivos.get(dispositivo-1).length()-1),"carpetas").equals(""))
+					return listaDispositivos.get(dispositivo-1);
+				else
+					return listaDispositivos.get(dispositivo-1).substring(0,listaDispositivos.get(dispositivo-1).length()-1);
+			}
+		}
+	}
+	
+	/**
+	 * Este metodo devuelve un arraylist la ruta de todos los espacios de almacenamiento que estan conectadas al ordenador.
+	 * @return
+	 */
+	public static ArrayList<String> encontrarEspaciosAlmacenamiento()
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		/*
+			//System.out.println("Drive Letter: " + aDrive); ruta del dispositivo
+			//System.out.println("\tType: " + fsv.getSystemTypeDescription(aDrive)); nombre del dispositivo
+			//System.out.println();
+		 FileSystemView fsv = FileSystemView.getFileSystemView();
+		 * 
+		 	https://stackoverflow.com/questions/21059703/how-can-a-java-program-list-all-partitions-and-get-the-free-space-of-them-on-lin
+		 */
+		 
+		 File[] drives = File.listRoots();
+		 
+		 if (drives != null && drives.length > 0) {
+		        for (File aDrive : drives) {
+		        	result.add(aDrive.toString());
+		        }
+		 }
+		 return result;
+	}
+	
+	
+	/**
+	 * Este metodo Muestra los ficheros que hay en la ruta especificada y devuelve la ruta absoluta de este. 
+	 * @param teclado
+	 * @param url
+	 * @return
+	 */
+	public static String seleccionarFichero(Scanner teclado, String url)
+	{
+		String result = "";
+		String lista = ficheros(url,"Ficheros");
+		if(lista.equals(""))
+		{
+			System.out.println("No hay ficheros en esta carpeta.");
+			lista = ficheros(url,"carpetas");
+			if(lista.equals(""))
+				System.out.println("No hay mas carpetas en esta ruta.");
+			else
+			{
+				url = moverEntreCarpetas(teclado, url);
+				return seleccionarFichero(teclado, url);
+			}
+		}
+		else
+		{
+			System.out.println(lista);
+			System.out.println("¿El fichero que quiere mover se encuentra en esta lista?");
+			if(confirmacionSN(teclado))
+			{
+				System.out.print("Escriba el numero del archivo: ");
+				
+				result = devolucion(url,"ficheros").get(entradaInt(1,devolucion(url,"ficheros").size(),teclado) - 1).getAbsolutePath();
+				return result;
+			}
+			else
+			{
+				url = moverEntreCarpetas(teclado, url);
+				return seleccionarFichero(teclado, url);
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 * Metodo que devuelve el nombre de cada fichero o directorio de una ruta.
+	 * @param url
+	 * @param tipo
+	 * @return
+	 */
+	public static String ficheros(String url, String tipo)
+	{
+		tipo = tipo.toLowerCase();
+		String result = "";
+		File f = new File(url);
+        File[] files;
+        if(f.listFiles() != null)
+		{
+			files = f.listFiles();
+		}
+		else
+		{
+			result = "";
+			return result;
+		}
+        
+        try {
+        	int contador = 1;
+            for(int i = 0;i < files.length;i++) {
+            	if(tipo.equals("ficheros") && files[i].isFile() && (Character.isLetter(files[i].getName().charAt(0)) || Character.isDigit(files[i].getName().charAt(0))))
+        		{
+	        		result += (contador) + ") " + files[i].getName() + "\n";
+	        		contador++;
+        		}
+            	else if(tipo.equals("carpetas") && files[i].isDirectory() && (Character.isLetter(files[i].getName().charAt(0)) || Character.isDigit(files[i].getName().charAt(0))))
+            	{
+	        		result += (contador) + ") " + files[i].getName() + "\n";
+	        		contador++;
+        		}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        if(result.equals(""))
+        	return "";
+        else
+        	return result;
+	}
+
+	public static ArrayList<File> devolucion(String url, String tipo)
+	{
+		ArrayList<File> array = new ArrayList<File>();
+		File f = new File(url);
+        File[] files;
+        if(f.listFiles() != null)
+		{
+			files = f.listFiles();
+		}
+		else
+		{
+			return null;
+		}
+        
+        try {
+        	for(int i = 0;i < files.length;i++) {
+            	if(tipo.equals("ficheros") && files[i].isFile() && (Character.isLetter(files[i].getName().charAt(0)) || Character.isDigit(files[i].getName().charAt(0))))
+        		{
+            		array.add(files[i]);
+        		}
+            	else if(tipo.equals("carpetas") && files[i].isDirectory() && (Character.isLetter(files[i].getName().charAt(0)) || Character.isDigit(files[i].getName().charAt(0))))
+            	{
+            		array.add(files[i]);
+        		}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+	}
+	
+	
+	/**
+	 * Metodo para comprobar si el dato insertado es del mismo tipo.
+	 */
+	public static long comprobacionDatoInt(Scanner teclado) {
+		long parametro = 0;
+		boolean repetir = true;
+		do {
+			try {
+				parametro = teclado.nextLong();
+				teclado.nextLine();
+				return parametro;
+			} catch (Exception a) {
+				System.out.println("Dato incorrecto");
+				System.out.println("Vuelve ha insertarlo: ");
+				teclado.nextLine();
+			}
+		} while (repetir);
+		return parametro;
+	}
+	
+
+	/**
+	 * Metodo para comprobar si el dato insertado es del mismo tipo.
+	 */
+	public static double comprobacionDatoDouble(Scanner teclado) {
+		double parametro = 0;
+		boolean repetir = true;
+
+		do {
+			try {
+				parametro = teclado.nextDouble();
+				teclado.nextLine();
+				return parametro;
+			} catch (Exception a) {
+				System.out.println("Dato incorrecto");
+				System.out.println("Vuelve ha insertarlo: ");
+				teclado.nextLine();
+			}
+		} while (repetir);
+		return parametro;
+	}
+	
+
+	/**
+	 * Metodo para preguntar al cliente si quiere seguir o no.
+	 * @param teclado
+	 * @return boolean 
+	 */
+	public static boolean confirmacionSN(Scanner teclado) {
+		String result;
+
+		do {
+			result = teclado.next();
+			if (result.length() > 1 || result.length() < 1) {
+				System.out.println("Dato incorrecto, Vuelve ha insertarlo.");
+			} else {
+				if (result.toUpperCase().equals("S")) {
+					teclado.nextLine();
+					return true;
+				} else if (result.toUpperCase().equals("N")) {
+					teclado.nextLine();
+					return false;
+				}
+				System.out.println("Tiene que insertar S o N.");
+			}
+
+		} while (!result.toUpperCase().equals("N") && !result.toUpperCase().equals("S"));
+
+		return false;
+	}
+	
+	
+	/**
+	 * Metodo para validar la entrada de numeros por teclado y controlar las
+	 * exceptciones.
+	 * @param min
+	 * @param max
+	 * @param teclado
+	 * @return int 
+	 */
+	public static int entradaInt(int min, int max, Scanner teclado) {
+		int result = 0;
+		do {
+			try {
+				result = teclado.nextInt();
+				if (result < min || result > max) {
+					System.out.println("Tiene que insertar un numero entre " + min + " y " + max);
+					teclado.nextLine();
+				}
+			} catch (InputMismatchException a) {
+				System.out.println("Tiene que insertar un numero:");
+				teclado.nextLine();
+			}
+		} while (result < min || result > max);
+		teclado.nextLine();
+		return result;
 	}
 
 }

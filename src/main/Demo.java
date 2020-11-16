@@ -2,8 +2,8 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import modelo.Libro;
@@ -33,7 +33,6 @@ public class Demo {
 	public static boolean inicioPrograma(Scanner teclado) {
 
 		boolean correcto = false;
-
 		try {
 
 			if (Metodos.isWindows()) {
@@ -65,8 +64,8 @@ public class Demo {
 				Variables.ficheroTxt.createNewFile();
 			do {
 				menu(teclado);
-				System.out.println("ï¿½Quiere hacer otras operaciones? s/n");
-			} while (confirmacionSN(teclado));
+				System.out.println("¿Quiere hacer otras operaciones? s/n");
+			} while (Metodos.confirmacionSN(teclado));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			correcto = false;
@@ -84,91 +83,60 @@ public class Demo {
 		boolean correcto = false;
 		int respuestaOpcionesTipo;
 		int respuestaOpcionesAccion;
-
-		System.out.println("Elige alguna de las opciones: ");
-		System.out.println("1) Xml");
-		System.out.println("2) txt");
-		System.out.println("3) Csv");
-		respuestaOpcionesTipo = entradaInt(1, 3, teclado);
-
-		System.out.println("¿Que desea hacer? ");
-		System.out.println("1. Leer");
-		System.out.println("2. Crear libro");
-		System.out.println("3. Eliminar archivo");
-		System.out.println("4. Crear archivo / Seleccionar archivo");
-		if (respuestaOpcionesTipo == 1) {
-			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
-
-			menuXml(respuestaOpcionesAccion, teclado);
-			correcto = true;
-		} else if (respuestaOpcionesTipo == 2) {
-			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
-
-			menuTxt(respuestaOpcionesAccion, teclado);
-			correcto = true;
-		} else if (respuestaOpcionesTipo == 3) {
-			respuestaOpcionesAccion = entradaInt(1, 4, teclado);
-
-			menuCsv(respuestaOpcionesAccion, teclado);
-			correcto = true;
+		System.out.println("¿Desea modificar/crear/eliminar un fichero?");
+		
+		if(Metodos.confirmacionSN(teclado))
+		{
+			System.out.println("Elige alguna de las opciones: ");
+			System.out.println("1) Xml");
+			System.out.println("2) txt");
+			System.out.println("3) Csv");
+			respuestaOpcionesTipo = Metodos.entradaInt(1, 3, teclado);
+	
+			System.out.println("¿Que desea hacer? ");
+			System.out.println("1. Leer");
+			System.out.println("2. Crear libro");
+			System.out.println("3. Eliminar archivo");
+			System.out.println("4. Crear archivo / Seleccionar archivo");
+			if (respuestaOpcionesTipo == 1) {
+				respuestaOpcionesAccion = Metodos.entradaInt(1, 4, teclado);
+	
+				menuXml(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			} else if (respuestaOpcionesTipo == 2) {
+				respuestaOpcionesAccion = Metodos.entradaInt(1, 4, teclado);
+	
+				menuTxt(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			} else if (respuestaOpcionesTipo == 3) {
+				respuestaOpcionesAccion = Metodos.entradaInt(1, 4, teclado);
+	
+				menuCsv(respuestaOpcionesAccion, teclado);
+				correcto = true;
+			}
+			
 		}
-		return correcto;
-	}
-
-	/**
-	 * Metodo para validar la entrada de numeros por teclado y controlar las
-	 * exceptciones.
-	 * @param min
-	 * @param max
-	 * @param teclado
-	 * @return int 
-	 */
-	public static int entradaInt(int min, int max, Scanner teclado) {
-		int result = 0;
-		do {
-			try {
-				result = teclado.nextInt();
-				if (result < min || result > max) {
-					System.out.println("Tiene que insertar un numero entre " + min + " y " + max);
-					teclado.nextLine();
-				}
-			} catch (InputMismatchException a) {
-				System.out.println("Tiene que insertar un numero:");
-				teclado.nextLine();
+		else
+		{
+			System.out.println("Elige alguna de las siguientes opciones: ");
+			System.out.println("1) Cambiar permisos.");
+			System.out.println("2) Mover fichero.");
+			respuestaOpcionesTipo = Metodos.entradaInt(1, 2, teclado);
+			
+			if (respuestaOpcionesTipo == 1) {
+				
+				//En construcion
+				System.out.println("Falta por implementar");
+				//En construcion
+				
+			} else if (respuestaOpcionesTipo == 2) {
+				moverFichero(teclado);
+				correcto = true;
 			}
-		} while (result < min || result > max);
-		teclado.nextLine();
-		return result;
+		}
+	return correcto;
 	}
-
-	/**
-	 * Metodo para preguntar al cliente si quiere seguir o no.
-	 * @param teclado
-	 * @return boolean 
-	 */
-	public static boolean confirmacionSN(Scanner teclado) {
-		String result;
-
-		do {
-			result = teclado.next();
-			if (result.length() > 1 || result.length() < 1) {
-				System.out.println("Dato incorrecto, Vuelve ha insertarlo.");
-			} else {
-				if (result.toUpperCase().equals("S")) {
-					teclado.nextLine();
-					return true;
-				} else if (result.toUpperCase().equals("N")) {
-					teclado.nextLine();
-					return false;
-				}
-				System.out.println("Tiene que insertar S o N.");
-			}
-
-		} while (!result.toUpperCase().equals("N") && !result.toUpperCase().equals("S"));
-
-		return false;
-	}
-
+	
 	/**
 	 * metodo para crearLibro
 	 * @param teclado
@@ -177,7 +145,8 @@ public class Demo {
 	public static Libro crearLibro(Scanner teclado) {
 		String titulo, editorial, notas, materias;
 		double altura = 0.0;
-		int paginas = 0, isbn = 0;
+		int paginas = 0;
+		long isbn = 0;
 	
 		System.out.print("Introduce el titulo: ");
 		titulo = teclado.nextLine();
@@ -212,27 +181,27 @@ public class Demo {
 		}
 		
 		System.out.print("Introduce la altura: ");
-		altura = comprobacionDatoDouble(teclado);
+		altura = Metodos.comprobacionDatoDouble(teclado);
 		while(!Metodos.validacion(Patrones.altura.getNombre(), altura+""))
 		{
 			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
-			altura = comprobacionDatoDouble(teclado);
+			altura = Metodos.comprobacionDatoDouble(teclado);
 		}
 		
 		System.out.print("Introduce las paginas: ");
-		paginas = comprobacionDatoInt(teclado);
+		paginas = Integer.parseInt(Metodos.comprobacionDatoInt(teclado)+"");
 		while(!Metodos.validacion(Patrones.paginas.getNombre(), paginas+""))
 		{
 			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
-			paginas = comprobacionDatoInt(teclado);
+			paginas = Integer.parseInt(Metodos.comprobacionDatoInt(teclado)+"");
 		}
 		
 		System.out.print("Introduce el isbn: ");
-		isbn = comprobacionDatoInt(teclado);
+		isbn = Metodos.comprobacionDatoInt(teclado);
 		while(!Metodos.validacion(Patrones.isbn.getNombre(), isbn+""))
 		{
 			System.out.print("dato insertado incorrecto, vuelve ha intentarlo: ");
-			isbn = comprobacionDatoInt(teclado);
+			isbn = Metodos.comprobacionDatoInt(teclado);
 		}
 		
 		Libro libro = new Libro(titulo, editorial, paginas, altura, notas, isbn, materias);
@@ -342,7 +311,7 @@ public class Demo {
 				while (confirmacionEscribir) {
 					lista.add(crearLibro(teclado));
 					System.out.println("ï¿½Quiere escribir otro libro? s/n");
-					confirmacionEscribir = confirmacionSN(teclado);
+					confirmacionEscribir = Metodos.confirmacionSN(teclado);
 					correcto = true;
 				}
 
@@ -457,44 +426,55 @@ public class Demo {
 	}
 
 	/**
-	 * Metodo temporal
+	 * Metodo para mover fichero cuando el metodo consigue 2 rutas
+	 * 1 del fichero y otro de la carpeta este metodo ejecutara
+	 * un comando en cmd para mover el archivo.
+	 * @param teclado
 	 */
-	public static int comprobacionDatoInt(Scanner teclado) {
-		int parametro = 0;
-		boolean repetir = true;
-
-		do {
-			try {
-				parametro = teclado.nextInt();
-				teclado.nextLine();
-				return parametro;
-			} catch (Exception a) {
-				System.out.println("Dato incorrecto");
-				System.out.println("Vuelve ha insertarlo: ");
-				teclado.nextLine();
+	public static boolean moverFichero(Scanner teclado)
+	{
+		//D:\basura
+		//D:\Steff\Reto\ADTeam3\Ficheros\abcdef.csv
+		boolean control = true;
+		String urlDefecto = "";
+		if(Metodos.isWindows())
+			urlDefecto= ".\\Ficheros";
+		else if(Metodos.isUnix())
+			urlDefecto= "./Ficheros";
+		File archivoParaMover;
+		File lugarMovida;
+		
+		archivoParaMover = Metodos.encontrarFichero(teclado, urlDefecto);
+		lugarMovida = Metodos.encontrarDirectorio(teclado, urlDefecto);
+		
+		System.out.println("El fichero " + archivoParaMover.getAbsolutePath() + " se movera en el directorio " + lugarMovida.getAbsolutePath() + " ¿Desea confirmar la accion?");
+		if(Metodos.confirmacionSN(teclado))
+		{
+			ProcessBuilder test = new ProcessBuilder(); 
+			test = test.command("CMD", "/C", "move " + archivoParaMover.getAbsolutePath() + " " + lugarMovida.getAbsolutePath());
+			try 
+			{
+				Process p = test.start();
+				InputStream is = p.getInputStream(); 
+				is.close(); 
+				System.out.println("Fichero se movio correctamente.");
+				control = true;
 			}
-		} while (repetir);
-		return parametro;
-	}
-
-	/**
-	 * Metodo temporal
-	 */
-	public static double comprobacionDatoDouble(Scanner teclado) {
-		double parametro = 0;
-		boolean repetir = true;
-
-		do {
-			try {
-				parametro = teclado.nextDouble();
-				teclado.nextLine();
-				return parametro;
-			} catch (Exception a) {
-				System.out.println("Dato incorrecto");
-				System.out.println("Vuelve ha insertarlo: ");
-				teclado.nextLine();
+			catch (Exception e) 
+			{
+				e.printStackTrace();
 			}
-		} while (repetir);
-		return parametro;
+		}
+		else
+		{
+			System.out.println("No se ha hecho ningun cambio.");
+			archivoParaMover = null;
+			lugarMovida = null;
+			control = false;
+		}
+		return control;
 	}
+	
+	
+
 }
