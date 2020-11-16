@@ -246,7 +246,10 @@ public class Metodos {
 	 */
 	public static boolean validacion(String patron,String dato)
 	{	// https://www.isbn-international.org/content/what-isbn#:~:text=An%20ISBN%20is%20an%20International,digit%20to%20validate%20the%20number.
-		String rango = patron.substring(patron.indexOf("[")+1,patron.indexOf("[")+4); 
+		String simboloRangoInicio = "[",simboloRangoFinal = "]",simboloLongitudInicio= "{",simboloLongitudFinal = "}";
+		String simboloEspacio = "\\s", simboloPunto = "\\.", simboloBarra = "\\-";
+		char espacio = '\s',punto = '.', barra = '-';
+		String rango = patron.substring(patron.indexOf(simboloRangoInicio)+1,patron.indexOf(simboloRangoFinal)+4); 
 		String segundoRango = patron.substring(patron.indexOf(rango)+rango.length(),patron.indexOf(rango)+rango.length()+3);
 		String principioSegundoRango = "";
 		String finalSegundoRango = "";
@@ -254,13 +257,11 @@ public class Metodos {
 		boolean comas = false;
 		boolean barras = false;
 		
-		if(patron.contains("\\s"))
+		if(patron.contains(simboloEspacio))
 			espacios = true;
-
-		if(patron.contains("\\."))
+		if(patron.contains(simboloPunto))
 			comas = true;
-
-		if(patron.contains("\\-"))
+		if(patron.contains(simboloBarra))
 			barras = true;
 		
 		//comprobar que el rango es una letra o un digito para prevenir la insercion de caracteres especiales
@@ -277,7 +278,7 @@ public class Metodos {
 		String principioRango = rango.substring(0,1);
 		String finalRango = rango.substring(2);
 		
-		String longitud = patron.substring(patron.indexOf("{")+1,patron.lastIndexOf("}"));
+		String longitud = patron.substring(patron.indexOf(simboloLongitudInicio)+1,patron.lastIndexOf(simboloLongitudFinal));
 		String principioLongitud = longitud.substring(0,longitud.indexOf(","));
 		String finalLongitud = longitud.substring(longitud.indexOf(",")+1);
 
@@ -287,12 +288,12 @@ public class Metodos {
 			System.out.println("No puede insertar caracter especial en el rango");
 			return false;
 		}
-		else if(!rango.contains("-"))
+		else if(!rango.contains(simboloBarra))
 		{
 			System.out.println("Al rango le falta la barra de espacio.");
 			return false;
 		}
-		else if(!segundoRango.equals("") && !segundoRango.contains("-"))
+		else if(!segundoRango.equals("") && !segundoRango.contains(simboloBarra))
 		{
 			System.out.println("Al rango le falta la barra de espacio.");
 			return false;
@@ -314,7 +315,7 @@ public class Metodos {
 			return false;
 		}
 		
-		if(dato.contains("."))
+		if(dato.contains(simboloPunto))
 		{
 			if(dato.substring(dato.indexOf(".")+1).contains("."))
 			{
@@ -323,7 +324,7 @@ public class Metodos {
 			}
 		}
 		
-		if(dato.charAt(dato.length()-1) == '-' && barras)
+		if(dato.charAt(dato.length()-1) == barra && barras)
 		{
 			System.out.println("El dato no puede acabar con una barra.");
 			return false;
@@ -334,22 +335,22 @@ public class Metodos {
 		{
 			if((!Character.isLetter(dato.charAt(i)) && !Character.isDigit(dato.charAt(i))))
 			{
-				if((dato.charAt(i) == '\s' && !espacios))
+				if((dato.charAt(i) == espacio && !espacios))
 				{
 					System.out.println("No puede introducir espacios.");
 					return false;
 				}
-				else if (dato.charAt(i) == '.' && !comas)
+				else if (dato.charAt(i) == punto && !comas)
 				{
 					System.out.println("No puede introducir puntos.");
 					return false;
 				}
-				else if(dato.charAt(i) == '-' && !barras)
+				else if(dato.charAt(i) == barra && !barras)
 				{
 					System.out.println("No puede introducir barras.");
 					return false;
 				}
-				else if (dato.charAt(i) != '\s' && dato.charAt(i) != '.' && dato.charAt(i) != '-')
+				else if (dato.charAt(i) != espacio && dato.charAt(i) != punto && dato.charAt(i) != barra)
 				{
 					System.out.println("No puede introducir caracteres especiales.");
 					return false;
@@ -381,7 +382,7 @@ public class Metodos {
 				else if (((int)dato.toUpperCase().charAt(i) > (int)finalRango.toUpperCase().charAt(0) || 
 				   (int)dato.toUpperCase().charAt(i) < (int)principioRango.toUpperCase().charAt(0)))
 				{
-					 if (dato.charAt(i) != '\s' && dato.charAt(i) != '.' && dato.charAt(i) != '-')
+					 if (dato.charAt(i) != espacio && dato.charAt(i) != punto && dato.charAt(i) != barra)
 					 {
 						 System.out.println("No puede insertar caracteres especiales.");
 						 return false;
@@ -429,7 +430,7 @@ public class Metodos {
 					if (((int)dato.toUpperCase().charAt(i) > (int)finalRango.toUpperCase().charAt(0) || 
 					   (int)dato.toUpperCase().charAt(i) < (int)principioRango.toUpperCase().charAt(0)))
 					{
-						 if (dato.charAt(i) != '\s' && dato.charAt(i) != '.' && dato.charAt(i) != '-')
+						 if (dato.charAt(i) != espacio && dato.charAt(i) != punto && dato.charAt(i) != barra)
 						 {
 							 System.out.println("No puede insertar caracteres especiales.");
 							 return false;
@@ -830,7 +831,7 @@ public class Metodos {
 				} else if (opcion == 3) {
 					correcto = false;
 				}
-			} while (correcto = true);
+			} while (correcto);
 
 		} catch (Exception e) {
 			e.getMessage();

@@ -430,7 +430,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuXml2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -443,7 +443,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuTxt2() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -457,7 +457,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuCsv() {
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -471,7 +471,7 @@ class PruebasFichero {
 	@Test
 	void testCargarCsv() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3.3\n5 \n123-456-789-111-1\n n \n";
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n3,3\n5 \n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -578,15 +578,15 @@ class PruebasFichero {
 	}
 	
 	//permisos
-	@Test
-	void testPermisos() {
-		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		boolean result = Metodos.cambioPermiso(teclado);
-		assertEquals(false, result);
-	}
+//	@Test
+//	void testPermisos() {
+//		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
+//		InputStream in = new ByteArrayInputStream(input.getBytes());
+//		System.setIn(in);
+//		Scanner teclado = new Scanner(System.in);
+//		boolean result = Metodos.cambioPermiso(teclado);
+//		assertEquals(false, result);
+//	}
 
 	@Test
 	void testCrearXmlBaseFalse() {
@@ -640,7 +640,7 @@ class PruebasFichero {
 	
 	@Test
 	void testMoverFicheroRutaManualmenteFalse() {
-		String input = "n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 2 \n n \n";
+		String input = "n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 1 \n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -651,7 +651,7 @@ class PruebasFichero {
 	// mover ficheros
 	@Test
 	void testMoverFicheroRutaManualmente() {
-		String input = "n \n 2 \n n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 2 \n s \n";
+		String input = "n \n 2 \n n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 1 \n s \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -724,38 +724,38 @@ class PruebasFichero {
 		int opcion = 3;
 		boolean result = main.Demo.menuCsv(opcion, teclado);
 		assertEquals(true, result);
-//		borrarPruebas();
+		borrarPruebas();
 	}
 	
-//	void borrarPruebas()
-//	{
-//		String urlTxt = "";
-//		String urlXml = "";
-//		String urlCsv = "";
-//		String prueba = "";
-//		String sistema = System.getProperty("os.name").toLowerCase();
-//
-//		if (sistema.indexOf("win") >= 0) {
-//			urlTxt = ".\\Ficheros\\ficheroPrueba.txt";
-//			urlXml = ".\\Ficheros\\ficheroPrueba.xml";
-//			urlCsv = ".\\Ficheros\\ficheroPrueba.csv";
-//			prueba = ".\\Ficheros\\abcdef.csv";
-//		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
-//			urlTxt = "./Ficheros/ficheroPrueba.txt";
-//			urlXml = "./Ficheros/ficheroPrueba.xml";
-//			urlCsv = "./Ficheros/ficheroPrueba.csv";
-//			prueba = "./Ficheros/abcdef.csv";
-//		}
-//		
-//		File fichero = new File(urlTxt);
-//		fichero.delete();
-//		fichero = new File(urlXml);
-//		fichero.delete();
-//		fichero = new File(urlCsv);
-//		fichero.delete();
-//		fichero = new File(prueba);
-//		fichero.delete();
-//	}
+	void borrarPruebas()
+	{
+		String urlTxt = "";
+		String urlXml = "";
+		String urlCsv = "";
+		String prueba = "";
+		String sistema = System.getProperty("os.name").toLowerCase();
+
+		if (sistema.indexOf("win") >= 0) {
+			urlTxt = ".\\Ficheros\\ficheroPrueba.txt";
+			urlXml = ".\\Ficheros\\ficheroPrueba.xml";
+			urlCsv = ".\\Ficheros\\ficheroPrueba.csv";
+			prueba = ".\\Ficheros\\muevemePorfa.csv";
+		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
+			urlTxt = "./Ficheros/ficheroPrueba.txt";
+			urlXml = "./Ficheros/ficheroPrueba.xml";
+			urlCsv = "./Ficheros/ficheroPrueba.csv";
+			prueba = "./Ficheros/muevemePorfa.csv";
+		}
+		
+		File fichero = new File(urlTxt);
+		fichero.delete();
+		fichero = new File(urlXml);
+		fichero.delete();
+		fichero = new File(urlCsv);
+		fichero.delete();
+		fichero = new File(prueba);
+		fichero.delete();
+	}
 	
 	//rutas en linux y windows
 	String pruebaSys(String tipo) {
@@ -765,19 +765,25 @@ class PruebasFichero {
 		String urlMoverFichero = "";
 		String urlMoverDirectorio = "";
 		String sistema = System.getProperty("os.name").toLowerCase();
+		File archivo;
+		File carpeta;
 
 		if (sistema.indexOf("win") >= 0) {
 			urlTxt = ".\\Ficheros\\ficheroPrueba.txt";
 			urlXml = ".\\Ficheros\\ficheroPrueba.xml";
 			urlCsv = ".\\Ficheros\\ficheroPrueba.csv";
-			urlMoverFichero = "D:\\Steff\\Reto\\ADTeam3\\Ficheros\\muevemePorfa.csv";
-			urlMoverDirectorio = "D:\\basura";
+			archivo = new File("Ficheros\\muevemePorfa.csv");
+			urlMoverFichero = archivo.getAbsolutePath();
+			carpeta = new File("basura");
+			urlMoverDirectorio = carpeta.getAbsolutePath();
 		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
 			urlTxt = "./Ficheros/ficheroPrueba.txt";
 			urlXml = "./Ficheros/ficheroPrueba.xml";
 			urlCsv = "./Ficheros/ficheroPrueba.csv";
-			urlMoverFichero = "D:/Steff/Reto/ADTeam3/Ficheros/muevemePorfa.csv";
-			urlMoverDirectorio = "D:/basura";
+			archivo = new File("Ficheros/muevemePorfa.csv");
+			urlMoverFichero = archivo.getAbsolutePath();
+			carpeta = new File("basura");
+			urlMoverDirectorio = archivo.getAbsolutePath();
 		}
 
 		switch (tipo) {
