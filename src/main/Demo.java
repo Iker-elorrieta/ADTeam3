@@ -125,9 +125,7 @@ public class Demo {
 			
 			if (respuestaOpcionesTipo == 1) {
 				
-				//En construcion
-				System.out.println("Falta por implementar");
-				//En construcion
+				Metodos.cambioPermiso(teclado);
 				
 			} else if (respuestaOpcionesTipo == 2) {
 				moverFichero(teclado);
