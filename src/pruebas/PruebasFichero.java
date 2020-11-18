@@ -18,6 +18,8 @@ import modelo.Variables;
  */
 class PruebasFichero {
 
+	
+	
 	// Test Metodos sin requeridos
 	@Test
 	void testDemoComprobacionDouble() {
@@ -604,9 +606,110 @@ class PruebasFichero {
 	}
 	
 	//permisos
+//	@Test
+//	void testAgregarPermisos() {
+//		String input = "1 \n juan \n prueba.txt \n F \n 3";
+//		InputStream in = new ByteArrayInputStream(input.getBytes());
+//		System.setIn(in);
+//		Scanner teclado = new Scanner(System.in);
+//		boolean result = Metodos.cambioPermiso(teclado);
+//		assertEquals(false, result);
+//	}
+//	@Test
+//	void testAgregarPermisoUsuario() {
+//		String input = "1 \n loopez \n prueba.txt \n F \n 3";
+//		InputStream in = new ByteArrayInputStream(input.getBytes());
+//		System.setIn(in);
+//		Scanner teclado = new Scanner(System.in);
+//		boolean result = Metodos.cambioPermiso(teclado);
+//		assertEquals(false, result);
+//	}
 	@Test
-	void testPermisos() {
-		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
+	void testQuitarPermisos() {
+		String input = "2 \n juan \n prueba.txt \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+//	@Test
+//	void testQuitarPermisoUsuario() {
+//		String input = "2 \n lopez \n prueba.txt \n 3";
+//		InputStream in = new ByteArrayInputStream(input.getBytes());
+//		System.setIn(in);
+//		Scanner teclado = new Scanner(System.in);
+//		boolean result = Metodos.cambioPermiso(teclado);
+//		assertEquals(false, result);
+//	}
+
+	@Test
+	void testPermisosLinuxOpcion0() {
+		String input = "2 \n prueba.txt \n 0 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testPermisosLinuxOpcion1() {
+		String input = "2 \n prueba.txt \n 1 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testPermisosLinuxOpcion2() {
+		String input = "2 \n prueba.txt \n 2 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testPermisosLinuxOpcion3() {
+		String input = "2 \n prueba.txt \n 3 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testPermisosLinuxOpcion4() {
+		String input = "2 \n prueba.txt \n 4 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testPermisosLinuxOpcion5() {
+		String input = "2 \n prueba.txt \n 5 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testPermisosLinuxOpcion6() {
+		String input = "2 \n prueba.txt \n 6 \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	
+	@Test
+	void testPermisosLinuxOpcion7() {
+		String input = "2 \n prueba.txt \n 7 \n 3";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
