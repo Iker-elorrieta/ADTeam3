@@ -355,6 +355,15 @@ class PruebasFichero {
 		assertEquals(false, result);
 	}
 	
+	@Test
+	void buscarFichero() {
+		String fichero = "moveMePlz.txt";
+		String result = modelo.Metodos.buscarFichero(fichero);
+		File ficheroPrueba = new File("basura\\moveMePlz.txt");
+		System.out.println(ficheroPrueba.getAbsoluteFile() + " --- " + result);
+		assertEquals(ficheroPrueba.getAbsoluteFile()+"", result);
+	}
+	
 	// ------------- Test Programa -----------
 	
 	// crear ficheros
