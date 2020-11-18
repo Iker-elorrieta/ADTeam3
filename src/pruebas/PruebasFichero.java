@@ -436,11 +436,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuXml2() {
-		String altura;
-		if(Metodos.isUnix())
-			altura = String.valueOf("3,3");
-		else
-			altura = String.valueOf("3.3");
+		String altura = String.valueOf("3,3");
 		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
@@ -454,11 +450,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuTxt2() {
-		String altura;
-		if(Metodos.isUnix())
-			altura = String.valueOf("3,3");
-		else
-			altura = String.valueOf("3.3");
+		String altura = String.valueOf("3,3");
 		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
@@ -473,11 +465,7 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuCsv() {
-		String altura;
-		if(Metodos.isUnix())
-			altura = String.valueOf("3,3");
-		else
-			altura = String.valueOf("3.3");
+		String altura = String.valueOf("3,3");
 		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
@@ -492,11 +480,7 @@ class PruebasFichero {
 	@Test
 	void testCargarCsv() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		String altura;
-		if(Metodos.isUnix())
-			altura = String.valueOf("3,3");
-		else
-			altura = String.valueOf("3.3");
+		String altura = String.valueOf("3,3");
 		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
@@ -603,16 +587,6 @@ class PruebasFichero {
 		assertEquals(tamLista1, tamLista2);
 	}
 	
-	//permisos
-	@Test
-	void testPermisos() {
-		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
-		Scanner teclado = new Scanner(System.in);
-		boolean result = Metodos.cambioPermiso(teclado);
-		assertEquals(false, result);
-	}
 
 	@Test
 	void testCrearXmlBaseFalse() {
