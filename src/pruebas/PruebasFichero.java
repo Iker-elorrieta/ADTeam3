@@ -86,13 +86,19 @@ class PruebasFichero {
 	@Test
 	void testWin() {
 		boolean result = Metodos.isWindows();
-		assertEquals(true, result);
+		if(Metodos.isWindows())
+			assertEquals(true, result);
+		else
+			assertEquals(false, result);
 	}
 
 	@Test
 	void testUnix() {
 		boolean result = Metodos.isUnix();
-		assertEquals(false, result);
+		if(Metodos.isUnix())
+			assertEquals(true, result);
+		else
+			assertEquals(false, result);
 	}
 	
 	// test Libro
@@ -430,8 +436,12 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuXml2() {
-		double altura = 3.3;
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
+		String altura;
+		if(Metodos.isUnix())
+			altura = String.valueOf("3,3");
+		else
+			altura = String.valueOf("3.3");
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -444,8 +454,12 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuTxt2() {
-		double altura = 3.3;
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
+		String altura;
+		if(Metodos.isUnix())
+			altura = String.valueOf("3,3");
+		else
+			altura = String.valueOf("3.3");
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -459,8 +473,12 @@ class PruebasFichero {
 	
 	@Test
 	void testDemoMenuCsv() {
-		double altura = 3.3;
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
+		String altura;
+		if(Metodos.isUnix())
+			altura = String.valueOf("3,3");
+		else
+			altura = String.valueOf("3.3");
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -474,8 +492,12 @@ class PruebasFichero {
 	@Test
 	void testCargarCsv() {
 		ArrayList<Libro> listaLibro = new ArrayList<Libro>();
-		double altura = 3.3;
-		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5 \n123-456-789-111-1\n n \n";
+		String altura;
+		if(Metodos.isUnix())
+			altura = String.valueOf("3,3");
+		else
+			altura = String.valueOf("3.3");
+		String input = ". \nEl avion de los suenos\n . \nDreamWork\n $ \npegi 8\n . \nEducativo\n"+altura+"\n5\n123-456-789-111-1\n n \n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -582,15 +604,15 @@ class PruebasFichero {
 	}
 	
 	//permisos
-//	@Test
-//	void testPermisos() {
-//		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
-//		InputStream in = new ByteArrayInputStream(input.getBytes());
-//		System.setIn(in);
-//		Scanner teclado = new Scanner(System.in);
-//		boolean result = Metodos.cambioPermiso(teclado);
-//		assertEquals(false, result);
-//	}
+	@Test
+	void testPermisos() {
+		String input = "1 \n juan \n ficheroPrueba.txt \n F \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
 
 	@Test
 	void testCrearXmlBaseFalse() {
@@ -644,7 +666,11 @@ class PruebasFichero {
 	
 	@Test
 	void testMoverFicheroRutaManualmenteFalse() {
-		String input = "n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 1 \n n \n";
+		String input;
+		if(Metodos.isUnix())
+			input = "n \n n \n s \n 2 \n 2 \n 1 \n 3 \n s \n 6 \n n \n s \n 2 \n n \n 2 \n 2 \n 1 \n 2 \n s \n 1 \n n \n";		
+		else
+			input = "n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 1 \n n \n";		
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -655,7 +681,11 @@ class PruebasFichero {
 	// mover ficheros
 	@Test
 	void testMoverFicheroRutaManualmente() {
-		String input = "n \n 2 \n n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 1 \n s \n";
+		String input;
+		if(Metodos.isUnix())
+			input = "n \n 2 \n n \n n \n s \n 2 \n 2 \n 1 \n 3 \n s \n 6 \n n \n s \n 2 \n n \n 2 \n 2 \n 1 \n 2 \n s \n 1 \n s \n";		
+		else
+			input = "n \n 2 \n n \n n \n s \n 2 \n s \n 7 \n n \n s \n 2 \n 2 \n 2 \n 2 \n s \n 1 \n s \n";	
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
@@ -670,7 +700,7 @@ class PruebasFichero {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
 		Scanner teclado = new Scanner(System.in);
-		File archivo = new File(pruebaSys("txt").substring(2));
+		File archivo = new File(pruebaSys("txt"));
 		String ruta = archivo.getAbsolutePath();
 		String result = "";
 		if(ruta.contains("\\"))
@@ -684,8 +714,8 @@ class PruebasFichero {
 		{
 			ruta = ruta.substring(0,ruta.lastIndexOf("/"));
 			ruta = ruta.substring(0,ruta.lastIndexOf("/"));
-			result = Metodos.moverEntreCarpetas(teclado, ruta.substring(0,ruta.lastIndexOf("/",ruta.lastIndexOf("/"))));
-			assertEquals(archivo.getAbsoluteFile().toString().substring(0,archivo.getAbsoluteFile().toString().lastIndexOf("/")), result);
+			result = Metodos.moverEntreCarpetas(teclado,ruta);
+			assertEquals(ruta+"/Ficheros", result);
 		}
 	}
 		
@@ -740,15 +770,15 @@ class PruebasFichero {
 		String sistema = System.getProperty("os.name").toLowerCase();
 
 		if (sistema.indexOf("win") >= 0) {
-			urlTxt = ".\\Ficheros\\ficheroPrueba.txt";
-			urlXml = ".\\Ficheros\\ficheroPrueba.xml";
-			urlCsv = ".\\Ficheros\\ficheroPrueba.csv";
-			prueba = ".\\Ficheros\\muevemePorfa.csv";
+			urlTxt = "Ficheros\\ficheroPrueba.txt";
+			urlXml = "Ficheros\\ficheroPrueba.xml";
+			urlCsv = "Ficheros\\ficheroPrueba.csv";
+			prueba = "Ficheros\\muevemePorfa.csv";
 		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
-			urlTxt = "./Ficheros/ficheroPrueba.txt";
-			urlXml = "./Ficheros/ficheroPrueba.xml";
-			urlCsv = "./Ficheros/ficheroPrueba.csv";
-			prueba = "./Ficheros/muevemePorfa.csv";
+			urlTxt = "Ficheros/ficheroPrueba.txt";
+			urlXml = "Ficheros/ficheroPrueba.xml";
+			urlCsv = "Ficheros/ficheroPrueba.csv";
+			prueba = "Ficheros/muevemePorfa.csv";
 		}
 		
 		File fichero = new File(urlTxt);
@@ -773,21 +803,21 @@ class PruebasFichero {
 		File carpeta;
 
 		if (sistema.indexOf("win") >= 0) {
-			urlTxt = ".\\Ficheros\\ficheroPrueba.txt";
-			urlXml = ".\\Ficheros\\ficheroPrueba.xml";
-			urlCsv = ".\\Ficheros\\ficheroPrueba.csv";
+			urlTxt = "Ficheros\\ficheroPrueba.txt";
+			urlXml = "Ficheros\\ficheroPrueba.xml";
+			urlCsv = "Ficheros\\ficheroPrueba.csv";
 			archivo = new File("Ficheros\\muevemePorfa.csv");
 			urlMoverFichero = archivo.getAbsolutePath();
 			carpeta = new File("basura");
 			urlMoverDirectorio = carpeta.getAbsolutePath();
 		} else if (sistema.indexOf("nix") >= 0 || sistema.indexOf("nux") >= 0 || sistema.indexOf("aix") > 0) {
-			urlTxt = "./Ficheros/ficheroPrueba.txt";
-			urlXml = "./Ficheros/ficheroPrueba.xml";
-			urlCsv = "./Ficheros/ficheroPrueba.csv";
+			urlTxt = "Ficheros/ficheroPrueba.txt";
+			urlXml = "Ficheros/ficheroPrueba.xml";
+			urlCsv = "Ficheros/ficheroPrueba.csv";
 			archivo = new File("Ficheros/muevemePorfa.csv");
 			urlMoverFichero = archivo.getAbsolutePath();
 			carpeta = new File("basura");
-			urlMoverDirectorio = archivo.getAbsolutePath();
+			urlMoverDirectorio = carpeta.getAbsolutePath();
 		}
 
 		switch (tipo) {

@@ -64,7 +64,7 @@ public class Demo {
 				Variables.ficheroTxt.createNewFile();
 			do {
 				menu(teclado);
-				System.out.println("¿Quiere hacer otras operaciones? s/n");
+				System.out.println("ï¿½Quiere hacer otras operaciones? s/n");
 			} while (Metodos.confirmacionSN(teclado));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -83,7 +83,7 @@ public class Demo {
 		boolean correcto = false;
 		int respuestaOpcionesTipo;
 		int respuestaOpcionesAccion;
-		System.out.println("¿Desea modificar/crear/eliminar un fichero?");
+		System.out.println("ï¿½Desea modificar/crear/eliminar un fichero?");
 		
 		if(Metodos.confirmacionSN(teclado))
 		{
@@ -93,7 +93,7 @@ public class Demo {
 			System.out.println("3) Csv");
 			respuestaOpcionesTipo = Metodos.entradaInt(1, 3, teclado);
 	
-			System.out.println("¿Que desea hacer? ");
+			System.out.println("ï¿½Que desea hacer? ");
 			System.out.println("1. Leer");
 			System.out.println("2. Crear libro");
 			System.out.println("3. Eliminar archivo");
@@ -430,6 +430,7 @@ public class Demo {
 	 */
 	public static boolean moverFichero(Scanner teclado)
 	{
+		///home/camilo/eclipse-workspace/ADTeam3/Ficheros/moveMePlz.txt
 		//D:\basura
 		//D:\Steff\Reto\ADTeam3\Ficheros\abcdef.csv
 		boolean control = true;
@@ -437,25 +438,41 @@ public class Demo {
 		if(Metodos.isWindows())
 			urlDefecto= ".\\Ficheros";
 		else if(Metodos.isUnix())
-			urlDefecto= "./Ficheros";
+		{	
+			File ruta = new File("bin");
+			urlDefecto= ruta.getAbsolutePath();
+		}
+		
 		File archivoParaMover;
 		File lugarMovida;
-		
+
 		archivoParaMover = Metodos.encontrarFichero(teclado, urlDefecto);
 		lugarMovida = Metodos.encontrarDirectorio(teclado, urlDefecto);
 		
-		System.out.println("El fichero " + archivoParaMover.getAbsolutePath() + " se movera en el directorio " + lugarMovida.getAbsolutePath() + " ¿Desea confirmar la accion?");
+		System.out.println("El fichero " + archivoParaMover.getAbsolutePath() + " se movera en el directorio " + lugarMovida.getAbsolutePath() + " ï¿½Desea confirmar la accion?");
 		if(Metodos.confirmacionSN(teclado))
 		{
 			ProcessBuilder test = new ProcessBuilder(); 
 			test = test.command("CMD", "/C", "move " + archivoParaMover.getAbsolutePath() + " " + lugarMovida.getAbsolutePath());
 			try 
 			{
-				Process p = test.start();
-				InputStream is = p.getInputStream(); 
-				is.close(); 
-				System.out.println("Fichero se movio correctamente.");
-				control = true;
+				if(Metodos.isWindows())
+				{
+					Process p = test.start();
+					InputStream is = p.getInputStream(); 
+					is.close(); 
+					System.out.println("Fichero se movio correctamente.");
+					control = true;
+				}
+				else
+				{
+					Runtime builder = Runtime.getRuntime();
+					String cmd = "mv " + archivoParaMover + " " + lugarMovida;
+					Process out = builder.exec(cmd);
+
+					out.getInputStream();
+					control = true;
+				}
 			}
 			catch (Exception e) 
 			{

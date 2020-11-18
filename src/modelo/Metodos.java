@@ -241,7 +241,7 @@ public class Metodos {
 	 * 
 	 * @return retorna true o false si el dato para validar esta correcto
 	 * 
-	 * caracteres como ÑÇÖÔÜÛ etc. se considera caracteres especiales
+	 * caracteres como ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ etc. se considera caracteres especiales
 	 * con lo cual este metodo devolvera false en cuanto tenga alguno es estos caracteres.
 	 */
 	public static boolean validacion(String patron,String dato)
@@ -598,7 +598,7 @@ public class Metodos {
 				trasnFormer.transform(source, result);
 				correcto = true;
 				System.out.println("Libro creado correctamente ");
-				System.out.println("¿Desea crear otro libro?  S/N");
+				System.out.println("ï¿½Desea crear otro libro?  S/N");
 				
 				correcto = confirmacionSN(teclado);
 				
@@ -775,7 +775,7 @@ public class Metodos {
 				fw.flush();
 
 				System.out.println("Fichero creado con exito");
-				System.out.println("¿Desea crear otro libro?  S/N");
+				System.out.println("ï¿½Desea crear otro libro?  S/N");
 
 				seguir = confirmacionSN(teclado);
 
@@ -828,7 +828,7 @@ public class Metodos {
 		try {
 
 			do {
-				System.out.println("¿Que desea hacer?");
+				System.out.println("ï¿½Que desea hacer?");
 				System.out.println("1) Agregar permisos");
 				System.out.println("2) Quitar permisos");
 				System.out.println("3) Salir");
@@ -939,7 +939,7 @@ public class Metodos {
 					nombreFichero = modelo.Metodos.buscarFichero(nomFichero);
 					System.out.println("que permiso desea agregar");
 					System.out.println("F - acceso total");
-					System.out.println("M - acceso de modificación");
+					System.out.println("M - acceso de modificaciï¿½n");
 					System.out.println("RX - acceso de lectura y ejecucion");
 					System.out.println("R - acceso de solo lectura");
 					System.out.println("W - acceso de solo escritura");
@@ -967,13 +967,13 @@ public class Metodos {
 
 				System.out.println("que permiso desea cambiar");
 				System.out.println("0 = sin acceso");
-				System.out.println("1 = ejecución");
+				System.out.println("1 = ejecuciï¿½n");
 				System.out.println("2 = escritura");
-				System.out.println("3 = escritura y ejecución");
+				System.out.println("3 = escritura y ejecuciï¿½n");
 				System.out.println("4 = lectura");
-				System.out.println("5 = lectura y ejecución");
+				System.out.println("5 = lectura y ejecuciï¿½n");
 				System.out.println("6 = lectura y escritura");
-				System.out.println("7 = lectura, escritura y ejecución");
+				System.out.println("7 = lectura, escritura y ejecuciï¿½n");
 				permisoUnix = entradaInt(0, 7, teclado);
 
 				if (permisoUnix == 0) {
@@ -1021,7 +1021,7 @@ public class Metodos {
 		String url = urlDefecto;
 		File archivoParaMover = null;
 		
-		System.out.println("¿Sabe la ruta completa al directorio?");
+		System.out.println("ï¿½Sabe la ruta completa al directorio?");
 		if(confirmacionSN(teclado))
 		{
 			System.out.print("Escriba la ruta: ");
@@ -1046,10 +1046,10 @@ public class Metodos {
 			}
 		}
 		
-		System.out.println("¿Quieres buscarlo manualmente?");
+		System.out.println("ï¿½Quieres buscarlo manualmente?");
 		if(confirmacionSN(teclado))
 		{
-			System.out.println("¿Quiere buscarlo empezando por una ruta indicada o desde la ruta por defecto? responda con 1 o 2");
+			System.out.println("ï¿½Quiere buscarlo empezando por una ruta indicada o desde la ruta por defecto? responda con 1 o 2");
 			int opcion = entradaInt(1,2,teclado);
 			
 			if(opcion == 1)
@@ -1070,7 +1070,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * Este metodo devolvera el directorio seleccionado despues de enseñar los disponibles.
+	 * Este metodo devolvera el directorio seleccionado despues de enseï¿½ar los disponibles.
 	 * Si el directorio que busca no se encuentra en esta lista volvera al metodo encontrarDirectorio.
 	 * @param teclado
 	 * @param url
@@ -1089,7 +1089,7 @@ public class Metodos {
 		else if(!lista.equals(""))
 		{
 			System.out.println(lista);
-			System.out.println("¿La carpeta ha la que quiere mover se encuentra en esta lista?");
+			System.out.println("ï¿½La carpeta ha la que quiere mover se encuentra en esta lista?");
 			if(confirmacionSN(teclado))
 			{
 				System.out.print("Escriba el numero del directorio: ");
@@ -1117,7 +1117,7 @@ public class Metodos {
 		String url = urlDefecto;
 		File archivoParaMover = null;
 		
-		System.out.println("¿Sabe la ruta completa al fichero?");
+		System.out.println("ï¿½Sabe la ruta completa al fichero?");
 		if(confirmacionSN(teclado))
 		{
 			System.out.print("Escriba la ruta: ");
@@ -1143,7 +1143,7 @@ public class Metodos {
 		}
 		
 		
-		System.out.println("¿Quiere escribir el nombre del fichero para que el programa lo busque?");
+		System.out.println("ï¿½Quiere escribir el nombre del fichero para que el programa lo busque?");
 		System.out.println("Ten en cuenta que esto devolvera el primer fichero con ese nombre, no todos los ficheros con el nombre.");
 		boolean respuesta;
 		if(confirmacionSN(teclado))
@@ -1153,12 +1153,12 @@ public class Metodos {
 				System.out.println("Escriba el nombre del fichero: ");
 				System.out.println("Si escribe el nombre equivocado tendra que esperar a que el metodos busque por todo el ordenador para volver ha intentar");
 				url = buscarFichero(teclado.nextLine());
-				System.out.println("¿Es este el fichero que busca?: ");
+				System.out.println("ï¿½Es este el fichero que busca?: ");
 				System.out.println(url);
 				respuesta = confirmacionSN(teclado);
 				if(!respuesta)
 				{
-					System.out.println("¿Quiere volver ha intentar? Si introduce la ruta desde una carpeta mas exacta devolvera otra ruta.");
+					System.out.println("ï¿½Quiere volver ha intentar? Si introduce la ruta desde una carpeta mas exacta devolvera otra ruta.");
 					respuesta = confirmacionSN(teclado);
 					if(!respuesta)
 						url = urlDefecto;
@@ -1173,10 +1173,10 @@ public class Metodos {
 		}
 		
 		
-		System.out.println("¿Quieres buscarlo manualmente?");
+		System.out.println("ï¿½Quieres buscarlo manualmente?");
 		if(confirmacionSN(teclado))
 		{
-			System.out.println("¿Quiere buscarlo empezando por una ruta indicada o desde la ruta por defecto? responda con 1 o 2");
+			System.out.println("ï¿½Quiere buscarlo empezando por una ruta indicada o desde la ruta por defecto? responda con 1 o 2");
 			int opcion = entradaInt(1,2,teclado);
 			if(opcion == 1)
 			{
@@ -1206,7 +1206,7 @@ public class Metodos {
 	public static String moverEntreCarpetas(Scanner teclado, String url)
 	{
 		System.out.println(ficheros(url,"carpetas"));
-		System.out.println("¿Quiere ir en algun directorio de mas arriba o volver a un directorio anterior? 1 o 2");
+		System.out.println("ï¿½Quiere ir en algun directorio de mas arriba o volver a un directorio anterior? 1 o 2");
 		int opcion = entradaInt(1,2,teclado);
 		
 		if(opcion == 1)
@@ -1220,7 +1220,10 @@ public class Metodos {
 		{
 			try
 			{
-				url = url.substring(0,url.lastIndexOf("\\"));
+				if(isWindows())
+					url = url.substring(0,url.lastIndexOf("\\"));
+				else
+					url = url.substring(0,url.lastIndexOf("/"));
 				return moverEntreCarpetas(teclado, url);
 			}
 			catch(Exception noHayMasBarras)
@@ -1292,7 +1295,7 @@ public class Metodos {
 		else
 		{
 			System.out.println(lista);
-			System.out.println("¿El fichero que quiere mover se encuentra en esta lista?");
+			System.out.println("ï¿½El fichero que quiere mover se encuentra en esta lista?");
 			if(confirmacionSN(teclado))
 			{
 				System.out.print("Escriba el numero del archivo: ");
