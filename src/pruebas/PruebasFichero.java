@@ -716,7 +716,7 @@ class PruebasFichero {
 		boolean result = Metodos.cambioPermiso(teclado);
 		assertEquals(false, result);
 	}
-
+	
 	@Test
 	void testCrearXmlBaseFalse() {
 		boolean result = Metodos.generateXml(pruebaSys("ml"));

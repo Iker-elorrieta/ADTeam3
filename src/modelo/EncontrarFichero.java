@@ -45,13 +45,13 @@ public class EncontrarFichero extends Thread {
 	public String econtrarFichero(String fichero)
 	{
 		ArrayList<String> discos = Metodos.encontrarEspaciosAlmacenamiento();
-		for(int i = 0 ; i < discos.size() ; i++)
+		for(int i = discos.size()-1 ; i >= 0  ; i--)
 		{
 			String ruta = subdirectoriosRecursivos(discos.get(i), fichero);
 			lugarProgreso = i;
 			if(!ruta.equals(""))
 			{
-				i = discos.size();
+				i = 0;
 				lugarProgreso = i;
 				return ruta;
 			}
