@@ -588,6 +588,44 @@ class PruebasFichero {
 	}
 	
 
+	//permisos
+	@Test
+	void testAgregarPermisos() {
+		String input = "1 \n juan \n prueba.txt \n F \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testAgregarPermisoUsuario() {
+		String input = "1 \n loopez \n prueba.txt \n F \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testQuitarPermisos() {
+		String input = "2 \n juan \n prueba.txt \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+	@Test
+	void testQuitarPermisoUsuario() {
+		String input = "2 \n lopez \n prueba.txt \n 3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Scanner teclado = new Scanner(System.in);
+		boolean result = Metodos.cambioPermiso(teclado);
+		assertEquals(false, result);
+	}
+
 	@Test
 	void testCrearXmlBaseFalse() {
 		boolean result = Metodos.generateXml(pruebaSys("ml"));
